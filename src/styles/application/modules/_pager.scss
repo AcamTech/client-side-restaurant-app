@@ -1,0 +1,10 @@
+.pager{
+  text-align: center;
+  &__link{
+    color: #CDCDCD;
+    text-decoration: none;
+    display: inline-block;
+    padding: $half-spacing-unit $half-spacing-unit;
+    &.is-active{font-weight: 700; color: $gray;}
+  }
+}

@@ -1,0 +1,15 @@
+.mobile-header{
+  @include rem($font-size-base);
+  background-color: $brand-color;
+  color: white;
+  padding: $half-spacing-unit;
+  &__link{
+    font-size: em(17);
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.mobile-header--push{
+  margin-bottom: em(30);
+}

@@ -1,0 +1,11 @@
+.mfp-close{
+  .mfp-close-icn{
+    font-family: $font-family-icons;
+    position: relative;
+    z-index: -1;
+  }
+}
+.popup__title{
+  font-weight: 300;
+  margin-top: 0;
+}
