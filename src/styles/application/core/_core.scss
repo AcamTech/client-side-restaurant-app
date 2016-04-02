@@ -10,7 +10,9 @@
 // Body reset
 
 html,
-body{height: 100%;}
+body,
+#app,
+.body--brand{height: 100%;}
 
 html {
   font-size: em($font-size-base, 16);

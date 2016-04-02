@@ -9,6 +9,8 @@ import TablesList from './pages/tables-list';
 import Order from './pages/orders-new';
 import UsersList from './pages/users-list';
 import AdminLayout from './pages/admin-layout';
+import LoginPage from './pages/login';
+import RegisterPage from './pages/register';
 import AdminRestaurantList from './pages/admin-restaurant-list';
 import AdminRestaurantNew from './pages/admin-restaurant-new';
 import AdminRestaurantShow from './pages/admin-restaurant-show';
@@ -16,7 +18,8 @@ import AdminRestaurantShow from './pages/admin-restaurant-show';
 
 export default (
   <Route path="/" component={MainLayout}>
-    <IndexRoute component={AdminLayout} />
+    <IndexRoute component={LoginPage} />
+    <Route path="register" component={RegisterPage} />
     <Route path="restaurant/:id" component={RestaurantLayout}>
       <IndexRoute component={Restaurant} />
       <Route path="dishes" component={DishesList} />

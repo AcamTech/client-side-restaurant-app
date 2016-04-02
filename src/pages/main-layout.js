@@ -7,7 +7,7 @@ const MainLayout = createClass({
   },
   render(){
     return(
-      <div>
+      <div className="">
         {this.props.children}
       </div>
     );
