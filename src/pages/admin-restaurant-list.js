@@ -2,9 +2,6 @@ import React, {createClass, PropTypes} from 'react';
 
 const AdminListResturants = createClass({
   displayName: 'Admin-restaurant-list',
-  propTypes: {
-    children: PropTypes.node.isRequired
-  },
   render(){
     return(
       <div>

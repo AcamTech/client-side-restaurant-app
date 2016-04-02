@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
-import fuelSavingsAppState from './fuelSavings';
 
 const rootReducer = combineReducers({
-  fuelSavingsAppState
+  fuelSavingsAppState(state={}, action){return state;}
 });
 
 export default rootReducer;

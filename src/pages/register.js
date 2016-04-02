@@ -43,7 +43,7 @@ const RegisterPage = createClass({
               </button>
             </form>
             <p className="text-center">
-              <a className="underline" className="" href="mobile-login.html">Ya posee una cuenta?</a>
+              <a className="underline" href="mobile-login.html">Ya posee una cuenta?</a>
             </p>
             <br/>
           </div>
