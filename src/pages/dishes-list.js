@@ -2,9 +2,6 @@ import React, {createClass, PropTypes} from 'react';
 
 const ListPlaces = createClass({
   displayName: 'Dishes-list',
-  propTypes: {
-    children: PropTypes.node.isRequired
-  },
   render(){
     return(
       <div>

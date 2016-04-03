@@ -1,4 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
+import {Link} from 'react-router';
 
 const AdminListResturants = createClass({
   displayName: 'Admin-restaurant-list',
@@ -10,7 +11,7 @@ const AdminListResturants = createClass({
           <ul className="item-list list-unstyled">
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
                   </div>
@@ -20,12 +21,12 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
                   </div>
@@ -35,12 +36,12 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <div className="item-list-unavailable text--smaller">No Disponible</div>
                   </div>
@@ -50,12 +51,12 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-danger"><span className="icon-bullet"></span> No activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
                   </div>
@@ -65,12 +66,12 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
                   </div>
@@ -80,12 +81,12 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
                   </div>
@@ -95,12 +96,12 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
             <li className="item-list__item">
               <article className="media media--small clearfix">
-                <a href="#">
+                <Link to="admin/restaurant/123">
                   <div className="media__img">
                     <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
                   </div>
@@ -110,7 +111,7 @@ const AdminListResturants = createClass({
                       <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                     </p>
                   </div>
-                </a>
+                </Link>
               </article>
             </li>
           </ul>

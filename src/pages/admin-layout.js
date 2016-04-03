@@ -1,32 +1,9 @@
 import React, {createClass, PropTypes} from 'react';
 import Modal from 'react-modal';
-import ModalContainer from '../components/modal';
+import ModalContainer from '../components/modal-container';
 import RegisterRestaurantModal from '../components/register-restaurant-modal';
-var styles = {
-  overlay : {
-    position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)',
-    zIndex            : 3
-  },
-  content : {
-    position                   : 'absolute',
-    top                        : 0,
-    left                       : 0,
-    right                      : 0,
-    bottom                     : 0,
-    border                     : '0',
-    background                 : 'none',
-    overflow                   : 'auto',
-    WebkitOverflowScrolling    : 'touch',
-    borderRadius               : 0,
-    outline                    : 'none',
-    padding                    : '20px'
-  }
-};
+import {MODAL_STYLES} from '../constants/';
+
 const AdminLayout = createClass({
   displayName: 'Admin-layout',
   propTypes: {
@@ -105,7 +82,7 @@ const AdminLayout = createClass({
         <Modal
           isOpen={this.state.isModalOpen}
           onRequestClose={this.closeModal}
-          style={styles}>
+          style={MODAL_STYLES}>
           <ModalContainer closeModal={this.closeModal}>
             <RegisterRestaurantModal />
           </ModalContainer>

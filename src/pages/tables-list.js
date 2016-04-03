@@ -2,9 +2,6 @@ import React, {createClass, PropTypes} from 'react';
 
 const TablesList = createClass({
   displayName: 'Tables-list',
-  propTypes: {
-    children: PropTypes.node.isRequired
-  },
   render(){
     return(
       <div>

@@ -5,17 +5,17 @@
 	&__item{
     padding-right: $half-spacing-unit;
     padding-left: $half-spacing-unit;
-    &:hover a,
-		&.is-active a{
-			color: #FFDD54;
-		}
-    &.is-active a{
-      font-weight: 700;
-    }
 	}
 	&__link{
     color: white;
     text-decoration: none;
+    &:hover,
+    &.is-active{
+      color: #FFDD54;
+    }
+    &.is-active{
+      font-weight: 700;
+    }
   }
   &__text{
     display: none;
