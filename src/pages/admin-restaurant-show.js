@@ -1,5 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import Tabs from 'react-simpletabs';
+import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import RestaurantStaffList from '../components/restaurant-staff-list';
 
 const AdminRestaurantShow = createClass({
@@ -9,14 +9,17 @@ const AdminRestaurantShow = createClass({
       <div>
         <h1 className="delta weight--light">Restaurante Las Comidas</h1>
         <Tabs>
-          <Tabs.Panel title="General">
+          <TabList>
+            <Tab>General</Tab>
+            <Tab>Staff</Tab>
+          </TabList>
+          <TabsPanel title="General">
             <h1>General</h1>
-            
-          </Tabs.Panel>
-          <Tabs.Panel title="staff">
+          </TabsPanel>
+          <TabsPanel title="staff">
             <h1>Staff</h1>
             <RestaurantStaffList />
-          </Tabs.Panel>
+          </TabsPanel>
         </Tabs>
       </div>
     );
