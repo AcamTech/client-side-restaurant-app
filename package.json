@@ -31,6 +31,7 @@
     "react-redux": "4.4.0",
     "react-router": "2.0.0",
     "react-router-redux": "4.0.1",
+    "react-select": "1.0.0-beta12",
     "react-simpletabs": "0.7.0",
     "react-tabs": "0.5.3",
     "redux": "3.3.1",
