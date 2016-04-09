@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 
 export default function KitchenLayout({children}){
   return (
-    <div>
+    <div className="full-height kitchen-layout">
         <header className="main-header">
           <div className="grid grid--narrow grid--middle">
             <div className="grid__item one-quarter small--two-thirds large--one-half">

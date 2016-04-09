@@ -7,7 +7,7 @@ const MainLayout = createClass({
   },
   render(){
     return(
-      <div className="main-layout">
+      <div className="main-layout full-height">
         {this.props.children}
       </div>
     );

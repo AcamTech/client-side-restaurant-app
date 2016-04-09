@@ -1,0 +1,12 @@
+.kitchen-order{
+  &__container{
+
+  }
+  font-size: 2vw;
+  display: flex;
+  min-width: 33.333%;
+  flex: 1 1 auto;
+  padding: $half-spacing-unit / 2;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+}

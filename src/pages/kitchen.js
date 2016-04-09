@@ -2,32 +2,32 @@ import React from 'react';
 
 export default function KitchenPage(){
   return (
-    <div className="grid grid--full">
-      <div className="grid__item one-third">
+    <div className="kitchen-layout__body kitchen-order__container">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
-      <div className="grid__item one-third">
+      <div className="kitchen-order">
         item
       </div>
     </div>
