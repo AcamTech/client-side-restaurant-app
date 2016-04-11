@@ -1,6 +1,7 @@
 import React, {createClass} from 'react';
 import Modal from 'react-modal';
 import FilterHeader from './filter-header';
+import RestaurantIngredientsList from './restaurant-ingredients-list';
 import RegisterIngredientModal from './register-ingredient-modal';
 import ModalContainer from '../components/modal-container';
 import ModalMixin from './modal-mixin'; //remove when implement redux
@@ -14,6 +15,7 @@ const Ingredients = createClass({
         <FilterHeader title="Ingredientes">
           <a href="#" onClick={this.openModal} className="button button--secondary button--block button--small simple-modal">Registrar Ingrediente</a>
         </FilterHeader>
+        <RestaurantIngredientsList />
         <Modal
             isOpen={this.state.isModalOpen}
             onRequestClose={this.closeModal}

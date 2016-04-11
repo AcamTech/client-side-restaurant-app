@@ -7,17 +7,13 @@ export default function RestaurantIngredientsList(){
       <table className="table table--hover text-center">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Rol</th>
+            <th>Nombre</th>
             <th colSpan="2"></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
+            <td>Sal</td>
             <td>
               <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
@@ -26,80 +22,30 @@ export default function RestaurantIngredientsList(){
             </td>
           </tr>
           <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
+            <td>Res</td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
+              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
+              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
             </td>
           </tr>
           <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
+            <td>Pollo</td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
+              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
+              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
             </td>
           </tr>
           <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
+            <td>Cerdo</td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
+              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
-            </td>
-          </tr>
-          <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
-            </td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
-            </td>
-          </tr>
-          <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
-            </td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
-            </td>
-          </tr>
-          <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
-            </td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
-            </td>
-          </tr>
-          <tr>
-            <td>João Silva</td>
-            <td>joão.silva@gmail.com</td>
-            <td>Admin</td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
-            </td>
-            <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
+              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
             </td>
           </tr>
         </tbody>
