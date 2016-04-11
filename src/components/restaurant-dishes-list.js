@@ -21,10 +21,10 @@ export default function RestaurantDishesList(){
             <td>Fondo de langosta con fileticos de salmón, fósforos de plátano y cubos de aguacate.</td>
             <td>Entradas Calientes</td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
+              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
+              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
             </td>
           </tr>
           <tr>
@@ -33,10 +33,10 @@ export default function RestaurantDishesList(){
             <td>Glaceado con mantequilla, pimienta negra, rosada y verde.</td>
             <td>Carnes, Aves y Cerdo</td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
+              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
+              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
             </td>
           </tr>
           <tr>
@@ -45,10 +45,10 @@ export default function RestaurantDishesList(){
             <td>Acompañada con arroz con coco, patacones y ensalada caribe.</td>
             <td>Pescados y Mariscos</td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-pencil"></span> Editar</a>
+              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
             </td>
             <td>
-              <a className="no-decoration" href="#"><span className="icon-x"></span> Eliminar</a>
+              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
             </td>
           </tr>
         </tbody>
