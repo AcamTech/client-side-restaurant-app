@@ -4,7 +4,7 @@ const LoginPage = createClass({
   render(){
     return(
       <div className="soft--ends">
-        <h1 className="logo--large text-center color-white">ToqueAPP</h1>
+        <h1 className="logo--large text-center">ToqueAPP</h1>
         <div className="inner-container">
           <div className="panel panel--medium panel--full-space">
             <form>
@@ -14,7 +14,7 @@ const LoginPage = createClass({
                   <span className="form-control-feedback icon-mail icon-lg"></span>
                 </div>
                 <div className="form-group has-feedback has-feedback--reverse push--bottom">
-                  <input className="form-control form-control-material" placeholder="Senha" type="password" />
+                  <input className="form-control form-control-material" placeholder="Contraseña" type="password" />
                   <span className="form-control-feedback icon-key icon-lg"></span>
                 </div>
                 <p className="medium--text-end text-center text--smaller">
