@@ -1,11 +1,9 @@
 import React, {createClass} from 'react';
-import Modal from 'react-modal';
+import Modal from './modal';
 import FilterHeader from './filter-header';
 import RestaurantDishesList from './restaurant-dishes-list';
 import RegisterDishModal from './register-dish-modal';
-import ModalContainer from '../components/modal-container';
 import ModalMixin from './modal-mixin'; //remove when implement redux
-import {MODAL_STYLES} from '../constants/';
 
 const Dishes = createClass({
   mixins: [ModalMixin],
@@ -17,13 +15,10 @@ const Dishes = createClass({
         </FilterHeader>
         <RestaurantDishesList />
         <Modal
-            isOpen={this.state.isModalOpen}
-            onRequestClose={this.closeModal}
-            style={MODAL_STYLES}>
-          <ModalContainer
-            closeModal={this.closeModal}>
+            open={this.state.isModalOpen}
+            onClose={this.closeModal}
+            className="panel--medium">
             <RegisterDishModal />
-          </ModalContainer>
         </Modal>
       </div>
     );

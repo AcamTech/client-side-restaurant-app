@@ -1,5 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import Modal from 'react-modal';
+import Modal from '../components/modal';
 import ModalContainer from '../components/modal-container';
 import RegisterRestaurantModal from '../components/register-restaurant-modal';
 import {MODAL_STYLES} from '../constants/';
@@ -80,12 +80,10 @@ const AdminLayout = createClass({
           </section>
         </div>
         <Modal
-          isOpen={this.state.isModalOpen}
-          onRequestClose={this.closeModal}
-          style={MODAL_STYLES}>
-          <ModalContainer closeModal={this.closeModal}>
+          open={this.state.isModalOpen}
+          onClose={this.closeModal}
+          className="panel--medium">
             <RegisterRestaurantModal />
-          </ModalContainer>
         </Modal>
       </div>
     );

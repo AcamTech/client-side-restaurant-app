@@ -1,10 +1,8 @@
 import React, {createClass, PropTypes} from 'react';
 import RestaurantTablesList from '../components/restaurant-tables-list';
-import Modal from 'react-modal';
-import ModalContainer from '../components/modal-container';
+import Modal from '../components/modal';
 import RegisterTableModal from '../components/register-table-modal';
 import ModalMixin from '../components/modal-mixin'; //remove when implement redux
-import {MODAL_STYLES} from '../constants/';
 
 const TablesList = createClass({
   displayName: 'Tables-list',
@@ -32,13 +30,10 @@ const TablesList = createClass({
         </div>
         <RestaurantTablesList />
         <Modal
-            isOpen={this.state.isModalOpen}
-            onRequestClose={this.closeModal}
-            style={MODAL_STYLES}>
-          <ModalContainer
-            closeModal={this.closeModal}>
+            open={this.state.isModalOpen}
+            onClose={this.closeModal}
+            className="panel--medium">
             <RegisterTableModal />
-          </ModalContainer>
         </Modal>
       </div>
     );

@@ -1,10 +1,8 @@
 import React, {createClass, PropTypes} from 'react';
 import RestaurantStaffList from '../components/restaurant-staff-list';
-import Modal from 'react-modal';
-import ModalContainer from '../components/modal-container';
+import Modal from '../components/modal';
 import RegisterPersonelModal from '../components/register-personel-modal';
 import ModalMixin from '../components/modal-mixin'; //remove when implement redux
-import {MODAL_STYLES} from '../constants/';
 
 const UsersList = createClass({
   displayName: 'Users-list',
@@ -31,14 +29,11 @@ const UsersList = createClass({
           </div>
         </div>
         <RestaurantStaffList />
-        <Modal 
-            isOpen={this.state.isModalOpen}
-            onRequestClose={this.closeModal}
-            style={MODAL_STYLES}>
-          <ModalContainer
-            closeModal={this.closeModal}>
+        <Modal
+            open={this.state.isModalOpen}
+            onClose={this.closeModal}
+            className="panel--medium">
             <RegisterPersonelModal />
-          </ModalContainer>
         </Modal>
       </div>
     );

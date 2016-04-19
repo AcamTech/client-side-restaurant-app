@@ -1,5 +1,5 @@
 import React, {createClass} from 'react';
-import Modal from 'react-modal';
+import Modal from './modal';
 import FilterHeader from './filter-header';
 import RestaurantCategoriesList from './restaurant-categories-list';
 import RegisterCategoryModal from './register-category-modal';
@@ -17,13 +17,10 @@ const Categories = createClass({
         </FilterHeader>
         <RestaurantCategoriesList />
         <Modal
-            isOpen={this.state.isModalOpen}
-            onRequestClose={this.closeModal}
-            style={MODAL_STYLES}>
-          <ModalContainer
-            closeModal={this.closeModal}>
+            open={this.state.isModalOpen}
+            onClose={this.closeModal}
+            className="panel--medium">
             <RegisterCategoryModal />
-          </ModalContainer>
         </Modal>
       </div>
     );

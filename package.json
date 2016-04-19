@@ -22,9 +22,11 @@
   "license": "MIT",
   "dependencies": {
     "connect-history-api-fallback": "1.1.0",
-    "jquery": "2.2.2",
+    "firebase": "2.4.2",
+    "jquery": "2.2.0",
     "magnific-popup": "1.1.0",
     "object-assign": "4.0.1",
+    "re-base": "1.5.1",
     "react": "15.0.1",
     "react-dom": "15.0.1",
     "react-modal": "1.0.0",
@@ -34,7 +36,9 @@
     "react-select": "1.0.0-beta12",
     "react-tabs": "0.5.3",
     "redux": "3.3.1",
-    "redux-thunk": "2.0.1"
+    "redux-thunk": "2.0.1",
+    "sizzle": "2.3.0",
+    "zepto": "1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "6.3.6",
@@ -65,6 +69,7 @@
     "postcss-loader": "0.8.2",
     "rimraf": "2.5.0",
     "sass-loader": "3.1.2",
+    "string-replace-loader": "1.0.0",
     "style-loader": "0.13.0",
     "url-loader": "0.5.7",
     "webpack": "1.12.11",

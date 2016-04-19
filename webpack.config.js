@@ -17,6 +17,12 @@ const getPlugins = function (env) {
   };
 
   const plugins = [
+    //new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery"}),
+    //new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendors',
+      minChunks: Infinity
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin(GLOBALS) //Tells React to build in prod mode. https://facebook.github.io/react/downloads.html
   ];
@@ -38,15 +44,15 @@ const getPlugins = function (env) {
 };
 
 const getEntry = function (env) {
-  const entry = [];
+  const entries = {bundle: [], vendors: ['react', 'jquery']};
 
   if (env === developmentEnvironment ) { // only want hot reloading when in dev.
-    entry.push('webpack-hot-middleware/client?reload=true');
+    entries.bundle.push('webpack-hot-middleware/client?reload=true');
   }
 
-  entry.push('./src/index');
+  entries.bundle.push('./src/index');
 
-  return entry;
+  return entries;
 };
 
 const getLoaders = function (env) {
@@ -80,10 +86,23 @@ function getConfig(env) {
     output: {
       path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
       publicPath: '/',
-      filename: 'bundle.js'
+      filename: '[name].js'
+    },
+    resolve: {
+      alias: {
+        jquery: "jquery/src/jquery"
+      }
     },
     plugins: getPlugins(env),
     module: {
+      preLoaders: [{
+          test: /jquery[\\\/]src[\\\/]selector-sizzle\.js$/,
+          loader: 'string-replace',
+          query: {
+              search: '../external/sizzle/dist/sizzle',
+              replace: 'sizzle'
+          }
+      }],
       loaders: getLoaders(env)
     },
     postcss: [autoprefixer({ browsers: ['last 2 versions'] })]
