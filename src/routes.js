@@ -16,6 +16,8 @@ import AdminRestaurantNew from './pages/admin-restaurant-new';
 import AdminRestaurantShow from './pages/admin-restaurant-show';
 import KitchenLayout from './pages/kitchen-layout';
 import KitchenPage from './pages/kitchen';
+import WaiterLayout from './pages/waiter-layout';
+import WaiterPage from './pages/waiter';
 
 
 export default (
@@ -32,7 +34,9 @@ export default (
     <Route path="restaurante/:id/cocina" component={KitchenLayout}>
       <IndexRoute component={KitchenPage} />
     </Route>
-    <Route path="restaurante/:id/ordenes" component={"div"}>
+    <Route path="restaurante/:id/ordenes" component={WaiterLayout}>
+      <IndexRoute component={Orders} />
+      <Route path="new"  component={WaiterPage} />
     </Route>
     <Route path="admin" component={AdminLayout}>
       <IndexRoute component={AdminRestaurantList} />
