@@ -6,10 +6,10 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import './styles/main.scss'; //Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 
-const store = configureStore();
+const {store, history} = configureStore({}, browserHistory);
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router history={history} routes={routes} />
   </Provider>, document.getElementById('app')
 );
