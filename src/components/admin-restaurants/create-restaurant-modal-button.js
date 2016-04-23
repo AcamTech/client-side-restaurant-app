@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+
 export default function createRestaurantModalButton ({openCreateRestaurantModal, children}) {
   return (
     <button onClick={openCreateRestaurantModal} className="button">{children}</button>
-  )
+  );
 }
 
 createRestaurantModalButton.propTypes = {

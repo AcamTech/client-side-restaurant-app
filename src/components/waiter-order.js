@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import FormatHelpers from '../helpers/format-helpers';
 import OrderItem from '../components/order-item';
 
 const WaiterOrder = React.createClass({
+  propTypes: {
+    removeFromOrder: PropTypes.func.isRequired,
+    dishes: PropTypes.array,
+    order: PropTypes.object
+  },
   renderOrder(key){
     var dish = this.props.dishes[key];
     var count = this.props.order[key];

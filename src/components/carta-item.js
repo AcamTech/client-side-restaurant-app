@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import FormatHelpers from '../helpers/format-helpers';
 
 const CartaItem = React.createClass({
+  propTypes: {
+    addToOrder: PropTypes.func.isRequired,
+    index: PropTypes.string,
+    details: PropTypes.string
+  },
   onButtonClick(){
-    console.log("Going to add dish: " + this.props.index);
     this.props.addToOrder(this.props.index);
   },
   render(){

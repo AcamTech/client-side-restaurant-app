@@ -41,4 +41,4 @@ export default function WaiterLayout({children}){
 
 WaiterLayout.propTypes = {
   children: PropTypes.node
-}
+};

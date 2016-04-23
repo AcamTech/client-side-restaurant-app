@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import FormatHelpers from '../helpers/format-helpers';
 
 const OrderItem = React.createClass({
+  propTypes: {
+    removeFromOrder: PropTypes.func.isRequired,
+    index: PropTypes.string,
+    dish: PropTypes.object,
+    count: PropTypes.number
+  },
   onButtonClick(){
-    console.log("Going to remove dish: " + this.props.index);
     this.props.removeFromOrder(this.props.index);
   },
   render(){

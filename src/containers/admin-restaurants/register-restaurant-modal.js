@@ -1,4 +1,4 @@
-import React, {createClass} from 'react';
+import React, {createClass, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
@@ -10,6 +10,10 @@ import createRestaurantValidations from './create-restaurant-form-validations';
 
 
 const RegisterRestaurantModal = createClass({
+  propTypes: {
+    closeCreateRestaurantModal: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired
+  },
   render() {
     return (
       <Modal

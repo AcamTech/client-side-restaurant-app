@@ -4,7 +4,17 @@ import React, {createClass, PropTypes} from 'react';
 export default createClass({
   displayName: 'register-restaurant-modal',
   propTypes: {
-    addRestaurant: PropTypes.func.isRequired
+    closeCreateRestaurantModal: PropTypes.func.isRequired,
+    addRestaurant: PropTypes.func.isRequired,
+    resetForm: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    fields: PropTypes.shape({
+      name: PropTypes.object,
+      address: PropTypes.object,
+      phone: PropTypes.object
+    }).isRequired,
+    invalid: PropTypes.bool,
+    submitting: PropTypes.bool
   },
   clearFormAndCloseModal(){
     var {closeCreateRestaurantModal, resetForm} = this.props;

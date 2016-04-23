@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, {PropTypes} from 'react';
 
 export default function FilterHeader({children, title}){
   return(
@@ -17,9 +16,9 @@ export default function FilterHeader({children, title}){
             </form>
           </div><div className="grid__item medium--three-quarters text--end">
             <div className="grid">
-                <div className="grid__item medium--one-quarter">
-                    {children}
-                </div>
+              <div className="grid__item medium--one-quarter">
+                {children}
+              </div>
             </div>
           </div>
         </div>
@@ -27,3 +26,8 @@ export default function FilterHeader({children, title}){
     </div>
   );
 }
+
+FilterHeader.propTypes = {
+  children: PropTypes.node,
+  title: PropTypes.string
+};

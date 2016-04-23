@@ -8,7 +8,7 @@ import AdminRestaurantList from 'src/components/admin-restaurants/admin-restaura
 function mapStateToProps(state){
   return {
     restaurants: state.restaurants.list
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch){

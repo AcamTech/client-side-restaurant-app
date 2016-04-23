@@ -8,7 +8,7 @@ const WaiterPage = React.createClass({
     return {
       dishes: SampleDishes.dishes,
       order: {}
-    }
+    };
   },
   addToOrder(key){
     this.state.order[key] = this.state.order[key] + 1 || 1;
@@ -18,9 +18,9 @@ const WaiterPage = React.createClass({
     if (this.state.order[key] > 1) {
       this.state.order[key] = this.state.order[key] - 1;
     } else {
-      delete this.state.order[key];  
+      delete this.state.order[key];
     }
-    
+
     this.setState({ order : this.state.order });
   },
   render(){

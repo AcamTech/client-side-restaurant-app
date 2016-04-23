@@ -13,13 +13,13 @@ const AdminRestaurantShow = createClass({
             <Tab>General</Tab>
             <Tab>Staff</Tab>
           </TabList>
-          <TabsPanel title="General">
+          <TabPanel title="General">
             <h1>General</h1>
-          </TabsPanel>
-          <TabsPanel title="staff">
+          </TabPanel>
+          <TabPanel title="staff">
             <h1>Staff</h1>
             <RestaurantStaffList />
-          </TabsPanel>
+          </TabPanel>
         </Tabs>
       </div>
     );

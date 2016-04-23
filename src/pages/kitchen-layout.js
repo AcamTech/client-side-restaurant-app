@@ -28,4 +28,4 @@ export default function KitchenLayout({children}){
 
 KitchenLayout.propTypes = {
   children: PropTypes.node
-}
+};

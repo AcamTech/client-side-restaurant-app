@@ -1,18 +1,19 @@
-import React, {createClass} from 'react';
+import React, {createClass, PropTypes} from 'react';
 import ReactDOM, {render, findDOMNode} from 'react-dom';
 import 'magnific-popup';
 import '../../node_modules/magnific-popup/src/css/main.scss';
 
 var Modal = createClass({
+  propTypes: {
+    onClose: PropTypes.func.isRequired,
+    className: PropTypes.string
+  },
   componentDidMount: function(){
     this.node = findDOMNode(this);
     this.renderDialogContent();
   },
   componentWillReceiveProps: function(newProps) {
     this.renderDialogContent(newProps);
-  },
-  render: function() {
-    return <div className={`mfp-hide ${this.props.className || ''}`} style={{position: 'relative'}} />;
   },
   renderDialogContent: function(props) {
     props = props || this.props;
@@ -34,6 +35,9 @@ var Modal = createClass({
     } else {
       $.magnificPopup.close();
     }
+  },
+  render: function() {
+    return <div className={`mfp-hide ${this.props.className || ''}`} style={{position: 'relative'}} />;
   }
 });
 

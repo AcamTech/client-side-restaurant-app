@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import CartaItem  from './carta-item';
 
 const WaiterCarta = React.createClass({
+  propTypes: {
+    addToOrder: PropTypes.func.isRequired,
+    dishes: PropTypes.object
+  },
   renderDish(key){
     return (
       <CartaItem key={key} index={key} details={this.props.dishes[key]} addToOrder={this.props.addToOrder} />
