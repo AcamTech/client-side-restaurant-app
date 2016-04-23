@@ -10,10 +10,7 @@ const AdminListResturants = createClass({
       <div>
         <h1 className="delta flush weight--light">Restaurantes</h1>
         <CreateRestaurantModalButton>Crear Restaurante</CreateRestaurantModalButton>
-        <div className="panel">
-          <AdminRestaurantListContainer />
-        </div>
-
+        <AdminRestaurantListContainer />
         <RegisterRestaurantModal />
       </div>
     );

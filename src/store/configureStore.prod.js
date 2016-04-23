@@ -9,8 +9,7 @@ export default function configureStore(initialState, history) {
   const middleware = [reduxThunk, promiseMiddleware(), reduxRouterMiddleware];
 
   let finalCreateStore = compose(
-    applyMiddleware(...middleware),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    applyMiddleware(...middleware)
   )(createStore);
 
   const store = finalCreateStore(rootReducer, initialState);

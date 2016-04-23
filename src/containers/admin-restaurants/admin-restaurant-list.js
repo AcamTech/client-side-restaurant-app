@@ -7,7 +7,8 @@ import AdminRestaurantList from 'src/components/admin-restaurants/admin-restaura
 
 function mapStateToProps(state){
   return {
-    restaurants: state.restaurants.list
+    restaurants: state.restaurants.list,
+    isFetching: state.restaurants.isFetching
   };
 }
 
