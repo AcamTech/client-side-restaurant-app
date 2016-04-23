@@ -21,12 +21,14 @@ export default createClass({
     event.preventDefault();
     if (this.state.name) {
       this.props.addRestaurant(this.state);
+      this.refs.addForm.reset();
+      this.setState(this.getInitialState());
     }
   },
   render(){
     return(
       <article id="new-restaurant" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} ref="addForm">
           <div className="panel__body">
             <h1 className="popup__title delta">Nuevo Restaurante</h1>
               <div className="form-group has-feedback has-feedback--reverse">
