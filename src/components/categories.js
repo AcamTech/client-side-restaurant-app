@@ -3,7 +3,6 @@ import Modal from './modal';
 import FilterHeader from './filter-header';
 import RestaurantCategoriesList from './restaurant-categories-list';
 import RegisterCategoryModal from './register-category-modal';
-import ModalContainer from '../components/modal-container';
 import ModalMixin from './modal-mixin'; //remove when implement redux
 import {MODAL_STYLES} from '../constants/';
 

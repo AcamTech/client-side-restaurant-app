@@ -89,6 +89,7 @@ function getConfig(env) {
       filename: '[name].js'
     },
     resolve: {
+      root: path.resolve('.'),
       alias: {
         jquery: "jquery/src/jquery"
       }

@@ -1,7 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
 import RestaurantOrdersList from '../components/restaurant-orders-list';
 import Modal from 'react-modal';
-import ModalContainer from '../components/modal-container';
 import ModalMixin from '../components/modal-mixin'; //remove when implement redux
 import {MODAL_STYLES} from '../constants/';
 

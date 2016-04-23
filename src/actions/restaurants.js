@@ -1,14 +1,15 @@
 import Firebase from 'firebase';
-import * as actionTypes from '../constants/action-types';
+import * as actionTypes from 'src/constants/action-types';
+import {closeCreateRestaurantModal} from './create-restaurant-modal';
 
 const Restaurants = new Firebase('https://toque-app.firebaseio.com/restaurants');
 
 export function fetchRestaurants(){
   return function fetchRestaurantsThunk(dispatch){
     Restaurants.once('value', (snap) => {
-      dispatch({type: actionTypes.FETCH_RESTAURANTS, payload: snap.val()})
-    })
-  }
+      dispatch({type: actionTypes.FETCH_RESTAURANTS, payload: snap.val()});
+    });
+  };
 }
 
 export function addRestaurant(restaurant){
@@ -24,7 +25,8 @@ export function addRestaurant(restaurant){
             restaurant: restaurant
           }
         });
+        dispatch(closeCreateRestaurantModal());
       }
     });
-  }
+  };
 }
