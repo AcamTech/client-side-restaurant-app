@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import fetchRestaurants from '../actions/restaurants';
+import {fetchRestaurants} from '../actions/restaurants';
 import AdminRestaurantList from '../components/admin-restaurant-list';
 
 function mapStateToProps(state){

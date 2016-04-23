@@ -3,10 +3,28 @@ import * as actionTypes from '../constants/action-types';
 
 const Restaurants = new Firebase('https://toque-app.firebaseio.com/restaurants');
 
-export default function fetchRestaurants(){
+export function fetchRestaurants(){
   return function fetchRestaurantsThunk(dispatch){
-    Restaurants.on('value', (snap) => {
+    Restaurants.once('value', (snap) => {
       dispatch({type: actionTypes.FETCH_RESTAURANTS, payload: snap.val()})
     })
+  }
+}
+
+export function addRestaurant(restaurant){
+  return function addRestaurantThunk(dispatch){
+    const newRestaurant = Restaurants.push(restaurant, (error) => {
+      if (error) {
+        alert('Oops, an error has ocurred!');
+      } else {
+        dispatch({
+          type: actionTypes.ADD_RESTAURANT,
+          payload: {
+            key: newRestaurant.key(),
+            restaurant: restaurant
+          }
+        });
+      }
+    });
   }
 }

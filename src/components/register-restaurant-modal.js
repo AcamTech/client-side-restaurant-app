@@ -1,23 +1,44 @@
-import React, {createClass} from 'react';
+import React, {createClass, PropTypes} from 'react';
 
-const RegisterRestaurantModal = createClass({
-  displayName: 'Register-restaurant-Modal',
+export default createClass({
+  displayName: 'register-restaurant-modal',
+  propTypes: {
+    addRestaurant: PropTypes.func.isRequired
+  },
+  getInitialState(){
+    return {
+      name: '',
+      address: '',
+      phone: ''
+    }
+  },
+  onChange(event) {
+    var newState = {}, field = event.target;
+    newState[field.name] = field.value;
+    this.setState(newState);
+  },
+  onSubmit(event){
+    event.preventDefault();
+    if (this.state.name) {
+      this.props.addRestaurant(this.state);
+    }
+  },
   render(){
     return(
       <article id="new-restaurant" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
-        <form action="">
+        <form onSubmit={this.onSubmit}>
           <div className="panel__body">
             <h1 className="popup__title delta">Nuevo Restaurante</h1>
               <div className="form-group has-feedback has-feedback--reverse">
-                <input className="form-control form-control-material" placeholder="Nombre del restaurante" type="text" />
+                <input name="name" className="form-control form-control-material" placeholder="Nombre del restaurante" type="text" onChange={this.onChange} value={this.state.name} />
                 <span className="form-control-feedback icon-user"></span>
               </div>
               <div className="form-group has-feedback has-feedback--reverse">
-                <input className="form-control form-control-material" placeholder="Direccion" type="text" />
+                <input name="address" className="form-control form-control-material" placeholder="Direccion" type="text" onChange={this.onChange} value={this.state.address} />
                 <span className="form-control-feedback icon-user"></span>
               </div>
               <div className="form-group has-feedback has-feedback--reverse">
-                <input className="form-control form-control-material" placeholder="Telefono" type="tel" />
+                <input name="phone" className="form-control form-control-material" placeholder="Telefono" type="tel" onChange={this.onChange} value={this.state.phone} />
                 <span className="form-control-feedback icon-phone"></span>
               </div>
           </div>
@@ -34,5 +55,3 @@ const RegisterRestaurantModal = createClass({
     );
   }
 });
-
-export default RegisterRestaurantModal;

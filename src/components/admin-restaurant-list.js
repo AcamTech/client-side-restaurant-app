@@ -32,7 +32,9 @@ function mapRestaurantsFromObj(restaurants){
               </div>
               <div className="media__body">
                 <h1 className="item-list__title">{restaurants[restaurant].name}</h1>
-                <p className="item-list__text">Cra 51B # 84 - 56 <br />
+                <p className="item-list__text">
+                  {restaurants[restaurant].address}<br />
+                  {restaurants[restaurant].phone}<br />
                   <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
                 </p>
               </div>

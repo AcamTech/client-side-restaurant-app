@@ -1,24 +1,9 @@
 import React, {createClass, PropTypes} from 'react';
-import Modal from '../components/modal';
-import ModalContainer from '../components/modal-container';
-import RegisterRestaurantModal from '../components/register-restaurant-modal';
-import {MODAL_STYLES} from '../constants/';
 
 const AdminLayout = createClass({
   displayName: 'Admin-layout',
   propTypes: {
     children: PropTypes.node.isRequired
-  },
-  getInitialState(){
-    return {
-      isModalOpen: false
-    };
-  },
-  openModal(){
-    this.setState({isModalOpen: true});
-  },
-  closeModal(){
-    this.setState({isModalOpen: false});
   },
   render(){
     return(
@@ -55,7 +40,6 @@ const AdminLayout = createClass({
               <form action="">
               <div className="media media--small">
                 <div className="media__img media__img--rev">
-                  <a href="#" onClick={this.openModal} className="icon-more icon-lg side-area__icon simple-modal"></a>
                 </div>
                 <div className="media__body">
                   <div className="form-group push-half--right has-feedback has-feedback--reverse">
@@ -79,12 +63,6 @@ const AdminLayout = createClass({
             {this.props.children}
           </section>
         </div>
-        <Modal
-          open={this.state.isModalOpen}
-          onClose={this.closeModal}
-          className="panel--medium">
-            <RegisterRestaurantModal />
-        </Modal>
       </div>
     );
   }

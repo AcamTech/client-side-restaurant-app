@@ -6,8 +6,11 @@ export default function restaurants(state={
   var {type, payload} = action;
   switch(type){
     case actiontypes.FETCH_RESTAURANTS:
-      console.log(payload);
       return {...state, list: payload};
+    case actiontypes.ADD_RESTAURANT:
+      var newItem = {};
+      newItem[payload.key] = payload.restaurant;
+      return {...state, list: Object.assign({}, state.list, newItem)};
     default:
       return state;
   }
