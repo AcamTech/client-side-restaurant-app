@@ -1,5 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import MainMenu from '../components/main-menu';
+import MainMenu from 'components/main-menu';
 
 const RestaurantLayout = createClass({
   displayName: 'Restuarant-layout',

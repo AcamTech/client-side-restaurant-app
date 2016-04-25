@@ -1,8 +1,9 @@
 import Firebase from 'firebase';
-import * as actionTypes from 'src/constants/action-types';
+import * as actionTypes from 'constants/action-types';
 import {closeCreateRestaurantModal} from './create-restaurant-modal';
+import {ref} from 'constants/firebase';
 
-const Restaurants = new Firebase('https://toque-app.firebaseio.com/restaurants');
+const Restaurants = ref.child('restaurants');
 
 export function fetchRestaurants(){
   return function fetchRestaurantsThunk(dispatch){
@@ -12,8 +13,8 @@ export function fetchRestaurants(){
   };
 }
 
-export function addRestaurant(restaurant){
-  return function addRestaurantThunk(dispatch){
+export function registerRestaurant(restaurant){
+  return function registerRestaurantThunk(dispatch){
     const newRestaurant = Restaurants.push(restaurant, (error) => {
       if (error) {
         alert('Oops, an error has ocurred!');

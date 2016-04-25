@@ -1,8 +1,8 @@
 import React, {createClass, PropTypes} from 'react';
-import RestaurantOrdersList from '../components/restaurant-orders-list';
+import RestaurantOrdersList from 'components/restaurant-orders-list';
 import Modal from 'react-modal';
-import ModalMixin from '../components/modal-mixin'; //remove when implement redux
-import {MODAL_STYLES} from '../constants/';
+import ModalMixin from 'components/modal-mixin'; //remove when implement redux
+import {MODAL_STYLES} from 'constants/';
 
 const OrdersList = createClass({
   displayName: 'Orders-list',

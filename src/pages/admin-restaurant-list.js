@@ -1,7 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
-import AdminRestaurantListContainer from 'src/containers/admin-restaurants/admin-restaurant-list';
-import RegisterRestaurantModal from 'src/containers/admin-restaurants/register-restaurant-modal';
-import CreateRestaurantModalButton from 'src/containers/admin-restaurants/create-restaurant-modal-button';
+import AdminRestaurantListContainer from 'containers/admin-restaurants/admin-restaurant-list';
+import RegisterRestaurantModal from 'containers/admin-restaurants/register-restaurant-modal';
 
 const AdminListResturants = createClass({
   displayName: 'admin-restaurant-list',
@@ -9,9 +8,8 @@ const AdminListResturants = createClass({
     return(
       <div>
         <h1 className="delta flush weight--light">Restaurantes</h1>
-        <CreateRestaurantModalButton>Crear Restaurante</CreateRestaurantModalButton>
-        <AdminRestaurantListContainer />
         <RegisterRestaurantModal />
+        <AdminRestaurantListContainer />
       </div>
     );
   }

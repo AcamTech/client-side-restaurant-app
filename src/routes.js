@@ -1,23 +1,23 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import MainLayout from './pages/main-layout';
-import RestaurantLayout from './pages/restaurant-layout';
-import Restaurant from './pages/restaurant';
-import DishesList from './pages/dishes-list';
-import TablesList from './pages/tables-list';
-import Orders from './pages/orders';
-import UsersList from './pages/users-list';
-import AdminLayout from './pages/admin-layout';
-import LoginPage from './pages/login';
-import RegisterPage from './pages/register';
-import AdminRestaurantList from './pages/admin-restaurant-list';
-import AdminRestaurantNew from './pages/admin-restaurant-new';
-import AdminRestaurantShow from './pages/admin-restaurant-show';
-import KitchenLayout from './pages/kitchen-layout';
-import KitchenPage from './pages/kitchen';
-import WaiterLayout from './pages/waiter-layout';
-import WaiterPage from './pages/waiter';
+import MainLayout from 'pages/main-layout';
+import RestaurantLayout from 'pages/restaurant-layout';
+import Restaurant from 'pages/restaurant';
+import DishesList from 'pages/dishes-list';
+import TablesList from 'pages/tables-list';
+import Orders from 'pages/orders';
+import UsersList from 'pages/users-list';
+import AdminLayout from 'pages/admin-layout';
+import LoginPage from 'pages/login';
+import RegisterPage from 'pages/register';
+import AdminRestaurantList from 'pages/admin-restaurant-list';
+import AdminRestaurantNew from 'pages/admin-restaurant-new';
+import AdminRestaurantShow from 'pages/admin-restaurant-show';
+import KitchenLayout from 'pages/kitchen-layout';
+import KitchenPage from 'pages/kitchen';
+import WaiterLayout from 'pages/waiter-layout';
+import WaiterPage from 'pages/waiter';
 
 
 export default (

@@ -1,8 +1,8 @@
 import React, {createClass, PropTypes} from 'react';
-import RestaurantTablesList from '../components/restaurant-tables-list';
-import Modal from '../components/modal';
-import RegisterTableModal from '../components/register-table-modal';
-import ModalMixin from '../components/modal-mixin'; //remove when implement redux
+import RestaurantTablesList from 'components/restaurant-tables-list';
+import Modal from 'components/modal';
+import RegisterTableModal from 'components/register-table-modal';
+import ModalMixin from 'components/modal-mixin'; //remove when implement redux
 
 const TablesList = createClass({
   displayName: 'Tables-list',

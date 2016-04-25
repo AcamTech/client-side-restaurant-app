@@ -1,30 +1,10 @@
-import React, {createClass, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
-import {addRestaurant} from 'src/actions/restaurants';
-import {closeCreateRestaurantModal} from 'src/actions/create-restaurant-modal';
-import Modal from 'src/components/modal';
-import RegisterRestaurantModalComponent from 'src/components/admin-restaurants/register-restaurant-modal';
+import {registerRestaurant} from 'actions/restaurants';
+import {closeCreateRestaurantModal, openCreateRestaurantModal} from 'actions/create-restaurant-modal';
+import RegisterRestaurantModalComponent from 'components/admin-restaurants/register-restaurant-modal';
 import createRestaurantValidations from './create-restaurant-form-validations';
-
-
-const RegisterRestaurantModal = createClass({
-  propTypes: {
-    closeCreateRestaurantModal: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool.isRequired
-  },
-  render() {
-    return (
-      <Modal
-        open={this.props.isOpen}
-        onClose={this.props.closeCreateRestaurantModal}
-        className="panel--medium">
-        <RegisterRestaurantModalComponent {...this.props} />
-      </Modal>
-    );
-  }
-});
 
 function mapStateToProps(state){
   return {
@@ -34,8 +14,9 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    addRestaurant,
-    closeCreateRestaurantModal
+    registerRestaurant,
+    closeCreateRestaurantModal,
+    openCreateRestaurantModal
   }, dispatch);
 }
 
@@ -43,4 +24,4 @@ export default reduxForm({
   form: 'createRestaurantForm',
   fields: ['name', 'address', 'phone'],
   validate: createRestaurantValidations
-}, mapStateToProps, mapDispatchToProps)(RegisterRestaurantModal);
+}, mapStateToProps, mapDispatchToProps)(RegisterRestaurantModalComponent);

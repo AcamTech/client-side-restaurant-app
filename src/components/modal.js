@@ -6,6 +6,7 @@ import '../../node_modules/magnific-popup/src/css/main.scss';
 var Modal = createClass({
   propTypes: {
     onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
     className: PropTypes.string
   },
   componentDidMount: function(){
@@ -17,8 +18,8 @@ var Modal = createClass({
   },
   renderDialogContent: function(props) {
     props = props || this.props;
-
-    render(<div>{props.children}</div>, this.node);
+    var open = props.open;
+    render(<span>{open ? props.children : null}</span>, this.node);
 
     if (props.open) {
       $.magnificPopup.open({

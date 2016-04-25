@@ -1,4 +1,4 @@
-import {createValidator, required} from 'src/businessLogic/validations';
+import {createValidator, required} from 'businessLogic/validations';
 
 const createRestaurantValidations = createValidator({
   name: [required],

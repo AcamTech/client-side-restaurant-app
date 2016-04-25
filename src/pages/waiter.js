@@ -1,7 +1,7 @@
 import React from 'react';
-import WaiterCarta from '../components/waiter-carta';
-import WaiterOrder from '../components/waiter-order';
-import SampleDishes from '../sample/sample-dishes.js';
+import WaiterCarta from 'components/waiter-carta';
+import WaiterOrder from 'components/waiter-order';
+import SampleDishes from 'sample/sample-dishes.js';
 
 const WaiterPage = React.createClass({
   getInitialState(){

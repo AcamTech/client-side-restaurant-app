@@ -1,8 +1,8 @@
 import React, {createClass, PropTypes} from 'react';
-import RestaurantStaffList from '../components/restaurant-staff-list';
-import Modal from '../components/modal';
-import RegisterPersonelModal from '../components/register-personel-modal';
-import ModalMixin from '../components/modal-mixin'; //remove when implement redux
+import RestaurantStaffList from 'components/admin-restaurants/restaurant-staff-list';
+import Modal from 'components/modal';
+import RegisterPersonelModal from 'components/register-personel-modal';
+import ModalMixin from 'components/modal-mixin'; //remove when implement redux
 
 const UsersList = createClass({
   displayName: 'Users-list',

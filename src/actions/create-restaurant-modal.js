@@ -1,4 +1,4 @@
-import * as actionTypes from 'src/constants/action-types';
+import * as actionTypes from 'constants/action-types';
 
 export function openCreateRestaurantModal(){
   return {
