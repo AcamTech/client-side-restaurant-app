@@ -7,7 +7,7 @@ import Restaurant from 'pages/restaurant';
 import DishesList from 'pages/dishes-list';
 import TablesList from 'pages/tables-list';
 import Orders from 'pages/orders';
-import RestaurantStaff from 'pages/restaurant-staff';
+import Staff from 'pages/staff';
 import AdminLayout from 'pages/admin-layout';
 import LoginPage from 'pages/login';
 import RegisterPage from 'pages/register';
@@ -28,7 +28,7 @@ export default (
       <IndexRoute component={Restaurant} />
       <Route path="menu" component={DishesList} />
       <Route path="mesas" component={TablesList} />
-      <Route path="personal" component={RestaurantStaff} />
+      <Route path="personal" component={Staff} />
       <Route path="reportes" component={Orders} />
     </Route>
     <Route path="restaurante/:id/cocina" component={KitchenLayout}>

@@ -7,7 +7,7 @@ const roles = {
 };
 
 export default createClass({
-  displayName: 'restaurant-staff-list',
+  displayName: 'staff-list',
   propTypes: {
     staff: PropTypes.object,
     fetchStaff: PropTypes.func.isRequired

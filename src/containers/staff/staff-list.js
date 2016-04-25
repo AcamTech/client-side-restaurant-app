@@ -2,7 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchStaff} from 'actions/staff';
-import RestaurantStaffList from 'components/restaurant-staff/restaurant-staff-list';
+import StaffList from 'components/staff/staff-list';
 
 function mapStateToProps(state){
   return {
@@ -14,4 +14,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({fetchStaff}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantStaffList);
+export default connect(mapStateToProps, mapDispatchToProps)(StaffList);
