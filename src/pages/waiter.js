@@ -11,17 +11,20 @@ const WaiterPage = React.createClass({
     };
   },
   addToOrder(key){
-    this.state.order[key] = this.state.order[key] + 1 || 1;
-    this.setState({ order : this.state.order });
+    var order = Object.assign({}, this.state.order);
+    order[key] = order[key] + 1 || 1;
+
+    this.setState({ order : order });
   },
   removeFromOrder(key){
-    if (this.state.order[key] > 1) {
-      this.state.order[key] = this.state.order[key] - 1;
+    var order = Object.assign({}, this.state.order);
+    if (order[key] > 1) {
+      order[key] = order[key] - 1;
     } else {
-      delete this.state.order[key];
+      delete order[key];
     }
 
-    this.setState({ order : this.state.order });
+    this.setState({ order : order });
   },
   render(){
     return (
