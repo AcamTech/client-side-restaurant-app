@@ -18,7 +18,7 @@ const RestaurantLayout = createClass({
               </div>
             </div>
             <div className="grid__item three-quarters small--one-third large--one-half">
-              <MainMenu />
+              <MainMenu restaurantId={this.props.params.id} />
             </div>
           </div>
         </header>
