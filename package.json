@@ -31,7 +31,6 @@
     "re-base": "1.5.1",
     "react": "15.0.1",
     "react-dom": "15.0.1",
-    "react-modal": "1.0.0",
     "react-redux": "4.4.2",
     "react-router": "2.0.0",
     "react-router-redux": "4.0.1",
@@ -41,8 +40,7 @@
     "redux-form": "5.1.4",
     "redux-promise-middleware": "3.0.0",
     "redux-thunk": "2.0.1",
-    "sizzle": "2.3.0",
-    "zepto": "1.0.1"
+    "sizzle": "2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "6.3.6",
