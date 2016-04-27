@@ -4,6 +4,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 
 const developmentEnvironment = 'development' ;
@@ -29,7 +30,8 @@ const getPlugins = function (env) {
 
   switch (env) {
     case productionEnvironment:
-      plugins.push(new ExtractTextPlugin('styles.css'));
+      plugins.push(new ExtractTextPlugin('./styles.css', {allChunks: true}));
+      plugins.push(new CopyWebpackPlugin([{from: './src/200.html', to: './200.html'}], {}));
       plugins.push(new webpack.optimize.DedupePlugin());
       plugins.push(new webpack.optimize.UglifyJsPlugin());
       break;
@@ -68,7 +70,7 @@ const getLoaders = function (env) {
 
   if (env === productionEnvironment ) {
     // generate separate physical stylesheet for production build using ExtractTextPlugin. This provides separate caching and avoids a flash of unstyled content on load.
-    loaders.push({test: /(\.css|\.scss)$/, loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap")});
+    loaders.push({test: /(\.css|\.scss)$/, loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap", { publicPath: './'})});
   } else {
     loaders.push({test: /(\.css|\.scss)$/, loaders: ['style', 'css', 'postcss', 'sass']});
   }
