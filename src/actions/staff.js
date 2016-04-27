@@ -1,38 +1,57 @@
 import Firebase from 'firebase';
-import * as actionTypes from '../constants/action-types';
+import * as actionTypes from 'constants/action-types';
+import {generateRandomPassword} from 'helpers/format-helpers';
 import {closeStaffModal} from './staff-modal';
 import {ref} from 'constants/firebase';
-
+console.log(ref);
 export function addStaffMember(staffMember, restaurantId){
   return function addStaffMemberThunk(dispatch){
+    const {email} = staffMember;
+    if(!email){
+      throw new Error('No se encontro el email');
+    }
 
-    const memberKey = ref.child('restaurants_staff').push().key();
-    const memberPromise = ref.child(`restaurants_staff/${memberKey}/`).set(staffMember);
-
-    memberPromise.then(() => {
-      ref.child(`restaurants/${restaurantId}/waiters`).update({
-        [memberKey]: true
-      },() => {
-        dispatch({
-          type: actionTypes.ADD_STAFF_MEMBER,
-          payload: { [memberKey]: staffMember }
+    createUserWithEmail(email)
+      .then(({uid}) => uid)
+      .then(uid => {
+        var object = {...staffMember, restaurant: restaurantId};
+        ref.child(`restaurants_staff/${uid}`)
+          .set(object);
+        return [object, uid];
+      })
+      .then((member) => {
+        var [object, uid] = member;
+        ref.child(`restaurants/${restaurantId}/waiters`).update({
+          [uid]: true
+        },() => {
+          dispatch({
+            type: actionTypes.ADD_STAFF_MEMBER,
+            payload: {[uid]: object}
+          });
+          dispatch(closeStaffModal());
         });
-        dispatch(closeStaffModal());
-      });
-    });
+      })
+      .catch(error => console.error(error));
   };
+}
+
+function createUserWithEmail(email){
+  return ref.createUser({
+    email,
+    password: generateRandomPassword()
+  });
 }
 
 export function fetchStaff(restaurantId){
   return function fetchStaffThunk(dispatch, getState){
     const restaurantStaff = ref.child(`restaurants/${restaurantId}/waiters`);
     restaurantStaff.once('value')
-      .then((snapshot) => snapshot.val())
+      .then((snapshot) => snapshot.val() || {})
       .then(staff => Object.keys(staff))
       .then(arrayStaff => arrayStaff.map(member => {
           return ref.child(`restaurants_staff/${member}`)
             .once('value')
-            .then(member => ({[member.key()]: member.val()}))
+            .then(member => ({[member.key()]: member.val()}));
         }
       ))
       .then(members => Promise.all(members))

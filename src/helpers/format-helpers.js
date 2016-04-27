@@ -16,4 +16,13 @@ let FormatHelpers = {
   }
 };
 
+export function generateRandomPassword() {
+  var possibleChars = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?_-'];
+  var password = '';
+  for(var i = 0; i < 16; i += 1) {
+    password += possibleChars[Math.floor(Math.random() * possibleChars.length)];
+  }
+  return password;
+}
+
 export default FormatHelpers;
