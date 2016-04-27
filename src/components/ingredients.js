@@ -1,5 +1,5 @@
 import React, {createClass} from 'react';
-import Modal from './modal';
+import Modal from './modal/';
 import FilterHeader from './filter-header';
 import RestaurantIngredientsList from './restaurant-ingredients-list';
 import RegisterIngredientModal from './register-ingredient-modal';

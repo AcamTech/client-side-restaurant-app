@@ -9,6 +9,7 @@ import addStaffMemberValidations from './add-staff-member-validations';
 function mapStateToProps(state, props){
   return {
     isOpen: state.staffModal.isOpen,
+    isEditting: state.staffModal.isEditting,
     restaurantId: props.restaurantId,
     initialValues: state.staffModal.selectedMember
   };

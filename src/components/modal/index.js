@@ -1,7 +1,7 @@
 import React, {createClass, PropTypes} from 'react';
 import ReactDOM, {render, findDOMNode} from 'react-dom';
 import 'magnific-popup';
-import '../../node_modules/magnific-popup/src/css/main.scss';
+import '../../../node_modules/magnific-popup/src/css/main.scss';
 
 var Modal = createClass({
   propTypes: {

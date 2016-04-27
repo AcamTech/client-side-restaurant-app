@@ -6,13 +6,13 @@ import {ref} from 'constants/firebase';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
   return function aaddOrEditStaffMemberThunk(dispatch){
-    const {email, name} = staffMember;
+    const {email, name, id} = staffMember;
     if(!email){
       throw new Error('No se encontro el email');
     }
 
     console.log(staffMember);
-    if(!staffMember.id){
+    if(!id){
       createUserWithEmail(email)
         .then(({uid}) => uid)
         .then(uid => {
@@ -35,9 +35,11 @@ export function addOrEditStaffMember(staffMember, restaurantId){
         })
         .catch(error => console.error(error));
     }else{
-      ref.child(`restaurants_staff/${staffMember.id}`)
+      ref.child(`restaurants_staff/${id}`)
         .update({email, name})
-        .catch(error => console.error(error))
+        .then(() => dispatch(updateStaffMember({ [id]: {email, name, restaurant: restaurantId} })))
+        .then(() => dispatch(closeStaffModal()))
+        .catch(error => console.error(error));
     }
   };
 }
@@ -73,9 +75,10 @@ export function fetchStaff(restaurantId){
   };
 }
 
-export function updateStaffMember(){
-  return function updateStaffMemberThunk(dispatch){
-    // TODO: Add code here
+export function updateStaffMember(member){
+  return {
+    type: actionTypes.UPDATE_STAFF_MEMBER,
+    payload: member
   };
 }
 
