@@ -2,8 +2,7 @@ import {createValidator, required, email} from 'businessLogic/validations';
 
 const addStaffMemberValidations = createValidator({
   name: [required],
-  email: [required, email],
-  role: [required]
+  email: [required, email]
 });
 
 export default addStaffMemberValidations;

@@ -1,22 +1,24 @@
 import React, {createClass, PropTypes} from 'react';
 import Modal from 'components/modal';
+const {func, shape, object, bool, string} = PropTypes;
 
 export default createClass({
   displayName: 'staff-modal',
   propTypes: {
-    openStaffModal: PropTypes.func.isRequired,
-    closeStaffModal: PropTypes.func.isRequired,
-    addStaffMember: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    fields: PropTypes.shape({
-      name: PropTypes.object,
-      email: PropTypes.object,
-      role: PropTypes.object
+    openStaffModal: func.isRequired,
+    closeStaffModal: func.isRequired,
+    addStaffMember: func.isRequired,
+    resetForm: func.isRequired,
+    handleSubmit: func.isRequired,
+    fields: shape({
+      name: object,
+      email: object
+      //TODO: Add role field and role field validations
     }).isRequired,
-    invalid: PropTypes.bool,
-    isOpen: PropTypes.bool,
-    submitting: PropTypes.bool
+    restaurantId: string.isRequired,
+    invalid: bool,
+    isOpen: bool,
+    submitting: bool
   },
   clearFormAndCloseModal(){
     var {closeStaffModal, resetForm} = this.props;
@@ -24,7 +26,7 @@ export default createClass({
     closeStaffModal();
   },
   render(){
-    var {fields: {name, email, role}, invalid, handleSubmit, submitting, openStaffModal, closeStaffModal, isOpen, addStaffMember} = this.props;
+    var {fields: {name, email, role}, invalid, handleSubmit, submitting, openStaffModal, restaurantId, closeStaffModal, isOpen, addStaffMember} = this.props;
     return(
       <button onClick={openStaffModal} className="button">
         {'Crear Empleado'}
@@ -33,7 +35,7 @@ export default createClass({
           onClose={closeStaffModal}
           className="panel--medium">
           <article id="new-restaurant" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
-            <form onSubmit={handleSubmit(addStaffMember)}>
+            <form onSubmit={handleSubmit((data) => addStaffMember(data, restaurantId))}>
               <div className="panel__body">
                 <h1 className="popup__title delta">Nuevo Empleado</h1>
                   <div className={`form-group has-feedback has-feedback--reverse ${name.touched && name.error && 'has-error'}`}>
@@ -44,7 +46,6 @@ export default createClass({
                     <input name="email" className="form-control form-control-material" placeholder="Email" type="email" {...email} />
                     <span className="form-control-feedback icon-user"></span>
                   </div>
-                  <input name="role" className="form-control form-control-material" placeholder="Rol" type="hidden" {...role} value="waiter" />
               </div>
               <div className="grid grid--full">
                 <div className="grid__item one-half">

@@ -6,9 +6,10 @@ import {closeStaffModal, openStaffModal} from 'actions/staff-modal';
 import StaffModal from 'components/staff/staff-modal';
 import addStaffMemberValidations from './add-staff-member-validations';
 
-function mapStateToProps(state){
+function mapStateToProps(state, props){
   return {
-    isOpen: state.StaffModal.isOpen
+    isOpen: state.staffModal.isOpen,
+    restaurantId: props.restaurantId
   };
 }
 
@@ -22,6 +23,6 @@ function mapDispatchToProps(dispatch){
 
 export default reduxForm({
   form: 'addStaffMemberForm',
-  fields: ['name', 'role', 'email'],
+  fields: ['name', 'email'],
   validate: addStaffMemberValidations
 }, mapStateToProps, mapDispatchToProps)(StaffModal);

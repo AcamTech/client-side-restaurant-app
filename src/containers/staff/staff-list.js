@@ -4,9 +4,10 @@ import {connect} from 'react-redux';
 import {fetchStaff} from 'actions/staff';
 import StaffList from 'components/staff/staff-list';
 
-function mapStateToProps(state){
+function mapStateToProps(state, props){
   return {
-    staff: state.staff.list
+    staff: state.staff.list,
+    restaurantId: props.restaurantId
   };
 }
 

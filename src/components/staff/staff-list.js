@@ -10,10 +10,11 @@ export default createClass({
   displayName: 'staff-list',
   propTypes: {
     staff: PropTypes.object,
-    fetchStaff: PropTypes.func.isRequired
+    fetchStaff: PropTypes.func.isRequired,
+    restaurantId: PropTypes.string.isRequired
   },
   componentDidMount(){
-    this.props.fetchStaff();
+    this.props.fetchStaff(this.props.restaurantId);
   },
   mapStaffFromObj(staff){
     return map(
@@ -36,7 +37,6 @@ export default createClass({
     var {staff} = this.props;
     return (
       <div>
-        <h1 className="delta weight--light">Personal</h1>
         <div className="panel">
           <div className="table-responsive">
           <table className="table table--hover text-center">

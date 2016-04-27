@@ -8,8 +8,8 @@ const Staff = createClass({
     return(
       <div>
         <h1 className="delta flush weight--light">Personal</h1>
-        <StaffModal />
-        <StaffList />
+        <StaffModal restaurantId={this.props.params.id} />
+        <StaffList restaurantId={this.props.params.id} />
       </div>
     );
   }
