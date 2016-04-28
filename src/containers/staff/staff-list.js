@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchStaff} from 'actions/staff';
+import {fetchStaff, removeStaffMember} from 'actions/staff';
 import StaffList from 'components/staff/staff-list';
 
 function mapStateToProps(state, props){
@@ -12,7 +12,7 @@ function mapStateToProps(state, props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchStaff}, dispatch);
+  return bindActionCreators({fetchStaff, removeStaffMember}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StaffList);

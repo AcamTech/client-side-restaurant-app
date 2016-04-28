@@ -13,7 +13,6 @@ export default createClass({
     fields: shape({
       name: object,
       email: object
-      //TODO: Add role field and role field validations
     }).isRequired,
     restaurantId: string.isRequired,
     invalid: bool,

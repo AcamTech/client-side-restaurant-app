@@ -11,26 +11,32 @@ export default createClass({
   propTypes: {
     staff: PropTypes.object,
     fetchStaff: PropTypes.func.isRequired,
-    restaurantId: PropTypes.string.isRequired
+    restaurantId: PropTypes.string.isRequired,
+    removeStaffMember: PropTypes.func.isRequired
   },
   componentDidMount(){
     this.props.fetchStaff(this.props.restaurantId);
   },
   mapStaffFromObj(staff){
     return map(
-        staffMemberId => (
-          <tr key={staffMemberId}>
-            <td>{staff[staffMemberId].name}</td>
-            <td>{roles[staff[staffMemberId].role]}</td>
-            <td>{staff[staffMemberId].email}</td>
-            <td>
-              <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
-            </td>
-            <td>
-              <a className="no-decoration color-danger" href="#"><span className="icon-x"></span> Eliminar</a>
-            </td>
-          </tr>
-        )
+        staffMemberId => {
+          const removeFn = this.props.removeStaffMember;
+          return (
+            <tr key={staffMemberId}>
+              <td>{staff[staffMemberId].name}</td>
+              <td>{roles[staff[staffMemberId].role]}</td>
+              <td>{staff[staffMemberId].email}</td>
+              <td>
+                <a className="no-decoration color-success" href="#"><span className="icon-pencil"></span> Editar</a>
+              </td>
+              <td>
+                <a className="no-decoration color-danger" href="#" onClick={() => removeFn(staffMemberId, this.props.restaurantId)}>
+                  <span className="icon-x"></span> Eliminar
+                </a>
+              </td>
+            </tr>
+          );
+        }
     );
   },
   render(){

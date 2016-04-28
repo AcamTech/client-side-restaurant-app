@@ -12,9 +12,10 @@ export default function staff(state={
     case actiontypes.UPDATE_STAFF_MEMBER:
       // TODO: Add code
       return state;
-    case actiontypes.DELETE_STAFF_MEMBER:
-      // TODO: Add code
-      return state;
+    case actiontypes.REMOVE_STAFF_MEMBER:
+      var list = Object.assign({}, state.list);
+      delete list[payload];
+      return {...state, list: list};
     default:
       return state;
   }

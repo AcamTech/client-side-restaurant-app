@@ -3,7 +3,7 @@ import * as actionTypes from 'constants/action-types';
 import {generateRandomPassword} from 'helpers/format-helpers';
 import {closeStaffModal} from './staff-modal';
 import {ref} from 'constants/firebase';
-console.log(ref);
+
 export function addStaffMember(staffMember, restaurantId){
   return function addStaffMemberThunk(dispatch){
     const {email} = staffMember;
@@ -72,8 +72,25 @@ export function updateStaffMember(){
   };
 }
 
-export function removeStaffMember(){
+export function removeStaffMember(memberId, restaurantId){
   return function removeStaffMemberThunk(dispatch){
-    // TODO: Add code here
+    const memberRef = ref.child(`restaurants/${restaurantId}/waiters/${memberId}`);
+    memberRef.remove(() => {
+      const memberRef = ref.child(`restaurants_staff/${memberId}`);
+      memberRef.remove(() => {
+        // TODO: Delete user account
+        // ref.removeUser({
+        //   email    : "bobtony@firebase.com",
+        //   password : "correcthorsebatterystaple"
+        // }, function(error) {
+        //   if (error === null) {
+        //     console.log("User removed successfully");
+        //   } else {
+        //     console.log("Error removing user:", error);
+        //   }
+        // });
+        dispatch({type: actionTypes.REMOVE_STAFF_MEMBER, payload: memberId});
+      });
+    });
   };
 }
