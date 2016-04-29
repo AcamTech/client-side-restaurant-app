@@ -4,34 +4,41 @@ import {generateRandomPassword} from 'helpers/format-helpers';
 import {closeStaffModal} from './staff-modal';
 import {ref} from 'constants/firebase';
 
-export function addStaffMember(staffMember, restaurantId){
-  return function addStaffMemberThunk(dispatch){
-    const {email} = staffMember;
+export function addOrEditStaffMember(staffMember, restaurantId){
+  return function aaddOrEditStaffMemberThunk(dispatch){
+    const {email, name} = staffMember;
     if(!email){
       throw new Error('No se encontro el email');
     }
 
-    createUserWithEmail(email)
-      .then(({uid}) => uid)
-      .then(uid => {
-        var object = {...staffMember, restaurant: restaurantId};
-        ref.child(`restaurants_staff/${uid}`)
-          .set(object);
-        return [object, uid];
-      })
-      .then((member) => {
-        var [object, uid] = member;
-        ref.child(`restaurants/${restaurantId}/waiters`).update({
-          [uid]: true
-        },() => {
-          dispatch({
-            type: actionTypes.ADD_STAFF_MEMBER,
-            payload: {[uid]: object}
+    console.log(staffMember);
+    if(!staffMember.id){
+      createUserWithEmail(email)
+        .then(({uid}) => uid)
+        .then(uid => {
+          var object = {...staffMember, restaurant: restaurantId};
+          ref.child(`restaurants_staff/${uid}`)
+            .set(object);
+          return [object, uid];
+        })
+        .then((member) => {
+          var [object, uid] = member;
+          ref.child(`restaurants/${restaurantId}/waiters`).update({
+            [uid]: true
+          },() => {
+            dispatch({
+              type: actionTypes.ADD_STAFF_MEMBER,
+              payload: {[uid]: object}
+            });
+            dispatch(closeStaffModal());
           });
-          dispatch(closeStaffModal());
-        });
-      })
-      .catch(error => console.error(error));
+        })
+        .catch(error => console.error(error));
+    }else{
+      ref.child(`restaurants_staff/${staffMember.id}`)
+        .update({email, name})
+        .catch(error => console.error(error))
+    }
   };
 }
 

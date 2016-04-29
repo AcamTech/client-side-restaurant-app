@@ -7,7 +7,7 @@ export default createClass({
   propTypes: {
     openStaffModal: func.isRequired,
     closeStaffModal: func.isRequired,
-    addStaffMember: func.isRequired,
+    addOrEditStaffMember: func.isRequired,
     resetForm: func.isRequired,
     handleSubmit: func.isRequired,
     fields: shape({
@@ -21,20 +21,23 @@ export default createClass({
   },
   clearFormAndCloseModal(){
     var {closeStaffModal, resetForm} = this.props;
-    resetForm();
     closeStaffModal();
+    this.props.destroyForm();
   },
   render(){
-    var {fields: {name, email, role}, invalid, handleSubmit, submitting, openStaffModal, restaurantId, closeStaffModal, isOpen, addStaffMember} = this.props;
+    var {fields: {name, email, role, id}, invalid, handleSubmit, submitting, openStaffModal, restaurantId, closeStaffModal, isOpen, addOrEditStaffMember} = this.props;
     return(
+      <span>
       <button onClick={openStaffModal} className="button">
         {'Crear Empleado'}
+      </button>
         <Modal
           open={isOpen}
-          onClose={closeStaffModal}
+          onClose={this.clearFormAndCloseModal}
           className="panel--medium">
           <article id="new-restaurant" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
-            <form onSubmit={handleSubmit((data) => addStaffMember(data, restaurantId))}>
+            <form onSubmit={handleSubmit((data) => addOrEditStaffMember(data, restaurantId))}>
+              <input type="hidden" {...id}/>
               <div className="panel__body">
                 <h1 className="popup__title delta">Nuevo Empleado</h1>
                   <div className={`form-group has-feedback has-feedback--reverse ${name.touched && name.error && 'has-error'}`}>
@@ -57,7 +60,7 @@ export default createClass({
             </form>
           </article>
         </Modal>
-      </button>
+        </span>
     );
   }
 });

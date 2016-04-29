@@ -11,3 +11,10 @@ export function closeStaffModal(){
     type: actionTypes.CLOSE_STAFF_MODAL
   };
 }
+
+export function editStaffMember(id, member){
+  return function(dispatch){
+    dispatch(openStaffModal());
+    dispatch({type: actionTypes.SELECT_MEMBER_TO_EDIT,payload: Object.assign(member, {id: id})});
+  }
+}
