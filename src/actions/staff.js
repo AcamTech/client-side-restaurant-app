@@ -17,6 +17,7 @@ export function addOrEditStaffMember(staffMember, restaurantId){
         .then(({uid}) => uid)
         .then(uid => {
           var object = {...staffMember, restaurant: restaurantId};
+          delete object.id;
           ref.child(`restaurants_staff/${uid}`)
             .set(object);
           return [object, uid];
