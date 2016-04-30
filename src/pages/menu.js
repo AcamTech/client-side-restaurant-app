@@ -3,11 +3,10 @@ import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import FilterHeader from 'components/filter-header';
 import Dishes from 'components/dishes';
 import Ingredients from 'components/ingredients';
-import Categories from 'components/categories';
+import {CategoriesList, CategoriesModal} from 'containers/categories';
 
-
-const DishesList = createClass({
-  displayName: 'Dishes-list',
+const Menu = createClass({
+  displayName: 'Menu',
   render(){
     return(
       <div>
@@ -24,7 +23,9 @@ const DishesList = createClass({
             <Ingredients />
           </TabPanel>
           <TabPanel>
-            <Categories />
+            <h1 className="delta flush weight--light">Categorías</h1>
+            <CategoriesModal restaurantId={this.props.params.id} />
+            <CategoriesList restaurantId={this.props.params.id} />
           </TabPanel>
         </Tabs>
       </div>
@@ -32,4 +33,4 @@ const DishesList = createClass({
   }
 });
 
-export default DishesList;
+export default Menu;

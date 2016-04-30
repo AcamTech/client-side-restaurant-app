@@ -23,3 +23,13 @@ export const REMOVE_TABLE           = 'REMOVE_TABLE';
 export const OPEN_TABLES_MODAL      = 'OPEN_TABLES_MODAL';
 export const CLOSE_TABLES_MODAL     = 'CLOSE_TABLES_MODAL';
 export const SELECT_TABLE_TO_EDIT   = 'SELECT_TABLE_TO_EDIT';
+
+// CATEGORIES
+export const ADD_CATEGORY              = 'ADD_CATEGORY';
+export const FETCH_CATEGORIES          = 'FETCH_CATEGORIES';
+export const UPDATE_CATEGORY           = 'UPDATE_CATEGORY';
+export const REMOVE_CATEGORY           = 'REMOVE_CATEGORY';
+
+export const OPEN_CATEGORIES_MODAL      = 'OPEN_CATEGORIES_MODAL';
+export const CLOSE_CATEGORIES_MODAL     = 'CLOSE_CATEGORIES_MODAL';
+export const SELECT_CATEGORY_TO_EDIT    = 'SELECT_CATEGORY_TO_EDIT';

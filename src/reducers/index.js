@@ -7,6 +7,8 @@ import staff from './staff';
 import staffModal from './staff-modal';
 import tables from './tables';
 import tablesModal from './tables-modal';
+import categories from './categories';
+import categoriesModal from './categories-modal';
 
 const rootReducer = combineReducers({
   restaurants,
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   staffModal,
   tables,
   tablesModal,
+  categories,
+  categoriesModal,
   form,
   routing
 });

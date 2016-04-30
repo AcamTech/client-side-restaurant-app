@@ -16,6 +16,17 @@ let FormatHelpers = {
   }
 };
 
+export function objectToArray(object){
+  return Object.keys(object)
+    .reduce((initialVal, item) => {
+      initialVal.push({
+        id: item,
+        ...object[item]
+      });
+      return initialVal;
+    }, []);
+}
+
 export function generateRandomPassword() {
   var possibleChars = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?_-'];
   var password = '';

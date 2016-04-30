@@ -4,8 +4,8 @@ import { Route, IndexRoute } from 'react-router';
 import MainLayout from 'pages/main-layout';
 import RestaurantLayout from 'pages/restaurant-layout';
 import Restaurant from 'pages/restaurant';
-import DishesList from 'pages/dishes-list';
-import TablesList from 'pages/tables-list';
+import Menu from 'pages/menu';
+import Tables from 'pages/tables';
 import Orders from 'pages/orders';
 import Staff from 'pages/staff';
 import AdminLayout from 'pages/admin-layout';
@@ -26,8 +26,8 @@ export default (
     {/*<Route path="register" component={RegisterPage} />*/}
     <Route path="restaurante/:id" component={RestaurantLayout}>
       <IndexRoute component={Restaurant} />
-      <Route path="menu" component={DishesList} />
-      <Route path="mesas" component={TablesList} />
+      <Route path="menu" component={Menu} />
+      <Route path="mesas" component={Tables} />
       <Route path="personal" component={Staff} />
       <Route path="reportes" component={Orders} />
     </Route>
