@@ -41,7 +41,7 @@ export default createClass({
     var modalTitle = isEditting ? 'Editar Mesa' : 'Nueva Mesa';
     return(
       <span>
-      <button onClick={openTablesModal} className="button">
+      <button onClick={openTablesModal} className="button button--secondary button--small">
         {'Crear Mesa'}
       </button>
         <Modal

@@ -10,8 +10,14 @@ const Staff = createClass({
   render(){
     return(
       <div>
-        <h1 className="delta flush weight--light">Personal</h1>
-        <StaffModal restaurantId={this.props.params.id} />
+        <div className="grid push--bottom">
+          <div className="grid__item medium--one-half">
+            <h1 className="delta flush weight--light">Personal</h1>
+          </div>
+          <div className="grid__item medium--one-half text--end">
+            <StaffModal restaurantId={this.props.params.id} />
+          </div>
+        </div>
         <StaffList restaurantId={this.props.params.id} />
       </div>
     );

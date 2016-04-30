@@ -42,7 +42,7 @@ export default createClass({
     var modalTitle = isEditting ? 'Editar Empleado' : 'Nuevo Empleado';
     return(
       <span>
-      <button onClick={openStaffModal} className="button">
+      <button onClick={openStaffModal} className="button button--secondary button--small">
         {'Crear Empleado'}
       </button>
         <Modal

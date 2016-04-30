@@ -9,8 +9,14 @@ const TablesPage = createClass({
   render(){
     return(
       <div>
-        <h1 className="delta flush weight--light">Mesas</h1>
-        <TablesModal restaurantId={this.props.params.id} />
+        <div className="grid push--bottom">
+          <div className="grid__item medium--one-half">
+            <h1 className="delta flush weight--light">Mesas</h1>
+          </div>
+          <div className="grid__item medium--one-half text--end">
+            <TablesModal restaurantId={this.props.params.id} />
+          </div>
+        </div>
         <TablesList restaurantId={this.props.params.id} />
       </div>
     );

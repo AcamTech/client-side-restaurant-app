@@ -1,21 +1,19 @@
 import React, { PropTypes } from 'react';
 
 export default function TableRow ({id, data, onClickRemoveHandler, onClickEditHandler}) {
-  function renderCells(data){
-    var {id} = data;
-    delete data.id;
-    var content = Object.keys(data).map((item, idx) => (
-      <td key={id}>
+  function renderCells(id, data){
+    var content = Object.keys(data).map((item, idx) => {
+      return <td key={id + idx}>
         {data[item]}
       </td>
-    ));
+    });
     return (
       content
     );
   }
   return (
     <tr>
-      {renderCells(data)}
+      {renderCells(id, data)}
       <td>
         <a className="no-decoration color-success" href="#" onClick={onClickEditHandler}><span className="icon-pencil"></span> Editar</a>
       </td>

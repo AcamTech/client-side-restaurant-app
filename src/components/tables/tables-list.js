@@ -1,6 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import TableRow from './table-row';
-import {keys, map, compose} from 'ramda';
+import renderRows from 'components/table-rows';
 
 export default createClass({
   displayName: 'tables-list',
@@ -14,25 +13,8 @@ export default createClass({
   componentDidMount(){
     this.props.fetchTables(this.props.restaurantId);
   },
-  renderTables(tables, restaurantId){
-    const removeFn = this.props.removeTable;
-    const editFn = this.props.editTable;
-    return tables.map( (item) => {
-      var oldItem = {...item};
-      var {id} = item;
-      return (
-        <TableRow
-          key={id}
-          id={id}
-          data={item}
-          restaurantId={restaurantId}
-          onClickRemoveHandler={removeTableFactory(removeFn, oldItem, restaurantId)}
-          onClickEditHandler={editTableFactory(editFn, oldItem)} />
-      );
-    });
-  },
   render(){
-    var {tables, restaurantId} = this.props;
+    var {tables, restaurantId, removeTable, editTable} = this.props;
     return (
       <div>
         <div className="panel">
@@ -45,7 +27,7 @@ export default createClass({
               </tr>
             </thead>
             <tbody>
-              {this.renderTables(tables, restaurantId)}
+              {renderRows(tables, restaurantId, ['number'], removeTable, editTable)}
             </tbody>
           </table>
           </div>
@@ -54,15 +36,3 @@ export default createClass({
     );
   }
 });
-
-function removeTableFactory(removeFn, table, restaurantId){
-  return function removeTableFactoryThunk(){
-    return removeFn(table, restaurantId);
-  };
-}
-
-function editTableFactory(editFn, table){
-  return function editTableFactoryThunk(){
-    return editFn(table);
-  };
-}

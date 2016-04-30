@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import {fetchStaff, removeStaffMember} from 'actions/staff';
 import {editStaffMember} from 'actions/staff-modal';
 import StaffList from 'components/staff/staff-list';
+import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps(state, props){
   return {
-    staff: state.staff.list,
+    staff: objectToArray(state.staff.list || {}),
     restaurantId: props.restaurantId
   };
 }
