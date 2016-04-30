@@ -12,6 +12,8 @@ export default function restaurants(state={
       var newItem = {};
       newItem[payload.key] = payload.restaurant;
       return {...state, list: Object.assign({}, state.list, newItem)};
+    case actiontypes.FETCH_RESTAURANT:
+      return {...state, isFetching: false, list: {...payload}};
     default:
       return state;
   }

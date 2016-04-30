@@ -26,8 +26,14 @@ const Menu = createClass({
             <Ingredients />
           </TabPanel>
           <TabPanel>
-            <h1 className="delta flush weight--light">Categorías</h1>
-            <CategoriesModal restaurantId={this.props.params.id} />
+            <div className="grid push--bottom">
+              <div className="grid__item medium--one-half">
+                <h1 className="delta flush weight--light">Categorías</h1>
+              </div>
+              <div className="grid__item medium--one-half text--end">
+                <CategoriesModal restaurantId={this.props.params.id} />
+              </div>
+            </div>
             <CategoriesList restaurantId={this.props.params.id} />
           </TabPanel>
         </Tabs>

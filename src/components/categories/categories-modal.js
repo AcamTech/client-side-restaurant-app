@@ -41,7 +41,7 @@ export default createClass({
     var modalTitle = isEditting ? 'Editar Categoría' : 'Nueva Categoría';
     return(
       <span>
-      <button onClick={openCategoriesModal} className="button">
+      <button onClick={openCategoriesModal} className="button button--secondary button--small">
         {'Crear Categoría'}
       </button>
         <Modal
