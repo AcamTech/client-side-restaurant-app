@@ -17,6 +17,7 @@ export function addOrEditStaffMember(staffMember, restaurantId){
         .then(({uid}) => uid)
         .then(uid => {
           var object = {...staffMember, restaurant: restaurantId};
+          delete object.id;
           ref.child(`restaurants_staff/${uid}`)
             .set(object);
           return [object, uid];
@@ -88,17 +89,10 @@ export function removeStaffMember(memberId, restaurantId){
     memberRef.remove(() => {
       const memberRef = ref.child(`restaurants_staff/${memberId}`);
       memberRef.remove(() => {
-        // TODO: Delete user account
-        // ref.removeUser({
-        //   email    : "bobtony@firebase.com",
-        //   password : "correcthorsebatterystaple"
-        // }, function(error) {
-        //   if (error === null) {
-        //     console.log("User removed successfully");
-        //   } else {
-        //     console.log("Error removing user:", error);
-        //   }
-        // });
+        const blockedMemberRef = ref.child(`blocked_users`)
+          .set({
+            [memberId] : true
+          });
         dispatch({type: actionTypes.REMOVE_STAFF_MEMBER, payload: memberId});
       });
     });
