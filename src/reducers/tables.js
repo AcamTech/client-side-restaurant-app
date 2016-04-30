@@ -6,6 +6,8 @@ export default function tables(state={
 }, action){
   var {type, payload} = action;
   switch(type){
+    case actiontypes.ADD_TABLE:
+      return {...state, list: Object.assign({}, state.list, payload)};
     case actiontypes.FETCH_TABLES:
       return {...state, list: payload};
     default:
