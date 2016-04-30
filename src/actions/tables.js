@@ -13,8 +13,18 @@ export function fetchTables(restaurantId){
   };
 }
 
+export function removeTable(item, restaurantId){
+  return function removeTableThunk(dispatch){
+    var {id} = item;
+    ref.child(`restaurants/${restaurantId}/tables/${id}`)
+      .remove()
+      .then(() => dispatch({type: actionTypes.REMOVE_TABLE, payload: item}))
+      .catch((error) => console.error(error));
+  };
+}
+
 export function addOrEditTable(table, restaurantId){
-  return function addOrEditTableThunk(dispatch){
+  return function addOrEditTableThunk(dispatch, getState){
     const {number, id} = table;
     const tablesRef = ref.child(`restaurants/${restaurantId}/tables`);
 
@@ -30,11 +40,25 @@ export function addOrEditTable(table, restaurantId){
       })
       .catch(error => console.error(error));
     }else{
+      var tablesObject = getState().tables.list;
+      var numbers = Object.keys(tablesObject).map(item => tablesObject[item].number);
+      console.log(numbers, number);
+      if(numbers.indexOf(number) != -1){
+        dispatch({type: 'EDIT_TABLE_REJECTED', message: "The table number already exist"});
+        return;
+      }
       tablesRef.child(id)
         .update({number})
-        // .then(() => dispatch(updateStaffMember({ [id]: {email, name, restaurant: restaurantId} })))
-        // .then(() => dispatch(closeStaffModal()))
-        // .catch(error => console.error(error));
+        .then(() => dispatch(updateTable({ [id]: {number} })))
+        .then(() => dispatch(closeTablesModal()))
+        .catch(error => console.error(error));
     }
   };
+}
+
+function updateTable(table){
+  return {
+    type: actionTypes.UPDATE_TABLE,
+    payload: table
+  }
 }

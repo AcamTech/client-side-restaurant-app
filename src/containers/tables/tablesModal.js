@@ -26,5 +26,5 @@ function mapDispatchToProps(dispatch){
 export default reduxForm({
   form: 'addTableForm',
   validate: addTableValidations,
-  fields: ['number']
+  fields: ['number', 'id']
 }, mapStateToProps, mapDispatchToProps)(TablesModal);

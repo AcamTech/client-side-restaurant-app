@@ -1,38 +1,37 @@
 import React, {createClass, PropTypes} from 'react';
+import TableRow from './table-row';
 import {keys, map, compose} from 'ramda';
 
 export default createClass({
   displayName: 'tables-list',
   propTypes: {
-    tables: PropTypes.object,
+    removeTable: PropTypes.func.isRequired,
+    editTable: PropTypes.func.isRequired,
+    tables: PropTypes.array,
     fetchTables: PropTypes.func.isRequired
   },
   componentDidMount(){
     this.props.fetchTables(this.props.restaurantId);
   },
-  mapArrayFromObj(object){
-    return map(
-        objectId => {
-          const removeFn = this.props.removeStaffMember;
-          const editFn = this.props.editStaffMember;
-          return (
-            <tr key={objectId}>
-              <td>{object[objectId].number}</td>
-              <td>
-                <a className="no-decoration color-success" href="#" onClick={() => editFn(objectId, object[objectId])}><span className="icon-pencil"></span> Editar</a>
-              </td>
-              <td>
-                <a className="no-decoration color-danger" href="#" onClick={() => removeFn(objectId, this.props.restaurantId)}>
-                  <span className="icon-x"></span> Eliminar
-                </a>
-              </td>
-            </tr>
-          );
-        }
-    );
+  renderTables(tables, restaurantId){
+    const removeFn = this.props.removeTable;
+    const editFn = this.props.editTable;
+    return tables.map( (item) => {
+      var oldItem = {...item};
+      var {id} = item;
+      return (
+        <TableRow
+          key={id}
+          id={id}
+          data={item}
+          restaurantId={restaurantId}
+          onClickRemoveHandler={removeTableFactory(removeFn, oldItem, restaurantId)}
+          onClickEditHandler={editTableFactory(editFn, oldItem)} />
+      );
+    });
   },
   render(){
-    var {tables} = this.props;
+    var {tables, restaurantId} = this.props;
     return (
       <div>
         <div className="panel">
@@ -45,7 +44,7 @@ export default createClass({
               </tr>
             </thead>
             <tbody>
-              {this.mapArrayFromObj(tables)(keys(tables))}
+              {this.renderTables(tables, restaurantId)}
             </tbody>
           </table>
           </div>
@@ -54,3 +53,15 @@ export default createClass({
     );
   }
 });
+
+function removeTableFactory(removeFn, table, restaurantId){
+  return function removeTableFactoryThunk(){
+    return removeFn(table, restaurantId);
+  };
+}
+
+function editTableFactory(editFn, table){
+  return function editTableFactoryThunk(){
+    return editFn(table);
+  };
+}

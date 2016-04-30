@@ -12,7 +12,7 @@ export default createClass({
     handleSubmit: func.isRequired,
     destroyForm: func.isRequired,
     fields: shape({
-      number: number
+      number: object
     }).isRequired,
     restaurantId: string.isRequired,
     invalid: bool,

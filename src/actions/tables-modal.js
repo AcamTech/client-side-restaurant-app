@@ -12,9 +12,9 @@ export function closeTablesModal(){
   };
 }
 
-export function editTable(id, table){
+export function editTable(table){
   return function(dispatch){
     dispatch(openTablesModal());
-    dispatch({type: actionTypes.SELECT_TABLE_TO_EDIT, payload: Object.assign(table, {id: id})});
+    dispatch({type: actionTypes.SELECT_TABLE_TO_EDIT, payload: table});
   };
 }
