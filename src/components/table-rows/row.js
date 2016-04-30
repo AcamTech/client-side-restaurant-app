@@ -1,21 +1,15 @@
 import React, { PropTypes } from 'react';
+import {keys, map, compose, addIndex} from 'ramda';
+
+const indexedMap = addIndex(map);
 
 export default function TableRow ({id, data, onClickRemoveHandler, onClickEditHandler}) {
-  function renderCells(id, data){
-    var content = Object.keys(data).map((item, idx) => {
-      return (
-        <td key={id + idx}>
-          {data[item]}
-        </td>
-      );
-    });
-    return (
-      content
-    );
+  function renderCells(id){
+    return compose(indexedMap((item, idx) => <td key={id + idx}>{data[item]}</td>), keys);
   }
   return (
     <tr>
-      {renderCells(id, data)}
+      {renderCells(id)(data)}
       <td>
         <a className="no-decoration color-success" href="#" onClick={onClickEditHandler}><span className="icon-pencil"></span> Editar</a>
       </td>

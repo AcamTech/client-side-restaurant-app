@@ -3,7 +3,7 @@ import Row from './row';
 import {keys, map, compose, pick} from 'ramda';
 
 export default function renderRows(objectsArray, restaurantId, whiteListKeys, removeFn, editFn){
-  return objectsArray.map(item => {
+  return map(item => {
     var {id} = item;
     var whiteListed = pick(whiteListKeys, item);
     var oldItem = {...item};
@@ -15,11 +15,11 @@ export default function renderRows(objectsArray, restaurantId, whiteListKeys, re
         onClickRemoveHandler={commandsFactory(removeFn, oldItem, restaurantId)}
         onClickEditHandler={commandsFactory(editFn, oldItem, restaurantId)} />
     );
-  });
+  }, objectsArray);
 }
 
 function commandsFactory(fn, item, restaurantId){
   return function commandsFactoryThunk(){
     return fn(item, restaurantId);
-  }
+  };
 }

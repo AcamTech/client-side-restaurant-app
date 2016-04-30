@@ -1,6 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import Row from 'components/generic-row';
-import {keys, map, compose} from 'ramda';
+import renderRows from 'components/table-rows';
 
 export default createClass({
   displayName: 'categories-list',
@@ -14,25 +13,8 @@ export default createClass({
   componentDidMount(){
     this.props.fetchCategories(this.props.restaurantId);
   },
-  renderCategories(categories, restaurantId){
-    const removeFn = this.props.removeCategory;
-    const editFn = this.props.editCategory;
-    return categories.map( (item) => {
-      var oldItem = {...item};
-      var {id} = item;
-      return (
-        <Row
-          key={id}
-          id={id}
-          data={item}
-          restaurantId={restaurantId}
-          onClickRemoveHandler={removeCategoryFactory(removeFn, oldItem, restaurantId)}
-          onClickEditHandler={editCategoryFactory(editFn, oldItem)} />
-      );
-    });
-  },
   render(){
-    var {categories, restaurantId} = this.props;
+    var {categories, restaurantId, removeCategory, editCategory} = this.props;
     return (
       <div>
         <div className="panel">
@@ -45,7 +27,7 @@ export default createClass({
               </tr>
             </thead>
             <tbody>
-              {this.renderCategories(categories, restaurantId)}
+              {renderRows(categories, restaurantId, ['name'], removeCategory, editCategory)}
             </tbody>
           </table>
           </div>
@@ -54,15 +36,3 @@ export default createClass({
     );
   }
 });
-
-function removeCategoryFactory(removeFn, category, restaurantId){
-  return function removeCategoryFactoryThunk(){
-    return removeFn(category, restaurantId);
-  };
-}
-
-function editCategoryFactory(editFn, category){
-  return function editCategoryFactoryThunk(){
-    return editFn(category);
-  };
-}
