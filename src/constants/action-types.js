@@ -13,3 +13,13 @@ export const REMOVE_STAFF_MEMBER  = 'REMOVE_STAFF_MEMBER';
 export const OPEN_STAFF_MODAL     = 'OPEN_STAFF_MODAL';
 export const CLOSE_STAFF_MODAL    = 'CLOSE_STAFF_MODAL';
 export const SELECT_MEMBER_TO_EDIT    = 'SELECT_MEMBER_TO_EDIT';
+
+// TABLES
+export const ADD_TABLE              = 'ADD_TABLE';
+export const FETCH_TABLES           = 'FETCH_TABLES';
+export const UPDATE_TABLE           = 'UPDATE_TABLE';
+export const REMOVE_TABLE           = 'REMOVE_TABLE';
+
+export const OPEN_TABLES_MODAL      = 'OPEN_TABLES_MODAL';
+export const CLOSE_TABLES_MODAL     = 'CLOSE_TABLES_MODAL';
+export const SELECT_TABLE_TO_EDIT   = 'SELECT_TABLE_TO_EDIT';

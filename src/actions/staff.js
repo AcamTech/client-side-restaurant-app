@@ -5,7 +5,7 @@ import {closeStaffModal} from './staff-modal';
 import {ref} from 'constants/firebase';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
-  return function aaddOrEditStaffMemberThunk(dispatch){
+  return function addOrEditStaffMemberThunk(dispatch){
     const {email, name, id} = staffMember;
     if(!email){
       throw new Error('No se encontro el email');
