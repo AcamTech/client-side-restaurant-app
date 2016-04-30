@@ -4,7 +4,8 @@ import MainMenu from 'components/main-menu';
 const RestaurantLayout = createClass({
   displayName: 'Restuarant-layout',
   propTypes: {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    params: PropTypes.object.isRequired
   },
   render(){
     return(

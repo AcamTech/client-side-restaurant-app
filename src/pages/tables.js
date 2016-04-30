@@ -3,6 +3,9 @@ import {TablesModal, TablesList} from 'containers/tables';
 
 const TablesPage = createClass({
   displayName: 'Tables-page',
+  propTypes: {
+    params: PropTypes.object.isRequired
+  },
   render(){
     return(
       <div>

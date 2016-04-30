@@ -19,7 +19,7 @@ export function removeTable(item, restaurantId){
     ref.child(`restaurants/${restaurantId}/tables/${id}`)
       .remove()
       .then(() => dispatch({type: actionTypes.REMOVE_TABLE, payload: item}))
-      .catch((error) => console.error(error));
+      .catch(error => {throw new Error(error);} );
   };
 }
 
@@ -38,11 +38,11 @@ export function addOrEditTable(table, restaurantId){
         dispatch({ type: actionTypes.ADD_TABLE, payload: {[tableId]: table} });
         dispatch(closeTablesModal());
       })
-      .catch(error => console.error(error));
+      .catch(error => {throw new Error(error);} );
     }else{
       var tablesObject = getState().tables.list;
       var numbers = Object.keys(tablesObject).map(item => tablesObject[item].number);
-      console.log(numbers, number);
+
       if(numbers.indexOf(number) != -1){
         dispatch({type: 'EDIT_TABLE_REJECTED', message: "The table number already exist"});
         return;
@@ -51,7 +51,7 @@ export function addOrEditTable(table, restaurantId){
         .update({number})
         .then(() => dispatch(updateTable({ [id]: {number} })))
         .then(() => dispatch(closeTablesModal()))
-        .catch(error => console.error(error));
+        .catch(error => {throw new Error(error);} );
     }
   };
 }
@@ -60,5 +60,5 @@ function updateTable(table){
   return {
     type: actionTypes.UPDATE_TABLE,
     payload: table
-  }
+  };
 }

@@ -5,6 +5,9 @@ import RestaurantDetail from 'containers/admin-restaurants/restaurant-detail';
 
 const AdminRestaurantShow = createClass({
   displayName: 'Admin-restaurant-show',
+  propTypes: {
+    params: PropTypes.object.isRequired
+  },
   render(){
     return(
       <div>

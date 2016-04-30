@@ -8,7 +8,8 @@ export default createClass({
     removeTable: PropTypes.func.isRequired,
     editTable: PropTypes.func.isRequired,
     tables: PropTypes.array,
-    fetchTables: PropTypes.func.isRequired
+    fetchTables: PropTypes.func.isRequired,
+    restaurantId: PropTypes.string.isRequired
   },
   componentDidMount(){
     this.props.fetchTables(this.props.restaurantId);

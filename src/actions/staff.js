@@ -11,7 +11,6 @@ export function addOrEditStaffMember(staffMember, restaurantId){
       throw new Error('No se encontro el email');
     }
 
-    console.log(staffMember);
     if(!id){
       createUserWithEmail(email)
         .then(({uid}) => uid)
@@ -34,13 +33,13 @@ export function addOrEditStaffMember(staffMember, restaurantId){
             dispatch(closeStaffModal());
           });
         })
-        .catch(error => console.error(error));
+        .catch(error => {throw new Error(error);} );
     }else{
       ref.child(`restaurants_staff/${id}`)
         .update({email, name})
         .then(() => dispatch(updateStaffMember({ [id]: {email, name, restaurant: restaurantId} })))
         .then(() => dispatch(closeStaffModal()))
-        .catch(error => console.error(error));
+        .catch(error => {throw new Error(error);} );
     }
   };
 }

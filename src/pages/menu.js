@@ -7,6 +7,9 @@ import {CategoriesList, CategoriesModal} from 'containers/categories';
 
 const Menu = createClass({
   displayName: 'Menu',
+  propTypes: {
+    params: PropTypes.object.isRequired
+  },
   render(){
     return(
       <div>

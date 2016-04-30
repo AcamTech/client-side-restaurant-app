@@ -19,7 +19,7 @@ export function removeCategory(item, restaurantId){
     ref.child(`restaurants/${restaurantId}/categories/${id}`)
       .remove()
       .then(() => dispatch({type: actionTypes.REMOVE_CATEGORY, payload: item}))
-      .catch((error) => console.error(error));
+      .catch(error => {throw new Error(error);} );
   };
 }
 
@@ -45,7 +45,7 @@ function addCategory(name, dispatch, catsRef) {
       dispatch({ type: actionTypes.ADD_CATEGORY, payload: {[catId]: { name }} });
       dispatch(closeCategoriesModal());
     })
-    .catch(error => console.error(error));
+    .catch(error => {throw new Error(error);} );
 }
 
 function editCategory(id, name, dispatch, catsRef){
@@ -53,12 +53,12 @@ function editCategory(id, name, dispatch, catsRef){
     .update({name})
     .then(() => dispatch(updateCategory({ [id]: {name} })))
     .then(() => dispatch(closeCategoriesModal()))
-    .catch(error => console.error(error));
+    .catch(error => {throw new Error(error);} );
 }
 
 function updateCategory(category) {
   return {
     type: actionTypes.UPDATE_CATEGORY,
     payload: category
-  }
+  };
 }

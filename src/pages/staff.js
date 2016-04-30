@@ -4,6 +4,9 @@ import StaffModal from '../containers/staff/staff-modal';
 
 const Staff = createClass({
   displayName: 'staff',
+  propTypes: {
+    params: PropTypes.object.isRequired
+  },
   render(){
     return(
       <div>

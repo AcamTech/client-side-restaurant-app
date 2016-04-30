@@ -12,9 +12,9 @@ export default function categories(state={
       return {...state, list: payload};
     case actiontypes.REMOVE_CATEGORY:
       delete state.list[payload.id];
-      return {...state, list: {...state.list}}
+      return {...state, list: {...state.list}};
     case actiontypes.UPDATE_CATEGORY:
-      return {...state, list: {...state.list, ...payload}}
+      return {...state, list: {...state.list, ...payload}};
     default:
       return state;
   }
