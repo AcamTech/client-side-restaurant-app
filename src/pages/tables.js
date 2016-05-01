@@ -1,5 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import {TablesModal, TablesList} from 'containers/tables';
+import {TablesModal, TablesList} from 'containers/restaurant';
 
 const TablesPage = createClass({
   displayName: 'Tables-page',

@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { IngredientsList } from 'components/ingredients';
+import { IngredientsList } from 'components/restaurant';
 import { fetchIngredients, removeIngredient } from 'actions/ingredients';
 import { editIngredient } from 'actions/ingredients-modal';
 import { objectToArray } from 'helpers/format-helpers';

@@ -1,22 +1,22 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { TablesList } from 'components/tables';
-import { fetchTables, removeTable } from 'actions/tables';
-import { editTable } from 'actions/tables-modal';
+import { CategoriesList } from 'components/restaurant';
+import { fetchCategories, removeCategory } from 'actions/categories';
+import { editCategory } from 'actions/categories-modal';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
   return {
     restaurantId: props.restaurantId,
-    tables: objectToArray(state.tables.list || {})
+    categories: objectToArray(state.categories.list || {})
   };
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators( {fetchTables, removeTable, editTable}, dispatch);
+  return bindActionCreators( {fetchCategories, removeCategory, editCategory}, dispatch);
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TablesList);
+)(CategoriesList);

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import {addOrEditCategory} from 'actions/categories';
 import {closeCategoriesModal, openCategoriesModal} from 'actions/categories-modal';
-import {CategoriesModal} from 'components/categories';
+import {CategoriesModal} from 'components/restaurant';
 import addCategoryValidations from './add-category-validations';
 
 function mapStateToProps(state, props){

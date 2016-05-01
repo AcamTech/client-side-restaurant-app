@@ -2,8 +2,8 @@ import React, {createClass, PropTypes} from 'react';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import FilterHeader from 'components/filter-header';
 import Dishes from 'components/dishes';
-import {CategoriesList, CategoriesModal} from 'containers/categories';
-import {IngredientsList, IngredientsModal} from 'containers/ingredients';
+import {CategoriesList, CategoriesModal} from 'containers/restaurant';
+import {IngredientsList, IngredientsModal} from 'containers/restaurant';
 
 const Menu = createClass({
   displayName: 'Menu',

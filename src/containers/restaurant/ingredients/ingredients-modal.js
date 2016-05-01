@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {reduxForm} from 'redux-form';
-import { IngredientsModal } from 'components/ingredients';
+import { IngredientsModal } from 'components/restaurant';
 import { addOrEditIngredient } from 'actions/ingredients';
 import { closeIngredientsModal, openIngredientsModal } from 'actions/ingredients-modal';
 

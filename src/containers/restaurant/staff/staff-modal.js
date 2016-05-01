@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import {addOrEditStaffMember} from 'actions/staff';
 import {closeStaffModal, openStaffModal} from 'actions/staff-modal';
-import StaffModal from 'components/staff/staff-modal';
+import { StaffModal } from 'components/restaurant';
 import addStaffMemberValidations from './add-staff-member-validations';
 
 function mapStateToProps(state, props){

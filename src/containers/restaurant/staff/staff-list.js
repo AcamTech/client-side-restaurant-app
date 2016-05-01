@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchStaff, removeStaffMember} from 'actions/staff';
 import {editStaffMember} from 'actions/staff-modal';
-import StaffList from 'components/staff/staff-list';
+import { StaffList } from 'components/restaurant';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps(state, props){
