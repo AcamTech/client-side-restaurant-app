@@ -9,6 +9,8 @@ import tables from './tables';
 import tablesModal from './tables-modal';
 import categories from './categories';
 import categoriesModal from './categories-modal';
+import ingredients from './ingredients';
+import ingredientsModal from './ingredients-modal';
 
 const rootReducer = combineReducers({
   restaurants,
@@ -20,7 +22,9 @@ const rootReducer = combineReducers({
   categories,
   categoriesModal,
   form,
-  routing
+  routing,
+  ingredients,
+  ingredientsModal
 });
 
 export default rootReducer;
