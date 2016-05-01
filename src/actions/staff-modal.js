@@ -12,9 +12,9 @@ export function closeStaffModal(){
   };
 }
 
-export function editStaffMember(id, member){
+export function editStaffMember(member, restaurantId){
   return function(dispatch){
     dispatch(openStaffModal());
-    dispatch({type: actionTypes.SELECT_MEMBER_TO_EDIT, payload: Object.assign(member, {id: id})});
+    dispatch({type: actionTypes.SELECT_MEMBER_TO_EDIT, payload: member});
   };
 }

@@ -1,6 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import StaffList from 'containers/restaurant';
-import StaffModal from 'containers/restaurant';
+import {StaffList, StaffModal} from 'containers/restaurant';
 
 const Staff = createClass({
   displayName: 'staff',
