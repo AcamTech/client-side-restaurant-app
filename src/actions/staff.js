@@ -1,8 +1,8 @@
 import Firebase from 'firebase';
 import * as actionTypes from 'constants/action-types';
-import {generateRandomPassword} from 'helpers/format-helpers';
-import {closeStaffModal} from './staff-modal';
-import {ref} from 'constants/firebase';
+import { closeStaffModal } from './staff-modal';
+import { ref } from 'constants/firebase';
+import { auth, createUserWithEmail } from 'helpers/auth';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
   return function addOrEditStaffMemberThunk(dispatch){
@@ -10,7 +10,6 @@ export function addOrEditStaffMember(staffMember, restaurantId){
     if(!email){
       throw new Error('No se encontro el email');
     }
-
     if(!id){
       createUserWithEmail(email)
         .then(({uid}) => uid)
@@ -33,6 +32,9 @@ export function addOrEditStaffMember(staffMember, restaurantId){
             dispatch(closeStaffModal());
           });
         })
+        .then(() => {
+          return ref.resetPassword({email});
+        })
         .catch(error => {throw new Error(error);} );
     }else{
       ref.child(`restaurants_staff/${id}`)
@@ -42,13 +44,6 @@ export function addOrEditStaffMember(staffMember, restaurantId){
         .catch(error => {throw new Error(error);} );
     }
   };
-}
-
-function createUserWithEmail(email){
-  return ref.createUser({
-    email,
-    password: generateRandomPassword()
-  });
 }
 
 export function fetchStaff(restaurantId){
@@ -82,18 +77,27 @@ export function updateStaffMember(member){
   };
 }
 
-export function removeStaffMember(memberId, restaurantId){
+export function removeStaffMember(member, restaurantId){
   return function removeStaffMemberThunk(dispatch){
-    const memberRef = ref.child(`restaurants/${restaurantId}/waiters/${memberId}`);
+    const {id} = member;
+    const memberRef = ref.child(`restaurants/${restaurantId}/waiters/${id}`);
     memberRef.remove(() => {
-      const memberRef = ref.child(`restaurants_staff/${memberId}`);
+      const memberRef = ref.child(`restaurants_staff/${id}`);
       memberRef.remove(() => {
         const blockedMemberRef = ref.child(`blocked_users`)
           .set({
-            [memberId] : true
+            [id] : true
           });
-        dispatch({type: actionTypes.REMOVE_STAFF_MEMBER, payload: memberId});
+        dispatch({type: actionTypes.REMOVE_STAFF_MEMBER, payload: id});
       });
     });
+  };
+}
+
+export function authenticateUser(user){
+  return function authenticateUserThunk(){
+    auth(user)
+      .then(authData => console.log(authData))
+      .catch(error => console.error(error));
   };
 }
