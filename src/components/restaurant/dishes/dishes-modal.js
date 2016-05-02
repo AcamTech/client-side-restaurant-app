@@ -17,7 +17,8 @@ export default createClass({
       name: object.isRequired,
       price: object.isRequired,
       description: object.isRequired,
-      category: object.isRequired
+      category: object.isRequired,
+      ingredients: object.isRequired
     }).isRequired,
     restaurantId: string.isRequired,
     invalid: bool,
@@ -30,6 +31,14 @@ export default createClass({
     closeDishesModal();
     this.props.destroyForm();
   },
+  getIngredients(){
+    return this.props.ingredients.map((ingredient) => {
+      return {
+        value: ingredient.name,
+        label: ingredient.name
+      };
+    });
+  },
   getCategories(){
     return this.props.categories.map((category) => {
       return {
@@ -40,10 +49,11 @@ export default createClass({
   },
   componentDidMount(){
     this.props.fetchCategories(this.props.restaurantId);
+    this.props.fetchIngredients(this.props.restaurantId);
   },
   render(){
     var {
-      fields: {name, price, description, category, id},
+      fields: {name, price, description, category, ingredients, id},
       invalid,
       handleSubmit,
       submitting,
@@ -74,19 +84,30 @@ export default createClass({
                     <span className="form-control-feedback icon-user"></span>
                   </div>
                   <div className={`form-group has-feedback has-feedback--reverse ${price.touched && price.error && 'has-error'}`}>
-                    <input name="name" className="form-control form-control-material" placeholder="Precio del Plato" type="number" step="50" {...price} />
+                    <input name="price" className="form-control form-control-material" placeholder="Precio del Plato" type="number" step="50" {...price} />
                     <span className="form-control-feedback icon-user"></span>
                   </div>
                   <div className={`form-group has-feedback has-feedback--reverse ${description.touched && description.error && 'has-error'}`}>
-                    <input name="name" className="form-control form-control-material" placeholder="Breve descripción del Plato" type="text" {...description} />
+                    <input name="description" className="form-control form-control-material" placeholder="Breve descripción del Plato" type="text" {...description} />
                     <span className="form-control-feedback icon-user"></span>
                   </div>
-                  <Select 
-                    name="form-field-name"
-                    {...category}
-                    placeholder="Categoría"
-                    onBlur={() => {}}
-                    options={this.getCategories()} />
+                  <div className={`form-group has-feedback has-feedback--reverse ${category.touched && category.error && 'has-error'}`}>
+                    <Select
+                      name="category"
+                      {...category}
+                      placeholder="Categoría"
+                      onBlur={() => {}}
+                      options={this.getCategories()} />
+                  </div>
+                  <div className={`form-group has-feedback has-feedback--reverse ${ingredients.touched && ingredients.error && 'has-error'}`}>
+                    <Select
+                      name="ingredients"
+                      {...ingredients}
+                      placeholder="Ingredientes"
+                      onBlur={() => {}}
+                      multi={true}
+                      options={this.getIngredients()} />
+                  </div>
               </div>
               <div className="grid grid--full">
                 <div className="grid__item one-half">
