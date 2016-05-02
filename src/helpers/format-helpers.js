@@ -16,6 +16,14 @@ let FormatHelpers = {
   }
 };
 
+export function formatUserInfo (isTemporaryPassword, avatar = "", uid) {
+  return {
+    isTemporaryPassword,
+    avatar,
+    uid
+  };
+}
+
 export function objectToArray(object){
   return Object.keys(object)
     .reduce((initialVal, item) => {

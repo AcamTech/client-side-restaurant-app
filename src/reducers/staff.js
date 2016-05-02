@@ -1,14 +1,22 @@
 import * as actiontypes from '../constants/action-types';
 
 export default function staff(state={
+  isFetching: false,
+  error: '',
+  isAuthed: false,
+  authedId: '',
   list: {}
 }, action){
   var {type, payload} = action;
   switch(type){
+    case actiontypes.AUTH_MEMBER:
+      return {...state, isAuthed: true, authedId: payload};
+    case actiontypes.FETCH_MEMBER_SUCCESS:
+      return {...state, isFetching: false, list: {...state.list, [payload.uid]: payload.userData}};
     case actiontypes.ADD_STAFF_MEMBER:
       return {...state, list: Object.assign({}, state.list, payload)};
     case actiontypes.FETCH_STAFF:
-      return {...state, list: payload};
+      return {...state, list: {...state.list, ...payload}};
     case actiontypes.UPDATE_STAFF_MEMBER:
       var updatedMember = {...state.list, ...payload};
       return {...state, list: updatedMember};

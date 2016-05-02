@@ -15,6 +15,12 @@ export const OPEN_STAFF_MODAL     = 'OPEN_STAFF_MODAL';
 export const CLOSE_STAFF_MODAL    = 'CLOSE_STAFF_MODAL';
 export const SELECT_MEMBER_TO_EDIT    = 'SELECT_MEMBER_TO_EDIT';
 
+// STAFF MEMBER
+
+export const AUTH_MEMBER            = 'AUTH_MEMBER';
+export const FETCHING_MEMBER        = 'FETCHING_MEMBER';
+export const FETCH_MEMBER_SUCCESS   = 'FETCH_MEMBER_SUCCESS';
+
 // TABLES
 export const ADD_TABLE              = 'ADD_TABLE';
 export const FETCH_TABLES           = 'FETCH_TABLES';

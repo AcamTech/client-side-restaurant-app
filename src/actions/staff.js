@@ -1,8 +1,10 @@
 import Firebase from 'firebase';
+import { push } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import { closeStaffModal } from './staff-modal';
 import { ref } from 'constants/firebase';
-import { auth, createUserWithEmail } from 'helpers/auth';
+import { auth, saveMember, getMember, createUserWithEmail } from 'helpers/auth';
+import { formatUserInfo } from 'helpers/format-helpers';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
   return function addOrEditStaffMemberThunk(dispatch){
@@ -95,9 +97,51 @@ export function removeStaffMember(member, restaurantId){
 }
 
 export function authenticateUser(user){
-  return function authenticateUserThunk(){
+  return function authenticateUserThunk(dispatch){
+    dispatch(fetchingMember());
     auth(user)
-      .then(authData => console.log(authData))
+      .then(({password, uid}) => {
+        var userData = formatUserInfo(password.isTemporaryPassword, password.profileImageURL, uid);
+        return saveMember({uid, userData});
+      })
+      .then(userData => {
+        var {uid} = userData;
+        return getMember(uid);
+      })
+      .then(userData => {
+        var {uid} = userData;
+        dispatch(fetchingMemberSuccess(uid, userData));
+        return {uid, userData};
+      })
+      .then((member) => {
+        var {uid} = member;
+        dispatch(authMember(uid));
+        return member;
+      })
+      .then(({userData}) => dispatch(push('restaurante/'+userData.restaurant)))
       .catch(error => console.error(error));
+  };
+}
+
+function authMember(uid){
+  return {
+    type: actionTypes.AUTH_MEMBER,
+    payload: uid
+  };
+}
+
+function fetchingMember(){
+  return {
+    type: actionTypes.FETCHING_MEMBER
+  };
+}
+
+function fetchingMemberSuccess(uid, userData){
+  return {
+    type: actionTypes.FETCH_MEMBER_SUCCESS,
+    payload: {
+      uid,
+      userData
+    }
   };
 }

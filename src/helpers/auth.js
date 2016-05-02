@@ -8,7 +8,7 @@ export function createUserWithEmail(email){
   });
 }
 
-export default function auth (user) {
+export function auth(user) {
   return ref.authWithPassword(user);
 }
 
@@ -16,10 +16,18 @@ export function logout () {
   ref.unauth();
 }
 
-export function saveUser (user) {
-  return ref.child(`users/${user.uid}`)
-    .set(user)
-    .then(() => user);
+export function saveMember({uid, userData}) {
+  return ref.child(`restaurants_staff/${uid}`)
+    .update(userData)
+    .then(() => userData);
+}
+
+export function getMember(uid) {
+  return ref.child(`restaurants_staff/${uid}`)
+    .once('value')
+    .then(snapshot => {
+      return snapshot.val();
+    });
 }
 
 export function checkIfAuthed (store) {

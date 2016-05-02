@@ -9,10 +9,10 @@ function mapStateToProps (state, props) {
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators( { authenticateUser } , dispatch)
+  return bindActionCreators( { authenticateUser } , dispatch);
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login)
+)(Login);
