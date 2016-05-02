@@ -1,6 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
 import Modal from 'components/modal/';
-const {func, shape, object, bool, string, number} = PropTypes;
+const {func, shape, object, bool, string, number, array} = PropTypes;
 import Select from 'react-select';
 
 export default createClass({
@@ -10,6 +10,7 @@ export default createClass({
     closeDishesModal: func.isRequired,
     addOrEditDish: func.isRequired,
     fetchCategories: func.isRequired,
+    fetchIngredients: func.isRequired,
     resetForm: func.isRequired,
     handleSubmit: func.isRequired,
     destroyForm: func.isRequired,
@@ -21,10 +22,16 @@ export default createClass({
       ingredients: object.isRequired
     }).isRequired,
     restaurantId: string.isRequired,
+    ingredients: array.isRequired,
+    categories: array.isRequired,
     invalid: bool,
     isOpen: bool,
     isEditting: bool,
     submitting: bool
+  },
+  componentDidMount(){
+    this.props.fetchCategories(this.props.restaurantId);
+    this.props.fetchIngredients(this.props.restaurantId);
   },
   clearFormAndCloseModal(){
     var {closeDishesModal, resetForm} = this.props;
@@ -34,7 +41,7 @@ export default createClass({
   getIngredients(){
     return this.props.ingredients.map((ingredient) => {
       return {
-        value: ingredient.name,
+        value: ingredient.id,
         label: ingredient.name
       };
     });
@@ -42,14 +49,10 @@ export default createClass({
   getCategories(){
     return this.props.categories.map((category) => {
       return {
-        value: category.name,
+        value: category.id,
         label: category.name
       };
     });
-  },
-  componentDidMount(){
-    this.props.fetchCategories(this.props.restaurantId);
-    this.props.fetchIngredients(this.props.restaurantId);
   },
   render(){
     var {
@@ -105,7 +108,7 @@ export default createClass({
                       {...ingredients}
                       placeholder="Ingredientes"
                       onBlur={() => {}}
-                      multi={true}
+                      multi
                       options={this.getIngredients()} />
                   </div>
               </div>
