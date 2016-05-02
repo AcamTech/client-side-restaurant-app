@@ -1,6 +1,7 @@
 import React, {createClass, PropTypes} from 'react';
 import Modal from 'components/modal/';
 const {func, shape, object, bool, string, number} = PropTypes;
+import Select from 'react-select';
 
 export default createClass({
   displayName: 'dishes-modal',
@@ -8,13 +9,15 @@ export default createClass({
     openDishesModal: func.isRequired,
     closeDishesModal: func.isRequired,
     addOrEditDish: func.isRequired,
+    fetchCategories: func.isRequired,
     resetForm: func.isRequired,
     handleSubmit: func.isRequired,
     destroyForm: func.isRequired,
     fields: shape({
       name: object.isRequired,
       price: object.isRequired,
-      description: object
+      description: object.isRequired,
+      category: object.isRequired
     }).isRequired,
     restaurantId: string.isRequired,
     invalid: bool,
@@ -27,9 +30,20 @@ export default createClass({
     closeDishesModal();
     this.props.destroyForm();
   },
+  getCategories(){
+    return this.props.categories.map((category) => {
+      return {
+        value: category.name,
+        label: category.name
+      };
+    });
+  },
+  componentDidMount(){
+    this.props.fetchCategories(this.props.restaurantId);
+  },
   render(){
     var {
-      fields: {name, price, description, id},
+      fields: {name, price, description, category, id},
       invalid,
       handleSubmit,
       submitting,
@@ -67,6 +81,12 @@ export default createClass({
                     <input name="name" className="form-control form-control-material" placeholder="Breve descripción del Plato" type="text" {...description} />
                     <span className="form-control-feedback icon-user"></span>
                   </div>
+                  <Select 
+                    name="form-field-name"
+                    {...category}
+                    placeholder="Categoría"
+                    onBlur={() => {}}
+                    options={this.getCategories()} />
               </div>
               <div className="grid grid--full">
                 <div className="grid__item one-half">

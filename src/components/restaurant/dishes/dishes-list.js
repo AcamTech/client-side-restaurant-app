@@ -8,9 +8,11 @@ export default createClass({
     editDish: PropTypes.func.isRequired,
     dishes: PropTypes.array,
     fetchDishes: PropTypes.func.isRequired,
+    fetchCategories: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired
   },
   componentDidMount(){
+    this.props.fetchCategories(this.props.restaurantId);
     this.props.fetchDishes(this.props.restaurantId);
   },
   render(){
@@ -25,11 +27,12 @@ export default createClass({
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Descripción</th>
+                <th>Categoría</th>
                 <th colSpan="2"></th>
               </tr>
             </thead>
             <tbody>
-              {renderRows(dishes, restaurantId, ['name', 'price', 'description'], removeDish, editDish)}
+              {renderRows(dishes, restaurantId, ['name', 'price', 'description', 'category'], removeDish, editDish)}
             </tbody>
           </table>
           </div>
