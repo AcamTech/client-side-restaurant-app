@@ -31,7 +31,7 @@ export function addOrEditDish(dish, restaurantId){
     if(!id){
       addDish(dish, dispatch, dishesRef);
     }else{
-      editDish(id, name, dispatch, dishesRef);
+      editDish(dish, dispatch, dishesRef);
     }
   };
 }
@@ -50,10 +50,13 @@ function addDish(dish, dispatch, ref) {
     .catch(error => {throw new Error(error);} );
 }
 
-function editDish(id, name, dispatch, ref){
+function editDish(dish, dispatch, ref){
+  const id = dish.id;
+  delete dish.id;
+
   ref.child(id)
-    .update({name})
-    .then(() => dispatch(updateDish({ [id]: {name} })))
+    .update(dish)
+    .then(() => dispatch(updateDish({ [id]: dish })))
     .then(() => dispatch(closeDishesModal()))
     .catch(error => {throw new Error(error);} );
 }
