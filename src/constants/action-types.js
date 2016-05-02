@@ -50,3 +50,13 @@ export const REMOVE_INGREDIENT           = 'REMOVE_INGREDIENT';
 export const OPEN_INGREDIENTS_MODAL      = 'OPEN_INGREDIENTS_MODAL';
 export const CLOSE_INGREDIENTS_MODAL     = 'CLOSE_INGREDIENTS_MODAL';
 export const SELECT_INGREDIENT_TO_EDIT    = 'SELECT_INGREDIENT_TO_EDIT';
+
+// INREDIENTS
+export const ADD_DISH               = 'ADD_DISH';
+export const FETCH_DISHES           = 'FETCH_DISHES';
+export const UPDATE_DISH            = 'UPDATE_DISH';
+export const REMOVE_DISH            = 'REMOVE_DISH';
+
+export const OPEN_DISHES_MODAL      = 'OPEN_DISHES_MODAL';
+export const CLOSE_DISHES_MODAL     = 'CLOSE_DISHES_MODAL';
+export const SELECT_DISH_TO_EDIT    = 'SELECT_DISH_TO_EDIT';

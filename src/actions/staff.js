@@ -119,7 +119,7 @@ export function authenticateUser(user){
         return member;
       })
       .then(({userData}) => dispatch(push('restaurante/'+userData.restaurant)))
-      .catch(error => console.error(error));
+      .catch(error => {throw new Error(error);});
   };
 }
 
