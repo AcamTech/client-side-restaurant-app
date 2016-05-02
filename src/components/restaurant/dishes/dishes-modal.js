@@ -12,7 +12,9 @@ export default createClass({
     handleSubmit: func.isRequired,
     destroyForm: func.isRequired,
     fields: shape({
-      name: object.isRequired
+      name: object.isRequired,
+      price: object.isRequired,
+      description: object
     }).isRequired,
     restaurantId: string.isRequired,
     invalid: bool,
@@ -27,7 +29,7 @@ export default createClass({
   },
   render(){
     var {
-      fields: {name, id},
+      fields: {name, price, description, id},
       invalid,
       handleSubmit,
       submitting,
@@ -55,6 +57,14 @@ export default createClass({
                 <h1 className="popup__title delta">{modalTitle}</h1>
                   <div className={`form-group has-feedback has-feedback--reverse ${name.touched && name.error && 'has-error'}`}>
                     <input name="name" className="form-control form-control-material" placeholder="Nombre del Plato" type="text" {...name} />
+                    <span className="form-control-feedback icon-user"></span>
+                  </div>
+                  <div className={`form-group has-feedback has-feedback--reverse ${price.touched && price.error && 'has-error'}`}>
+                    <input name="name" className="form-control form-control-material" placeholder="Precio del Plato" type="number" step="50" {...price} />
+                    <span className="form-control-feedback icon-user"></span>
+                  </div>
+                  <div className={`form-group has-feedback has-feedback--reverse ${description.touched && description.error && 'has-error'}`}>
+                    <input name="name" className="form-control form-control-material" placeholder="Breve descripción del Plato" type="text" {...description} />
                     <span className="form-control-feedback icon-user"></span>
                   </div>
               </div>

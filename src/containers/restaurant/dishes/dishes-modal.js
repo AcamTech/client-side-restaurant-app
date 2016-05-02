@@ -19,5 +19,5 @@ function mapDispatchToProps (dispatch, props) {
 
 export default reduxForm({
   form: 'addDishForm',
-  fields: ['name', 'id']
+  fields: ['name', 'id', 'description', 'price']
 }, mapStateToProps, mapDispatchToProps)(DishesModal);

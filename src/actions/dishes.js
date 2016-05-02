@@ -29,20 +29,22 @@ export function addOrEditDish(dish, restaurantId){
     const dishesRef = ref.child(`restaurants/${restaurantId}/dishes`);
 
     if(!id){
-      addDish(name, dispatch, dishesRef);
+      addDish(dish, dispatch, dishesRef);
     }else{
       editDish(id, name, dispatch, dishesRef);
     }
   };
 }
 
-function addDish(name, dispatch, ref) {
+function addDish(dish, dispatch, ref) {
   const newDishRef = ref.push();
   const dishId = newDishRef.key();
 
-  newDishRef.set({ name })
+  delete dish.id;
+
+  newDishRef.set(dish)
     .then(() => {
-      dispatch({ type: actionTypes.ADD_DISH, payload: {[dishId]: { name }} });
+      dispatch({ type: actionTypes.ADD_DISH, payload: {[dishId]: dish} });
       dispatch(closeDishesModal());
     })
     .catch(error => {throw new Error(error);} );
