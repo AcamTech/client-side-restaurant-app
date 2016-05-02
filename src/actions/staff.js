@@ -123,25 +123,25 @@ export function authenticateUser(user){
   };
 }
 
-function authMember(uid){
+export function authMember(uid){
   return {
     type: actionTypes.AUTH_MEMBER,
     payload: uid
   };
 }
 
-function fetchingMember(){
-  return {
-    type: actionTypes.FETCHING_MEMBER
-  };
-}
-
-function fetchingMemberSuccess(uid, userData){
+export function fetchingMemberSuccess(uid, userData){
   return {
     type: actionTypes.FETCH_MEMBER_SUCCESS,
     payload: {
       uid,
       userData
     }
+  };
+}
+
+function fetchingMember(){
+  return {
+    type: actionTypes.FETCHING_MEMBER
   };
 }

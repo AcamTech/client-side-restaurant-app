@@ -1,5 +1,6 @@
 import {ref} from 'constants/firebase';
-import { generateRandomPassword } from 'helpers/format-helpers';
+import { authMember, fetchingMemberSuccess } from 'actions/staff';
+import { generateRandomPassword, formatUserInfo } from 'helpers/format-helpers';
 
 export function createUserWithEmail(email){
   return ref.createUser({
@@ -30,15 +31,15 @@ export function getMember(uid) {
     });
 }
 
-export function checkIfAuthed (store) {
+export function checkAuthed (store) {
   const authData = ref.getAuth();
   if (authData === null) {
     return false;
-  } else if (store.getState().users.get('isAuthed') === false) {
-    const { facebook, uid } = authData;
-    //const userInfo = formatUserInfo(facebook.displayName, facebook.profileImageURL, uid);
-    //store.dispatch(authUser(uid));
-    //store.dispatch(fetchingUserSuccess(uid, userInfo, Date.now()));
+  } else if (store.getState().staff.isAuthed === false) {
+    const { password, uid } = authData;
+    const userInfo = formatUserInfo(password.isTemporaryPassword, password.profileImageURL, uid);
+    store.dispatch(authMember(uid));
+    store.dispatch(fetchingMemberSuccess(uid, userInfo));
   }
   return true;
 }
