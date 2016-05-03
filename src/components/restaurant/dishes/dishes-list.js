@@ -15,6 +15,15 @@ export default createClass({
     this.props.fetchCategories(this.props.restaurantId);
     this.props.fetchDishes(this.props.restaurantId);
   },
+  parseDishes(dishes){
+    return dishes.map((dish) => {
+      var category = this.props.categories.find((category) => {
+        return category.id === dish.category;
+      });
+      dish.categoryName = (category && category.name) || '';
+      return dish;
+    });
+  },
   render(){
     var {dishes, restaurantId, removeDish, editDish} = this.props;
     return (
@@ -32,7 +41,7 @@ export default createClass({
               </tr>
             </thead>
             <tbody>
-              {renderRows(dishes, restaurantId, ['name', 'price', 'description', 'category'], removeDish, editDish)}
+              {renderRows(this.parseDishes(dishes), restaurantId, ['name', 'price', 'description', 'categoryName'], removeDish, editDish)}
             </tbody>
           </table>
           </div>
