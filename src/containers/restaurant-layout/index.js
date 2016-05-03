@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchRestaurant } from 'actions/restaurant';
+import { getRestaurant } from 'actions/restaurant';
 import { RestaurantLayout } from 'components/restaurant-layout';
 
 function mapStateToProps (state, props) {
@@ -10,7 +10,7 @@ function mapStateToProps (state, props) {
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators( {fetchRestaurant} , dispatch);
+  return bindActionCreators( {getRestaurant} , dispatch);
 }
 
 export default connect(

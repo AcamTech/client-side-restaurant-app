@@ -7,10 +7,10 @@ export default createClass({
   propTypes: {
     isFetching: PropTypes.bool,
     restaurants: PropTypes.object,
-    fetchRestaurants: PropTypes.func.isRequired
+    getRestaurants: PropTypes.func.isRequired
   },
   componentDidMount(){
-    this.props.fetchRestaurants();
+    this.props.getRestaurants();
   },
   render(){
     var {restaurants, isFetching} = this.props;

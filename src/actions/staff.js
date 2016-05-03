@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import { closeStaffModal } from './staff-modal';
 import { ref } from 'constants/firebase';
+import { fetchStaffFromRestaurant } from 'helpers/api';
 import { auth, saveMember, getMember, createUserWithEmail } from 'helpers/auth';
 import { formatUserInfo } from 'helpers/format-helpers';
 
@@ -50,14 +51,12 @@ export function addOrEditStaffMember(staffMember, restaurantId){
 
 export function fetchStaff(restaurantId){
   return function fetchStaffThunk(dispatch, getState){
-    const restaurantStaff = ref.child(`restaurants/${restaurantId}/waiters`);
-    restaurantStaff.once('value')
-      .then((snapshot) => snapshot.val() || {})
+    fetchStaffFromRestaurant(restaurantId)
       .then(staff => Object.keys(staff))
       .then(arrayStaff => arrayStaff.map(member => {
           return ref.child(`restaurants_staff/${member}`)
             .once('value')
-            .then(member => ({[member.key()]: member.val()}));
+            .then(snapshot => ({[snapshot.key()]: snapshot.val()}));
         }
       ))
       .then(members => Promise.all(members))

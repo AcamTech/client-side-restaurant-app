@@ -4,14 +4,14 @@ import MainMenu from './main-menu';
 const RestaurantLayout = createClass({
   displayName: 'restaurant-layout',
   propTypes: {
-    fetchRestaurant: PropTypes.func.isRequired,
+    getRestaurant: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     restaurantId: PropTypes.string.isRequired,
     restaurant: PropTypes.object.isRequired
   },
   componentDidMount(){
-    var {fetchRestaurant, restaurantId} = this.props;
-    fetchRestaurant(restaurantId);
+    var {getRestaurant, restaurantId} = this.props;
+    getRestaurant(restaurantId);
   },
   render(){
     var {children, restaurantId, restaurant} = this.props;

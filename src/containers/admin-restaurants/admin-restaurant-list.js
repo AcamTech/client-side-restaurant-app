@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchRestaurants} from 'actions/restaurants';
+import {getRestaurants} from 'actions/restaurants';
 import {openCreateRestaurantModal} from 'actions/create-restaurant-modal';
 import AdminRestaurantList from 'components/admin-restaurants/admin-restaurant-list';
 
@@ -15,7 +15,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     openCreateRestaurantModal,
-    fetchRestaurants
+    getRestaurants
   }, dispatch);
 }
 

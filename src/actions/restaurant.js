@@ -1,17 +1,12 @@
 import Firebase from 'firebase';
+import { fetchRestaurant } from 'helpers/api';
 import * as actionTypes from 'constants/action-types';
-import {ref} from 'constants/firebase';
 
-export function fetchRestaurant(id){
-  return function fetchRestaurantThunk(dispatch){
-    ref.child(`restaurants/${id}`)
-      .once('value')
-      .then(snapshot => {
-        var id = snapshot.key(),
-          value = snapshot.val(),
-          data = {[id]: value};
-        dispatch(fetchRestaurantFulfilled(data));
-      });
+export function getRestaurant(id){
+  return function getRestaurantThunk(dispatch){
+    fetchRestaurant(id)
+      .then(({id, data}) => ({[id]: data}))
+      .then(restaurant => dispatch(fetchRestaurantFulfilled(restaurant)));
   };
 }
 

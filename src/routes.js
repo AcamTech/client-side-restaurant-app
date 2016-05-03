@@ -24,7 +24,6 @@ export default function getRoutes(history, checkIfAuthed){
   return (
     <Router history={history}>
       <Route path="/" component={MainLayout}>
-        {/*<Route path="register" component={RegisterPage} />*/}
         <IndexRedirect to="/login" />
         <Route path="restaurante/:id" component={RestaurantLayout} onEnter={checkIfAuthed}>
           <IndexRoute component={Restaurant} />
