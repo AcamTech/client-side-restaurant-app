@@ -36,8 +36,9 @@ export default function getRoutes(history, checkIfAuthed){
           <IndexRoute component={KitchenPage} />
         </Route>
         <Route path="restaurante/:id/ordenes" component={WaiterLayout} onEnter={checkIfAuthed}>
-          <IndexRoute component={Orders} />
-          <Route path="new"  component={WaiterPage} />
+          <IndexRedirect to="lista" />
+          <Route path="lista" component={Orders} />
+          <Route path="nueva-orden"  component={WaiterPage} />
         </Route>
         <Route path="admin" component={AdminLayout} onEnter={checkIfAuthed}>
           <IndexRoute component={AdminRestaurantList} />

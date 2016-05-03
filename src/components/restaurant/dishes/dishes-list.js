@@ -9,7 +9,8 @@ export default createClass({
     dishes: PropTypes.array,
     fetchDishes: PropTypes.func.isRequired,
     fetchCategories: PropTypes.func.isRequired,
-    restaurantId: PropTypes.string.isRequired
+    restaurantId: PropTypes.string.isRequired,
+    categories: PropTypes.array
   },
   componentDidMount(){
     this.props.fetchCategories(this.props.restaurantId);
