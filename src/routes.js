@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, Redirect } from 'react-router';
 
 import MainLayout from 'pages/main-layout';
 
@@ -29,7 +29,8 @@ export default function getRoutes(history, checkIfAuthed){
     <Router history={history}>
       <Route path="/" component={MainLayout}>
         <IndexRedirect to="/login" />
-        <Route path="restaurante/:id" component={RestaurantLayout} onEnter={checkIfAuthed}>
+        <Redirect from="restaurante/:id" to="/" />
+        <Route path="restaurante/:id/admin" component={RestaurantLayout} onEnter={checkIfAuthed}>
           <IndexRoute component={Restaurant} />
           <Route path="menu" component={Menu} />
           <Route path="mesas" component={Tables} />
@@ -43,7 +44,7 @@ export default function getRoutes(history, checkIfAuthed){
           <IndexRedirect to="lista" />
           <Route path="lista" component={WaiterOrders} />
         </Route>
-        <Route path="admin" component={AdminLayout} onEnter={checkIfAuthed}>
+        <Route path="super" component={AdminLayout} onEnter={checkIfAuthed}>
           <IndexRoute component={AdminRestaurantList} />
           <Route path="restaurante/:id" component={AdminRestaurantShow} />
         </Route>
