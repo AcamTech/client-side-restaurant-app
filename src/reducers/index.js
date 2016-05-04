@@ -13,6 +13,7 @@ import ingredients from './ingredients';
 import ingredientsModal from './ingredients-modal';
 import dishes from './dishes';
 import dishesModal from './dishes-modal';
+import orders from './orders';
 
 const rootReducer = combineReducers({
   restaurants,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   ingredients,
   ingredientsModal,
   dishes,
-  dishesModal
+  dishesModal,
+  orders
 });
 
 export default rootReducer;

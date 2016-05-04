@@ -60,3 +60,6 @@ export const REMOVE_DISH            = 'REMOVE_DISH';
 export const OPEN_DISHES_MODAL      = 'OPEN_DISHES_MODAL';
 export const CLOSE_DISHES_MODAL     = 'CLOSE_DISHES_MODAL';
 export const SELECT_DISH_TO_EDIT    = 'SELECT_DISH_TO_EDIT';
+
+// TABLES
+export const FETCH_ORDERS = 'FETCH_ORDERS';
