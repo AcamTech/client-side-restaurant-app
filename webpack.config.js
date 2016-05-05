@@ -50,6 +50,7 @@ const getEntry = function (env) {
 
   if (env === developmentEnvironment ) { // only want hot reloading when in dev.
     entries.bundle.push('webpack-hot-middleware/client?reload=true');
+    entries.bundle.push('react-hot-loader/patch');
   }
 
   entries.bundle.push('./src/index');
