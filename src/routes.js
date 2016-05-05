@@ -11,7 +11,6 @@ import Orders from 'pages/orders';
 import Staff from 'pages/staff';
 
 import AdminLayout from 'pages/admin-layout';
-import LoginPage from 'pages/login';
 import RegisterPage from 'pages/register';
 import AdminRestaurantList from 'pages/admin-restaurant-list';
 import AdminRestaurantNew from 'pages/admin-restaurant-new';
@@ -23,6 +22,9 @@ import KitchenPage from 'pages/kitchen';
 import WaiterLayout from 'pages/waiter-layout';
 import WaiterOrders from 'pages/waiter/orders';
 import WaiterNewOrder from 'pages/waiter/new-order';
+
+import LoginPage from 'pages/login';
+import ResetPasswordPage from 'pages/reset-password';
 
 export default function getRoutes(history, checkIfAuthed){
   return (
@@ -49,6 +51,7 @@ export default function getRoutes(history, checkIfAuthed){
           <Route path="restaurante/:id" component={AdminRestaurantShow} />
         </Route>
         <Route component={LoginPage} path="/login" onEnter={checkIfAuthed} />
+        <Route component={ResetPasswordPage} path="/reset_password" />
       </Route>
     </Router>
   );

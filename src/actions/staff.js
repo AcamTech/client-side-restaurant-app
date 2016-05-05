@@ -4,7 +4,7 @@ import * as actionTypes from 'constants/action-types';
 import { closeStaffModal } from './staff-modal';
 import { ref } from 'constants/firebase';
 import { fetchStaffFromRestaurant } from 'helpers/api';
-import { auth, saveMember, getMember, createUserWithEmail } from 'helpers/auth';
+import { auth, saveMember, getMember, createUserWithEmail, updatePassword } from 'helpers/auth';
 import { formatUserInfo } from 'helpers/format-helpers';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
@@ -136,6 +136,13 @@ export function fetchingMemberSuccess(uid, userData){
       uid,
       userData
     }
+  };
+}
+
+export function changePasswordAction(data){
+  return {
+    type: 'UPDATE_PASSWORD',
+    payload: updatePassword(data)
   };
 }
 

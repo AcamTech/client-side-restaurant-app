@@ -43,3 +43,7 @@ export function checkAuthed (store) {
   }
   return true;
 }
+
+export function updatePassword(password){
+  return ref.changePassword(password);
+}
