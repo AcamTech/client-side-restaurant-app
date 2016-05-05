@@ -95,8 +95,31 @@ export function removeStaffMember(member, restaurantId){
   };
 }
 
+export function redirectToUserRoot(member, replace) {
+  var path = '/restaurante/'+member.restaurant;
+  var {role} = member;
+
+  switch (role) {
+    case 'admin':
+      replace(path + '/admin');
+      break;
+    case 'waiter':
+      replace(path + '/ordenes');
+      break;
+    case 'kitchen':
+      replace(path + '/cocina');
+      break;
+    default:
+      replace('/login');
+  }
+}
+
 export function authenticateUser(user){
   return function authenticateUserThunk(dispatch){
+    function redirect(path) {
+      dispatch(push(path));
+    }
+
     dispatch(fetchingMember());
     auth(user)
       .then(({password, uid}) => {
@@ -117,7 +140,7 @@ export function authenticateUser(user){
         dispatch(authMember(uid));
         return member;
       })
-      .then(({userData}) => dispatch(push('restaurante/'+userData.restaurant)))
+      .then(({userData}) => redirectToUserRoot(userData, redirect))
       .catch(error => {throw new Error(error);});
   };
 }

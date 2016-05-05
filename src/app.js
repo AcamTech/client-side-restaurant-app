@@ -4,6 +4,7 @@ import { Router, browserHistory } from 'react-router';
 import getRoutes from './routes';
 import {checkAuthed, getMember} from 'helpers/auth';
 import configureStore from './store/configureStore';
+import {redirectToUserRoot} from 'actions/staff';
 
 const {store, history} = configureStore({}, browserHistory);
 
@@ -23,25 +24,6 @@ function isValidRoute(member, path) {
     return routesPrivileges[member.role].test(shortPath);
   } else {
     return false;
-  }
-}
-
-function redirectToUserRoot(member, replace) {
-  var path = '/restaurante/'+member.restaurant;
-  var {role} = member;
-
-  switch (role) {
-    case 'admin':
-      replace(path + '/admin');
-      break;
-    case 'waiter':
-      replace(path + '/ordenes');
-      break;
-    case 'kitchen':
-      replace(path + '/cocina');
-      break;
-    default:
-      replace('/login');
   }
 }
 
