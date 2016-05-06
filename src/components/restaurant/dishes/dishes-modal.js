@@ -67,7 +67,7 @@ export default createClass({
       isOpen,
       addOrEditDish
     } = this.props;
-    var modalTitle = isEditting ? 'Editar Plato' : 'Nueva Plato';
+    var modalTitle = isEditting ? 'Editar Plato' : 'Nuevo Plato';
     return(
       <span>
       <button onClick={openDishesModal} className="button button--secondary button--small">

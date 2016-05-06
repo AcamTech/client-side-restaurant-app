@@ -38,7 +38,7 @@ export default createClass({
       isOpen,
       addOrEditIngredient
     } = this.props;
-    var modalTitle = isEditting ? 'Editar Ingrediente' : 'Nueva Ingrediente';
+    var modalTitle = isEditting ? 'Editar Ingrediente' : 'Nuevo Ingrediente';
     return(
       <span>
       <button onClick={openIngredientsModal} className="button button--secondary button--small">
