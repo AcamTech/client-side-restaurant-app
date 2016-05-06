@@ -14,7 +14,7 @@ export default function ResetPassword ({resetPassword}) {
       <div className="panel__body">
         <div className="form-group has-feedback has-feedback--reverse push--bottom">
           <input ref={e => emailField = e} className="form-control form-control-material" placeholder="email" type="email" />
-          <span className="form-control-feedback icon-user icon-lg"></span>
+          <span className="form-control-feedback icon-mail icon-lg"></span>
         </div>
         <br />
       </div>
