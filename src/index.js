@@ -55,6 +55,7 @@ export function checkIfAuthed(nextState, replace, callback){
   } else {
     if (isAuthed == false) {
       replace('/login');
+      callback();
     } else {
       if (member && member.role) {
         if (isValidRoute(member, nextStatePath)) {
