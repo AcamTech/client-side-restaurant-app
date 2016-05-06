@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { resetPassword } from 'actions/staff';
-import { ResetPassword } from 'components/reset-password';
+import { changePasswordAction } from 'actions/staff';
+import { ChangePassword } from 'components/change-password';
 
 function mapStateToProps (state, props) {
   return {
@@ -9,10 +9,10 @@ function mapStateToProps (state, props) {
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators( {resetPassword} , dispatch);
+  return bindActionCreators( {changePasswordAction} , dispatch);
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResetPassword);
+)(ChangePassword);

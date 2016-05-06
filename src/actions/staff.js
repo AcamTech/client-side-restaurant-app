@@ -153,6 +153,13 @@ export function unauth(){
   };
 }
 
+export function resetPassword(data){
+  return {
+    type: 'RESET_PASSWORD',
+    payload: ref.resetPassword(data)
+  };
+}
+
 export function authMember(uid){
   return {
     type: actionTypes.AUTH_MEMBER,

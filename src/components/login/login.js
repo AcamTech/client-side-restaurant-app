@@ -25,9 +25,8 @@ export default function Login ({authenticateUser}) {
           <span className="form-control-feedback icon-key icon-lg"></span>
         </div>
         <p className="medium--text-end text-center text--smaller">
-          <Link to="/reset_password" className="underline" href="restore-password.html">Olvido su contraseña?</Link>
+          <Link to="/reset_password" className="underline">Olvido su contraseña?</Link>
         </p>
-        <br />
       </div>
       <button className="button button--secondary button--block button--large" type="submit">Ingresar</button>
     </form>
