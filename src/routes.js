@@ -24,6 +24,7 @@ import WaiterOrders from 'pages/waiter/orders';
 import WaiterNewOrder from 'pages/waiter/new-order';
 
 import LoginPage from 'pages/login';
+import LogoutPage from 'pages/logout';
 import ResetPasswordPage from 'pages/reset-password';
 
 export default function getRoutes(history, checkIfAuthed){
@@ -51,6 +52,7 @@ export default function getRoutes(history, checkIfAuthed){
           <Route path="restaurante/:id" component={AdminRestaurantShow} />
         </Route>
         <Route component={LoginPage} path="/login" onEnter={checkIfAuthed} />
+        <Route component={LogoutPage} path="/logout" />
         <Route component={ResetPasswordPage} path="/reset_password" />
       </Route>
     </Router>

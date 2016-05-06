@@ -1,5 +1,5 @@
 import Firebase from 'firebase';
-import { push } from 'react-router-redux';
+import { push, replace } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import { closeStaffModal } from './staff-modal';
 import { ref } from 'constants/firebase';
@@ -142,6 +142,14 @@ export function authenticateUser(user){
       })
       .then(({userData}) => redirectToUserRoot(userData, redirect))
       .catch(error => {throw new Error(error);});
+  };
+}
+
+export function unauth(){
+  return function unauthThunk(dispatch){
+    ref.unauth();
+    dispatch({type: 'UNAUTH_MEMBER'});
+    dispatch(replace('/'));
   };
 }
 

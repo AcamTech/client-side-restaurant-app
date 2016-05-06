@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import {Link} from 'react-router';
 
 export default function Login ({authenticateUser}) {
   var emailField, passwordField;
@@ -24,7 +25,7 @@ export default function Login ({authenticateUser}) {
           <span className="form-control-feedback icon-key icon-lg"></span>
         </div>
         <p className="medium--text-end text-center text--smaller">
-          <a className="underline" href="restore-password.html">Olvido su contraseña?</a>
+          <Link to="/reset_password" className="underline" href="restore-password.html">Olvido su contraseña?</Link>
         </p>
         <br />
       </div>

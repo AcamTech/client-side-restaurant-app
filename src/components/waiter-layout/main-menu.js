@@ -14,6 +14,11 @@ export default function MainMenu({restaurantId}){
           <span className="icon-note icon-lg" title="Nueva Orden"></span> <span className="main-navigation__text">Nueva Orden</span>
         </Link>
       </li>
+      <li className="main-navigation__item nav__item">
+        <Link className="main-navigation__link nav__link" activeClassName="is-active" to="/logout">
+          <span className="icon-note icon-lg" title="Nueva Orden"></span> <span className="main-navigation__text">Salir</span>
+        </Link>
+      </li>
     </ul>
   );
 }
