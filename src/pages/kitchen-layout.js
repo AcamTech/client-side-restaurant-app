@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
 
 export default function KitchenLayout({children}){
   return (
@@ -13,9 +14,9 @@ export default function KitchenLayout({children}){
             </div><div className="grid__item three-quarters small--one-third large--one-half">
               <ul className="main-navigation nav">
                 <li className="main-navigation__item nav__item">
-                  <a className="main-navigation__link nav__link" href="#">
+                  <Link className="main-navigation__link nav__link" activeClassName="is-active" to="/logout">
                     <span className="icon-exit icon-lg" title="Salir"></span> <span className="main-navigation__text">Salir</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
