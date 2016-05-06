@@ -5,7 +5,7 @@ const CartaItem = React.createClass({
   propTypes: {
     addToOrder: PropTypes.func.isRequired,
     index: PropTypes.string,
-    details: PropTypes.string
+    details: PropTypes.object
   },
   onButtonClick(){
     this.props.addToOrder(this.props.index);
