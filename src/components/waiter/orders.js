@@ -10,7 +10,7 @@ export default createClass({
     restaurantId: PropTypes.string.isRequired
   },
   componentDidMount(){
-    this.props.fetchOrdersForWaiter(this.props.waiterId);
+    this.props.fetchOrdersForWaiter(this.props.waiterId, this.props.restaurantId);
   },
   renderOrder(order){
     return (

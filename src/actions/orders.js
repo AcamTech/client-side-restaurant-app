@@ -36,11 +36,15 @@ export function fetchOrders(restaurantId){
 }
 
 
-export function fetchOrdersForWaiter(waiterId){
+export function fetchOrdersForWaiter(waiterId, restaurantId){
   return function(dispatch){
     const promiseValue = ref.child(`restaurants_staff/${waiterId}/orders`)
       .once('value');
-    getInnerDataFromUrl(promiseValue, 'restaurants_orders')
+    getInnerDataFromUrl(promiseValue, `restaurants/${restaurantId}/orders`)
       .then(orders => dispatch({ type: actionTypes.FETCH_ORDERS, payload: orders }));
+    ref.child(`restaurants/${restaurantId}/orders`)
+      .on('child_changed', function(snapshot){
+        dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
+      });
   };
 }
