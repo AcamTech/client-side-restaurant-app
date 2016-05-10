@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-import FormatHelpers from '../helpers/format-helpers';
-import OrderItem from '../components/order-item';
+import FormatHelpers from 'helpers/format-helpers';
+import OrderItem from './order-item';
 
 const WaiterOrder = React.createClass({
   propTypes: {
@@ -29,10 +29,14 @@ const WaiterOrder = React.createClass({
     return (
       <article>
         <h1 className="delta weight--light">Orden</h1>
-        <ul>
+        <ul className="list-unstyled">
           {orderIds.map(this.renderOrder)}
         </ul>
-        <p>Total: {FormatHelpers.formatPrice(total)}</p>
+        <p className="epsilon text--end split">
+        <span className="split__title">
+          Total:
+        </span>
+        {FormatHelpers.formatPrice(total)}</p>
       </article>
     );
   }

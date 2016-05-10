@@ -8,7 +8,7 @@ const WaiterOrdersPage = createClass({
   },
   render(){
     return(
-      <div>
+      <div className="main-area">
         <div className="grid push--bottom">
           <div className="grid__item medium--one-half">
             <h1 className="delta flush weight--light">Mis Órdenes</h1>

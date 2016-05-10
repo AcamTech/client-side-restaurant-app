@@ -37,6 +37,12 @@
   text-transform: uppercase;
   transition: all 0.2s ease-in;
   background-color: transparent;
+  &:hover,
+  &:active,
+  &:focus{
+    color: white;
+    background-color: black;
+  }
 }
 
 .button-border--black{

@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getRestaurant } from 'actions/restaurant';
-import { WaiterLayout } from 'components/waiter-layout';
+import { WaiterLayout } from 'components/waiter';
 
 function mapStateToProps (state, props) {
   return {

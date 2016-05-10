@@ -31,7 +31,7 @@ const RestaurantLayout = createClass({
             </div>
           </div>
         </header>
-        <div className="main-area">{children}</div>
+        {children}
       </div>
     );
   }

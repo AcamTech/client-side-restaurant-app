@@ -1,5 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
-import WaiterLayout from 'containers/waiter-layout';
+import {WaiterLayout} from 'containers/waiter';
 
 const WaiterLayoutPage = createClass({
   displayName: 'Waiter-layout',

@@ -1,47 +1,34 @@
 import React, {createClass, PropTypes} from 'react';
-import renderRows from 'components/table-rows';
 
 export default createClass({
   displayName: 'orders-list',
   propTypes: {
+    waiterId: PropTypes.string.isRequired,
     orders: PropTypes.array,
     fetchOrders: PropTypes.func.isRequired,
+    fetchOrdersForWaiter: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired
   },
   componentDidMount(){
-    this.props.fetchOrders(this.props.restaurantId);
+    this.props.fetchOrdersForWaiter(this.props.waiterId);
   },
   renderOrder(order){
     return (
-      <tr key={order.id} index={order.id}>
-        <td>{order.number}</td>
-        <td>Fecha de Creación</td>
-        <td>{order.state}</td>
-        <td>Mesa</td>
-        <td><button className="button button--small button--secondary">Detalles</button></td>
-      </tr>
+      <article className="tile" key={order.id} index={order.id}>
+        <p>{order.state}</p>
+        <div className="tile__footer">
+          <h1 className="zeta flush--top tile__title">Orden # {order.number}</h1>
+          <p className="tile__text">Fecha de Creación</p>
+          <p className="tile__text">Mesa</p>
+        </div>
+      </article>
     );
   },
   render(){
     var {orders, restaurantId} = this.props;
     return (
-      <div>
-        <div className="panel">
-          <div className="table-responsive">
-          <table className="table table--hover text-center">
-            <thead>
-              <tr>
-                <th>Número</th>
-                <th>Fecha de Atención</th>
-                <th>Estado</th>
-                <th>Mesa</th>
-                <th></th>
-              </tr>
-              {this.props.orders.map(this.renderOrder)}
-            </thead>
-          </table>
-          </div>
-        </div>
+      <div className="grid-tiles">
+        {this.props.orders.map(this.renderOrder)}
       </div>
     );
   }

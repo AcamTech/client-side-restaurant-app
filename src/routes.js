@@ -19,7 +19,7 @@ import AdminRestaurantShow from 'pages/admin-restaurant-show';
 import KitchenLayout from 'pages/kitchen-layout';
 import KitchenPage from 'pages/kitchen';
 
-import WaiterLayout from 'pages/waiter-layout';
+import WaiterLayout from 'pages/waiter/waiter-layout';
 import WaiterOrders from 'pages/waiter/orders';
 import WaiterNewOrder from 'pages/waiter/new-order';
 

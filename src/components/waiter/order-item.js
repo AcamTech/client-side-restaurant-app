@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import FormatHelpers from '../helpers/format-helpers';
+import FormatHelpers from 'helpers/format-helpers';
 
 const OrderItem = React.createClass({
   propTypes: {
@@ -17,8 +17,12 @@ const OrderItem = React.createClass({
 
     return (
       <li>
-        {dish.name} <span>x{count}</span> {FormatHelpers.formatPrice(dish.price * count)}
-        <button onClick={this.onButtonClick}>Remover</button>
+        <div className="split">
+          <span className="split__title">
+            {dish.name} <span>x{count}</span> <button style={{border: 'none', background: 'transparent'}} onClick={this.onButtonClick}>&times;</button>
+          </span>
+           {FormatHelpers.formatPrice(dish.price * count)}
+        </div>
       </li>
     );
   }

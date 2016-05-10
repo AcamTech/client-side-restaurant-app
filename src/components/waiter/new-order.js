@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-import WaiterCarta from 'components/waiter-carta';
-import WaiterOrder from 'components/waiter-order';
+import WaiterCarta from './waiter-carta';
+import WaiterOrder from './waiter-order';
 import SampleDishes from 'sample/sample-dishes.js';
 
 const WaiterPage = React.createClass({
