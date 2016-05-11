@@ -5,14 +5,14 @@ import {ref} from 'constants/firebase';
 function ArrayToObject(arr){
   return arr.reduce(function(initial, item){
     return Object.assign({}, initial, item);
-  });
+  }, {});
 }
 
 // gets a a value promise from firebase and a path to look out and return an object with the results
 function getInnerDataFromUrl(value, path){
   return value
     .then(snapshot => snapshot.val())
-    .then(response => Object.keys(response))
+    .then(response => Object.keys(response || {}))
     .then(items => {
       return items.map(id => {
         return ref.child(`${path}/${id}/`)

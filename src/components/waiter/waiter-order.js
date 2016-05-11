@@ -5,38 +5,47 @@ import OrderItem from './order-item';
 const WaiterOrder = React.createClass({
   propTypes: {
     removeFromOrder: PropTypes.func.isRequired,
-    dishes: PropTypes.array,
-    order: PropTypes.object
+    setCommentToItem: PropTypes.func.isRequired,
+    setTable: PropTypes.func.isRequired,
+    order: PropTypes.object,
+    tables: PropTypes.array
   },
-  renderOrder(key){
-    var dish = this.props.dishes[key];
-    var count = this.props.order[key];
-
+  onSaveClick() {
+    console.log(this.props.order);
+  },
+  onTableSelected(e) {
+    this.props.setTable(e.target.value);
+  },
+  renderOrder(itemKey){
+    var item = this.props.order.items[itemKey];
     return (
-      <OrderItem key={key} index={key} dish={dish} count={count} removeFromOrder={this.props.removeFromOrder} />
+      <OrderItem key={itemKey} index={itemKey} item={item} removeFromOrder={this.props.removeFromOrder} setCommentToItem={this.props.setCommentToItem} />
+    );
+  },
+  renderTableOption(table) {
+    return (
+      <option value={table.number}>Mesa {table.number}</option>
     );
   },
   render(){
-    var orderIds = Object.keys(this.props.order);
-
-    var total = orderIds.reduce((prevTotal, key)=> {
-      var dish = this.props.dishes[key];
-      var count = this.props.order[key];
-
-      return prevTotal + (count * dish.price || 0);
-    }, 0);
+    var {order, tables} = this.props;
 
     return (
       <article>
         <h1 className="delta weight--light">Orden</h1>
+        <select value={order.table} onChange={this.onTableSelected}>
+          <option value="" disabled>Escoja una mesa</option>
+          {tables.map(this.renderTableOption)}
+        </select>
         <ul className="list-unstyled">
-          {orderIds.map(this.renderOrder)}
+          {Object.keys(order.items).map(this.renderOrder)}
         </ul>
         <p className="epsilon text--end split">
         <span className="split__title">
           Total:
         </span>
-        {FormatHelpers.formatPrice(total)}</p>
+        {FormatHelpers.formatPrice(order.total)}</p>
+        <button onClick={this.onSaveClick}>Guardar</button>
       </article>
     );
   }

@@ -4,25 +4,27 @@ import FormatHelpers from 'helpers/format-helpers';
 const OrderItem = React.createClass({
   propTypes: {
     removeFromOrder: PropTypes.func.isRequired,
+    setCommentToItem: PropTypes.func.isRequired,
     index: PropTypes.string,
-    dish: PropTypes.object,
-    count: PropTypes.number
+    item: PropTypes.object
   },
   onButtonClick(){
     this.props.removeFromOrder(this.props.index);
   },
+  onCommentChange(e){
+    this.props.setCommentToItem(this.props.index, e.target.value);
+  },
   render(){
-    var dish = this.props.dish;
-    var count = this.props.count;
-
+    var item = this.props.item;
     return (
       <li>
         <div className="split">
           <span className="split__title">
-            {dish.name} <span>x{count}</span> <button style={{border: 'none', background: 'transparent'}} onClick={this.onButtonClick}>&times;</button>
+            {item.name} <span>x{item.quantity}</span> <button style={{border: 'none', background: 'transparent'}} onClick={this.onButtonClick}>&times;</button>
           </span>
-           {FormatHelpers.formatPrice(dish.price * count)}
+           {FormatHelpers.formatPrice(item.price * item.quantity)}
         </div>
+        <textarea value={item.comment} onChange={this.onCommentChange} />
       </li>
     );
   }
