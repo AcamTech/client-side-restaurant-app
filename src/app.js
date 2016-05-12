@@ -1,9 +1,8 @@
 import React, {PropTypes} from 'react';
 import { Provider } from 'react-redux';
 import getRoutes from './routes';
-import { checkIfAuthed }  from '/';
 
-export default function App({store, history}){
+export default function App({store, history, checkIfAuthed}){
   return (
     <Provider store={store}>
       {getRoutes(history, checkIfAuthed)}

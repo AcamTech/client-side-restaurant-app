@@ -1,10 +1,9 @@
-import Firebase from 'firebase';
 import { push, replace } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import { closeStaffModal } from './staff-modal';
-import { ref } from 'constants/firebase';
+import Firebase, { ref } from 'constants/firebase';
 import { fetchStaffFromRestaurant } from 'helpers/api';
-import { auth, saveMember, getMember, createUserWithEmail, updatePassword } from 'helpers/auth';
+import { auth, saveMember, getMember, createUserWithEmail, updatePassword, redirectToUserRoot } from 'helpers/auth';
 import { formatUserInfo } from 'helpers/format-helpers';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
@@ -17,7 +16,7 @@ export function addOrEditStaffMember(staffMember, restaurantId){
       createUserWithEmail(email)
         .then(({uid}) => uid)
         .then(uid => {
-          var object = {...staffMember, restaurant: restaurantId};
+          var object = {...staffMember, createdAt: Firebase.ServerValue.TIMESTAMP, updatedAt: Firebase.ServerValue.TIMESTAMP, restaurant: restaurantId};
           delete object.id;
           ref.child(`restaurants_staff/${uid}`)
             .set(object);
@@ -93,25 +92,6 @@ export function removeStaffMember(member, restaurantId){
       });
     });
   };
-}
-
-export function redirectToUserRoot(member, replace) {
-  var path = '/restaurante/'+member.restaurant;
-  var {role} = member;
-
-  switch (role) {
-    case 'admin':
-      replace(path + '/admin');
-      break;
-    case 'waiter':
-      replace(path + '/ordenes');
-      break;
-    case 'kitchen':
-      replace(path + '/cocina');
-      break;
-    default:
-      replace('/login');
-  }
 }
 
 export function authenticateUser(user){
