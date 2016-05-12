@@ -1,4 +1,5 @@
 import Firebase from 'firebase';
+import { push } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import {ref} from 'constants/firebase';
 
@@ -35,7 +36,6 @@ export function fetchOrders(restaurantId){
   };
 }
 
-
 export function fetchOrdersForWaiter(waiterId, restaurantId){
   return function(dispatch){
     const promiseValue = ref.child(`restaurants_staff/${waiterId}/orders`)
@@ -58,5 +58,46 @@ export function stopListenningForWaiterOrders(restaurantId){
   return function(dispatch){
     ref.child(`restaurants/${restaurantId}/orders`)
       .off('child_changed');
+  };
+}
+
+export function createOrder(order, restaurantId, waiterId) {
+  return function createOrderThunk(dispatch){
+    var newOrderRef = ref.child(`restaurants/${restaurantId}/orders`).push();
+
+    var newOrder = Object.assign({
+      restaurant: restaurantId,
+      state: 'QUEUED',
+      waiter: waiterId
+    }, {
+      total: order.total,
+      table: order.table,
+      createdAt: Firebase.ServerValue.TIMESTAMP
+    });
+
+    newOrderRef.set(newOrder)
+      .then(() => Object.keys(order.items))
+      .then((keys) => {
+        return keys.map(key => {
+          var itemRef = newOrderRef.child('items').push();
+          var item = order.items[key];
+
+          return itemRef.set(item)
+            .then(() => {
+              return {[itemRef.key()]: item};
+            });
+        });
+      })
+      .then(promisesArray => Promise.all(promisesArray))
+      .then(array => ArrayToObject(array))
+      .then(items => newOrder.items = items)
+      .then(() => {
+        ref.child(`restaurants_staff/${waiterId}/orders/`)
+          .update({ [newOrderRef.key()]: true })
+          .then(() => {
+            dispatch({ type: actionTypes.CREATE_ORDER, payload: {[newOrderRef.key()]: newOrder}});
+            dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
+          });
+      });
   };
 }

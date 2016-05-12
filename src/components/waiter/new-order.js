@@ -6,11 +6,13 @@ import SampleDishes from 'sample/sample-dishes.js';
 const WaiterPage = React.createClass({
   displayName: 'new-order-component',
   propTypes: {
-    dishes: PropTypes.array,
+    dishes: PropTypes.object,
     tables: PropTypes.array,
     fetchDishes: PropTypes.func.isRequired,
     fetchTables: PropTypes.func.isRequired,
-    restaurantId: PropTypes.string.isRequired
+    restaurantId: PropTypes.string.isRequired,
+    waiterId: PropTypes.string.isRequired,
+    createOrder: PropTypes.func.isRequired
   },
   getInitialState(){
     return {
@@ -35,14 +37,16 @@ const WaiterPage = React.createClass({
 
     return total;
   },
-  createItem(dishKey) {
-    var dish = this.props.dishes[dishKey];
+  createItem(dishId) {
+    var dish = this.props.dishes[dishId];
 
-    return Object.assign({
-      key: dishKey,
+    return {
+      dishId: dishId,
       quantity: 1,
-      comment: ''
-    }, dish);
+      comment: '',
+      name: dish.name,
+      price: dish.price
+    };
   },
   addToOrder(key){
     var order, existingItem;
@@ -85,6 +89,19 @@ const WaiterPage = React.createClass({
     order.table = tableNumber;
     this.setState({ order : order });
   },
+  createOrder() {
+    if (!this.state.order.table) {
+      alert('Por favor, seleccione una mesa');
+    } else {
+      var itemsQuantity = Object.keys(this.state.order.items).length;
+      if (itemsQuantity < 1) {
+        alert('Por favor, agregue al menos un plato');
+      } else {
+        this.props.createOrder(this.state.order, this.props.restaurantId, this.props.waiterId);
+        this.setState(this.getInitialState());
+      }
+    }
+  },
   render(){
     return (
       <div className="grid">
@@ -94,7 +111,7 @@ const WaiterPage = React.createClass({
           </div>
         </div><div className="grid__item medium--one-half">
           <div className="main-area">
-            <WaiterOrder tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} />
+            <WaiterOrder tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} createOrder={this.createOrder} />
           </div>
         </div>
       </div>

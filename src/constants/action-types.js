@@ -64,3 +64,4 @@ export const SELECT_DISH_TO_EDIT    = 'SELECT_DISH_TO_EDIT';
 // ORDERS
 export const FETCH_ORDERS = 'FETCH_ORDERS';
 export const UPDATE_ORDER = 'UPDATE_ORDER';
+export const CREATE_ORDER = 'CREATE_ORDER';

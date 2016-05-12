@@ -6,12 +6,13 @@ const WaiterOrder = React.createClass({
   propTypes: {
     removeFromOrder: PropTypes.func.isRequired,
     setCommentToItem: PropTypes.func.isRequired,
+    createOrder: PropTypes.func.isRequired,
     setTable: PropTypes.func.isRequired,
     order: PropTypes.object,
     tables: PropTypes.array
   },
   onSaveClick() {
-    console.log(this.props.order);
+    this.props.createOrder();
   },
   onTableSelected(e) {
     this.props.setTable(e.target.value);
@@ -19,12 +20,12 @@ const WaiterOrder = React.createClass({
   renderOrder(itemKey){
     var item = this.props.order.items[itemKey];
     return (
-      <OrderItem key={itemKey} index={itemKey} item={item} removeFromOrder={this.props.removeFromOrder} setCommentToItem={this.props.setCommentToItem} />
+      <OrderItem key={item.dishId} index={item.dishId} item={item} removeFromOrder={this.props.removeFromOrder} setCommentToItem={this.props.setCommentToItem} />
     );
   },
   renderTableOption(table) {
     return (
-      <option value={table.number}>Mesa {table.number}</option>
+      <option key={table.number} value={table.number}>Mesa {table.number}</option>
     );
   },
   render(){

@@ -4,7 +4,7 @@ import CartaItem  from './carta-item';
 const WaiterCarta = React.createClass({
   propTypes: {
     addToOrder: PropTypes.func.isRequired,
-    dishes: PropTypes.array
+    dishes: PropTypes.object
   },
   renderDish(key){
     return (

@@ -16,7 +16,6 @@ const OrderItem = React.createClass({
   },
   render(){
     var item = this.props.item;
-    console.log(item);
     return (
       <li>
         <div className="split">
@@ -26,8 +25,8 @@ const OrderItem = React.createClass({
            {FormatHelpers.formatPrice(item.price * item.quantity)}
         </div>
         <div className="form-group">
-          <label className="sr-only" htmlFor={`order-item-note-${item.id}`}>Notas para el plato!</label>
-          <textarea className="form-control" id={`order-item-note-${item.id}`} value={item.comment} onChange={this.onCommentChange} placeholder="Notas para el plato" />
+          <label className="sr-only" htmlFor={`order-item-note-${item.dishId}`}>Notas para el plato!</label>
+          <textarea className="form-control" id={`order-item-note-${item.dishId}`} value={item.comment} onChange={this.onCommentChange} placeholder="Notas para el plato" />
         </div>
       </li>
     );

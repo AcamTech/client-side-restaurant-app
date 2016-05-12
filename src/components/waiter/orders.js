@@ -1,5 +1,9 @@
 import React, {createClass, PropTypes} from 'react';
 
+const STATES = {
+  'QUEUED': 'En Cola'
+};
+
 export default createClass({
   displayName: 'orders-list',
   propTypes: {
@@ -19,13 +23,21 @@ export default createClass({
     this.props.stopListenningForWaiterOrders(this.props.restaurantId);
   },
   renderOrder(order){
+    var createdAtDateObj = new Date(order.createdAt);
+    var createdAtDate = [createdAtDateObj.getDate(), createdAtDateObj.getMonth(), createdAtDateObj.getFullYear()].join('/');
+    var createdAtTime = [createdAtDateObj.getHours(), createdAtDateObj.getMinutes(), createdAtDateObj.getSeconds()].join(':');
+
     return (
       <article className="tile" key={order.id} index={order.id}>
-        <p>{order.state}</p>
+        <p>{STATES[order.state]}</p>
         <div className="tile__footer">
-          <h1 className="zeta flush--top tile__title">Orden # {order.number}</h1>
-          <p className="tile__text">Fecha de Creación</p>
-          <p className="tile__text">Mesa</p>
+          <h1 className="zeta flush--top tile__title">Orden #1</h1>
+          <p className="tile__text">
+            Fecha de creación: {createdAtDate}
+            <br />
+            Hora de creación: {createdAtTime}
+          </p>
+          <p className="tile__text">Mesa {order.table}</p>
         </div>
       </article>
     );
