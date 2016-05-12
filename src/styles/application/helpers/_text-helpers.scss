@@ -110,7 +110,8 @@
 // Font styles
 .style--normal        { font-style: normal; }
 
-.border--none         { border: 0; }
+.font-family--serif { font-family: $font-family-serif; }
+
 
 // refactor // was inside from transparency core helpers
 .word-break{

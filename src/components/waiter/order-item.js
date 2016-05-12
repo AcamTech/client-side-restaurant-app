@@ -16,15 +16,19 @@ const OrderItem = React.createClass({
   },
   render(){
     var item = this.props.item;
+    console.log(item);
     return (
       <li>
         <div className="split">
-          <span className="split__title">
+          <span className="split__title font-family--serif text-large">
             {item.name} <span>x{item.quantity}</span> <button style={{border: 'none', background: 'transparent'}} onClick={this.onButtonClick}>&times;</button>
           </span>
            {FormatHelpers.formatPrice(item.price * item.quantity)}
         </div>
-        <textarea value={item.comment} onChange={this.onCommentChange} />
+        <div className="form-group">
+          <label className="sr-only" htmlFor={`order-item-note-${item.id}`}>Notas para el plato!</label>
+          <textarea className="form-control" id={`order-item-note-${item.id}`} value={item.comment} onChange={this.onCommentChange} placeholder="Notas para el plato" />
+        </div>
       </li>
     );
   }

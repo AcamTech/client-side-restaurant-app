@@ -8,7 +8,7 @@ function ArrayToObject(arr){
   }, {});
 }
 
-// gets a a value promise from firebase and a path to look out and return an object with the results
+// gets a value promise from firebase and a path to look out and return an object with the results
 function getInnerDataFromUrl(value, path){
   return value
     .then(snapshot => snapshot.val())

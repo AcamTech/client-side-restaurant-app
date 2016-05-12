@@ -33,10 +33,14 @@ const WaiterOrder = React.createClass({
     return (
       <article>
         <h1 className="delta weight--light">Orden</h1>
-        <select value={order.table} onChange={this.onTableSelected}>
-          <option value="" disabled>Escoja una mesa</option>
-          {tables.map(this.renderTableOption)}
-        </select>
+        <div className="form-group">
+          <div className="select">
+            <select className="form-control input--small" value={order.table} onChange={this.onTableSelected}>
+              <option value="" disabled>Escoja una mesa</option>
+              {tables.map(this.renderTableOption)}
+            </select>
+          </div>
+        </div>
         <ul className="list-unstyled">
           {Object.keys(order.items).map(this.renderOrder)}
         </ul>
@@ -45,7 +49,9 @@ const WaiterOrder = React.createClass({
           Total:
         </span>
         {FormatHelpers.formatPrice(order.total)}</p>
-        <button onClick={this.onSaveClick}>Guardar</button>
+        <div className="text--end">
+          <button className="button button--large button-border button-border--success" onClick={this.onSaveClick}>Despachar Orden</button>
+        </div>
       </article>
     );
   }
