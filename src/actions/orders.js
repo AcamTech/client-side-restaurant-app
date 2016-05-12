@@ -42,9 +42,21 @@ export function fetchOrdersForWaiter(waiterId, restaurantId){
       .once('value');
     getInnerDataFromUrl(promiseValue, `restaurants/${restaurantId}/orders`)
       .then(orders => dispatch({ type: actionTypes.FETCH_ORDERS, payload: orders }));
+  };
+}
+
+export function listenForWaiterOrders(restaurantId){
+  return function(dispatch){
     ref.child(`restaurants/${restaurantId}/orders`)
-      .on('child_changed', function(snapshot){
-        dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
-      });
+      .on('child_changed', function waiterOrderChangedThunk(snapshot){
+      dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
+    });
+  };
+}
+
+export function stopListenningForWaiterOrders(restaurantId){
+  return function(dispatch){
+    ref.child(`restaurants/${restaurantId}/orders`)
+      .off('child_changed');
   };
 }

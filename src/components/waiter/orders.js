@@ -7,10 +7,16 @@ export default createClass({
     orders: PropTypes.array,
     fetchOrders: PropTypes.func.isRequired,
     fetchOrdersForWaiter: PropTypes.func.isRequired,
-    restaurantId: PropTypes.string.isRequired
+    restaurantId: PropTypes.string.isRequired,
+    listenForWaiterOrders: PropTypes.func.isRequired,
+    stopListenningForWaiterOrders: PropTypes.func.isRequired
   },
   componentDidMount(){
     this.props.fetchOrdersForWaiter(this.props.waiterId, this.props.restaurantId);
+    this.props.listenForWaiterOrders(this.props.restaurantId);
+  },
+  componentWillUnmount(){
+    this.props.stopListenningForWaiterOrders(this.props.restaurantId);
   },
   renderOrder(order){
     return (

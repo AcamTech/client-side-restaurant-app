@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchOrders, fetchOrdersForWaiter } from 'actions/orders';
+import { fetchOrders, fetchOrdersForWaiter, listenForWaiterOrders, stopListenningForWaiterOrders } from 'actions/orders';
 import { WaiterOrders } from 'components/waiter';
 import { objectToArray } from 'helpers/format-helpers';
 
@@ -14,7 +14,12 @@ function mapStateToProps(state, props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchOrders, fetchOrdersForWaiter}, dispatch);
+  return bindActionCreators({
+    fetchOrders,
+    fetchOrdersForWaiter,
+    listenForWaiterOrders,
+    stopListenningForWaiterOrders
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaiterOrders);
