@@ -1,5 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
 import {WaiterOrders} from 'containers/waiter';
+import {Link} from 'react-router';
 
 const WaiterOrdersPage = createClass({
   displayName: 'Tables-page',
@@ -9,11 +10,6 @@ const WaiterOrdersPage = createClass({
   render(){
     return(
       <div className="main-area">
-        <div className="grid push--bottom">
-          <div className="grid__item medium--one-half">
-            <h1 className="delta flush weight--light">Mis Órdenes</h1>
-          </div>
-        </div>
         <WaiterOrders restaurantId={this.props.params.id} />
       </div>
     );

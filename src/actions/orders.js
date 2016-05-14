@@ -102,6 +102,19 @@ export function createOrder(order, restaurantId, waiterId) {
   };
 }
 
+export function newOrder(restaurantId) {
+  return function newOrder(dispatch) {
+    const pushToForm = push(`/restaurante/${restaurantId}/ordenes/nueva-orden`);
+    const unselectOrderAction = {
+      type: actionTypes.SET_SELECTED_ORDER,
+      payload: null
+    };
+
+    dispatch(unselectOrderAction);
+    dispatch(pushToForm);
+  };
+}
+
 export function editOrder(id, restaurantId, waiterId) {
   return function editOrderThunk(dispatch) {
     
@@ -138,7 +151,7 @@ export function editOrder(id, restaurantId, waiterId) {
     }
     
     function redirectToOrder() {
-      const pushToOrder = push(`/restaurante/${restaurantId}/ordenes/nueva-orden`);
+      const pushToOrder = push(`/restaurante/${restaurantId}/ordenes/editar-orden`);
       dispatch(pushToOrder);
     }
 

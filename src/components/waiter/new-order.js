@@ -121,7 +121,7 @@ const WaiterPage = React.createClass({
           </div>
         </div><div className="grid__item medium--one-half">
           <div className="main-area">
-            <WaiterOrder tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} createOrder={this.createOrder} />
+            <WaiterOrder restaurantId={this.props.restaurantId} tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} createOrder={this.createOrder} />
           </div>
         </div>
       </div>

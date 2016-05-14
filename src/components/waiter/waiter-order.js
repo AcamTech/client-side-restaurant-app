@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import FormatHelpers from 'helpers/format-helpers';
 import OrderItem from './order-item';
+import {Link} from 'react-router';
 
 const WaiterOrder = React.createClass({
   propTypes: {
@@ -9,7 +10,8 @@ const WaiterOrder = React.createClass({
     createOrder: PropTypes.func.isRequired,
     setTable: PropTypes.func.isRequired,
     order: PropTypes.object,
-    tables: PropTypes.array
+    tables: PropTypes.array,
+    restaurantId: PropTypes.string
   },
   onSaveClick() {
     this.props.createOrder();
@@ -51,7 +53,13 @@ const WaiterOrder = React.createClass({
         </span>
         {FormatHelpers.formatPrice(order.total)}</p>
         <div className="text--end">
-          <button className="button button--large button-border button-border--success" onClick={this.onSaveClick}>Despachar Orden</button>
+          <div className="grid">
+            <div className="grid__item medium--one-half">
+              <button className="button button--block button-border button-border--success" onClick={this.onSaveClick}>Despachar Orden</button>
+            </div><div className="grid__item medium--one-half">
+              <Link className="button button--block button-border button-border--danger" to={`/restaurante/${this.props.restaurantId}/ordenes/lista`}>Cancelar</Link>
+            </div>
+          </div>
         </div>
       </article>
     );

@@ -48,6 +48,7 @@ export default function getRoutes(history, checkIfAuthed){
           <IndexRedirect to="lista" />
           <Route path="lista" component={WaiterOrders} />
           <Route path="nueva-orden" component={WaiterNewOrder} />
+          <Route path="editar-orden" component={WaiterNewOrder} />
         </Route>
         <Route path="super" component={AdminLayout} onEnter={checkIfAuthed}>
           <IndexRoute component={AdminRestaurantList} />

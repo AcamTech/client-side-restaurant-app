@@ -9,6 +9,7 @@ export default createClass({
   propTypes: {
     waiterId: PropTypes.string.isRequired,
     orders: PropTypes.array,
+    newOrder: PropTypes.func.isRequired,
     editOrder: PropTypes.func.isRequired,
     fetchOrders: PropTypes.func.isRequired,
     fetchOrdersForWaiter: PropTypes.func.isRequired,
@@ -22,6 +23,10 @@ export default createClass({
   },
   componentWillUnmount(){
     this.props.stopListenningForWaiterOrders(this.props.restaurantId);
+  },
+  newOrder() {
+    const {restaurantId} = this.props;
+    this.props.newOrder(restaurantId);
   },
   editOrder(id){
     const {waiterId, restaurantId} = this.props;
@@ -63,8 +68,16 @@ export default createClass({
   render(){
     var {orders, restaurantId} = this.props;
     return (
-      <div className="grid-tiles">
-        {this.props.orders.map(this.renderOrder)}
+      <div>
+        <div className="grid push--bottom">
+          <div className="grid__item medium--one-half">
+            <h1 className="delta flush weight--light">Mis Órdenes</h1>
+            <button onClick={this.newOrder} className="button button--secondary pull-right">Nueva Orden</button>
+          </div>
+        </div>
+        <div className="grid-tiles">
+          {this.props.orders.map(this.renderOrder)}
+        </div>
       </div>
     );
   }

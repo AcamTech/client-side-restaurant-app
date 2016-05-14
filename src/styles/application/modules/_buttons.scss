@@ -100,6 +100,17 @@
   }
 }
 
+.button-border--danger{
+  color: $brand-danger;
+  border-color: $brand-danger;
+  &:hover,
+  &:active,
+  &:focus{
+    color: white;
+    background-color: $brand-danger;
+  }
+}
+
 .group-buttons{
   margin: $base-spacing-unit * 2 0 $base-spacing-unit * 2;
 }
