@@ -7,14 +7,14 @@ const WaiterOrder = React.createClass({
   propTypes: {
     removeFromOrder: PropTypes.func.isRequired,
     setCommentToItem: PropTypes.func.isRequired,
-    createOrder: PropTypes.func.isRequired,
+    saveOrder: PropTypes.func.isRequired,
     setTable: PropTypes.func.isRequired,
     order: PropTypes.object,
     tables: PropTypes.array,
     restaurantId: PropTypes.string
   },
   onSaveClick() {
-    this.props.createOrder();
+    this.props.saveOrder();
   },
   onTableSelected(e) {
     this.props.setTable(e.target.value);
@@ -22,7 +22,7 @@ const WaiterOrder = React.createClass({
   renderOrder(itemKey){
     var item = this.props.order.items[itemKey];
     return (
-      <OrderItem key={item.dishId} index={item.dishId} item={item} removeFromOrder={this.props.removeFromOrder} setCommentToItem={this.props.setCommentToItem} />
+      <OrderItem key={itemKey} index={itemKey} item={item} removeFromOrder={this.props.removeFromOrder} setCommentToItem={this.props.setCommentToItem} />
     );
   },
   renderTableOption(table) {
@@ -32,6 +32,7 @@ const WaiterOrder = React.createClass({
   },
   render(){
     var {order, tables} = this.props;
+    var saveText = (order.id) ? 'Actualizar' : 'Crear';
 
     return (
       <article>
@@ -55,7 +56,7 @@ const WaiterOrder = React.createClass({
         <div className="text--end">
           <div className="grid">
             <div className="grid__item medium--one-half">
-              <button className="button button--block button-border button-border--success" onClick={this.onSaveClick}>Despachar Orden</button>
+              <button className="button button--block button-border button-border--success" onClick={this.onSaveClick}>{saveText}</button>
             </div><div className="grid__item medium--one-half">
               <Link className="button button--block button-border button-border--danger" to={`/restaurante/${this.props.restaurantId}/ordenes/lista`}>Cancelar</Link>
             </div>

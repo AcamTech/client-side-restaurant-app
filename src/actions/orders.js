@@ -61,44 +61,64 @@ export function stopListenningForWaiterOrders(restaurantId){
   };
 }
 
-export function createOrder(order, restaurantId, waiterId) {
-  return function createOrderThunk(dispatch){
-    var newOrderRef = ref.child(`restaurants/${restaurantId}/orders`).push();
+export function saveOrder(order, restaurantId, waiterId) {
+  return function saveOrderThunk(dispatch){
+    const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
+    
+    function makeNewOrder(order) {
+      return {
+        restaurant: restaurantId,
+        state: 'QUEUED',
+        waiter: waiterId,
+        total: order.total,
+        table: order.table,
+        createdAt: Firebase.ServerValue.TIMESTAMP
+      };
+    }
+    
+    function saveOrderItems(newOrderRef, items) {
+      const ids = Object.keys(items);
 
-    var newOrder = Object.assign({
-      restaurant: restaurantId,
-      state: 'QUEUED',
-      waiter: waiterId
-    }, {
-      total: order.total,
-      table: order.table,
-      createdAt: Firebase.ServerValue.TIMESTAMP
-    });
+      return ids.map(id => {
+        var itemRef = newOrderRef.child('items').push();
+        var item = items[id];
 
-    newOrderRef.set(newOrder)
-      .then(() => Object.keys(order.items))
-      .then((keys) => {
-        return keys.map(key => {
-          var itemRef = newOrderRef.child('items').push();
-          var item = order.items[key];
-
-          return itemRef.set(item)
-            .then(() => {
-              return {[itemRef.key()]: item};
-            });
-        });
-      })
-      .then(promisesArray => Promise.all(promisesArray))
-      .then(array => ArrayToObject(array))
-      .then(items => newOrder.items = items)
-      .then(() => {
-        ref.child(`restaurants_staff/${waiterId}/orders/`)
-          .update({ [newOrderRef.key()]: true })
+        return itemRef.set(item)
           .then(() => {
-            dispatch({ type: actionTypes.CREATE_ORDER, payload: {[newOrderRef.key()]: newOrder}});
-            dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
+            return {[itemRef.key()]: item};
           });
       });
+    }
+
+    if (order.id) {
+      ordersRef.child(order.id)
+        .set(order)
+        .then(() => {
+          dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
+        });
+    } else {
+      const newOrderRef = ordersRef.push();
+      const newOrder = makeNewOrder(order);
+      
+      newOrder.id = newOrderRef.key();
+      
+      newOrderRef.set(newOrder)
+        .then(() => {
+          const promises = saveOrderItems(newOrderRef, order.items);
+
+          Promise.all(promises)
+            .then(array => ArrayToObject(array))
+            .then(items => newOrder.items = items)
+            .then(() => {
+              ref.child(`restaurants_staff/${waiterId}/orders/`)
+                .update({ [newOrderRef.key()]: true })
+                .then(() => {
+                  dispatch({ type: actionTypes.CREATE_ORDER, payload: {[newOrderRef.key()]: newOrder}});
+                  dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
+                });
+            });
+        });
+    }
   };
 }
 

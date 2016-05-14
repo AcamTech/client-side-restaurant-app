@@ -12,11 +12,12 @@ const WaiterPage = React.createClass({
     fetchTables: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired,
     waiterId: PropTypes.string.isRequired,
-    createOrder: PropTypes.func.isRequired
+    saveOrder: PropTypes.func.isRequired
   },
   getInitialState(){
     return {
-      order: this.getInitialOrder()
+      order: this.getInitialOrder(),
+      tempIndex: 0
     };
   },
   componentDidMount(){
@@ -58,39 +59,51 @@ const WaiterPage = React.createClass({
       price: dish.price
     };
   },
-  addToOrder(key){
-    var order, existingItem;
+  findItemByDishId(dishId){
+    const items = this.state.order.items;
+
+    const coincidence = Object.keys(items)
+      .map(id => (items[id]))
+      .filter(item => {
+        return item.dishId === dishId;
+      })[0];
+
+    return coincidence;
+  },
+  addToOrder(dishId){
+    var order, existingItem, itemIndex;
 
     order = Object.assign({}, this.state.order);
-    existingItem = order.items[key];
+    existingItem = this.findItemByDishId(dishId);
+    itemIndex = this.state.tempIndex + 1;
 
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
-      order.items[key] = this.createItem(key);
+      order.items['_temp-' + itemIndex] = this.createItem(dishId);
     }
 
     order.total = this.getTotal(order);
-    this.setState({ order : order });
+    this.setState({ order : order, tempIndex : itemIndex});
   },
-  removeFromOrder(key){
+  removeFromOrder(id){
     var order = Object.assign({}, this.state.order);
-    var orderItem = order.items[key];
+    var item = order.items[id];
 
-    if (orderItem.quantity > 1) {
-      orderItem.quantity = orderItem.quantity - 1;
+    if (item.quantity > 1) {
+      item.quantity = item.quantity - 1;
     } else {
-      delete order.items[key];
+      delete order.items[id];
     }
 
     order.total = this.getTotal(order);
     this.setState({ order : order });
   },
-  setCommentToItem(key, comment) {
+  setCommentToItem(id, comment) {
     var order = Object.assign({}, this.state.order);
-    var orderItem = order.items[key];
+    var item = order.items[id];
 
-    orderItem.comment = comment;
+    item.comment = comment;
 
     this.setState({ order : order });
   },
@@ -99,7 +112,7 @@ const WaiterPage = React.createClass({
     order.table = tableNumber;
     this.setState({ order : order });
   },
-  createOrder() {
+  saveOrder() {
     if (!this.state.order.table) {
       alert('Por favor, seleccione una mesa');
     } else {
@@ -107,7 +120,7 @@ const WaiterPage = React.createClass({
       if (itemsQuantity < 1) {
         alert('Por favor, agregue al menos un plato');
       } else {
-        this.props.createOrder(this.state.order, this.props.restaurantId, this.props.waiterId);
+        this.props.saveOrder(this.state.order, this.props.restaurantId, this.props.waiterId);
         this.setState(this.getInitialState());
       }
     }
@@ -121,7 +134,7 @@ const WaiterPage = React.createClass({
           </div>
         </div><div className="grid__item medium--one-half">
           <div className="main-area">
-            <WaiterOrder restaurantId={this.props.restaurantId} tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} createOrder={this.createOrder} />
+            <WaiterOrder restaurantId={this.props.restaurantId} tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} saveOrder={this.saveOrder} />
           </div>
         </div>
       </div>
