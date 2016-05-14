@@ -1,5 +1,5 @@
 import React, {createClass} from 'react';
-import {ResetPassword} from 'containers/reset-password';
+import { ResetPassword } from 'containers/reset-password';
 
 const ResetPasswordPage = createClass({
   render(){

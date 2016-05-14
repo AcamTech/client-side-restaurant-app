@@ -1,2 +1,3 @@
-export TablesList from './tables-list';
-export TablesModal from './tables-modal';
+import TablesList from './tables-list';
+import TablesModal from './tables-modal';
+export {TablesList, TablesModal};

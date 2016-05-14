@@ -1,24 +1,37 @@
 import Firebase from 'firebase';
 import * as actionTypes from 'constants/action-types';
 import {closeTablesModal} from './tables-modal';
+import {receiveEntities, removeEntity} from './entities';
+import {
+  getTables, createTable,
+  deleteTable, editTable
+ } from 'helpers/api';
 import {ref} from 'constants/firebase';
+import { TransformToArrayOfIds } from 'helpers/format-helpers';
 
 export function fetchTables(restaurantId){
   return function fetchTablesThunk(dispatch){
-    const tablesRef = ref.child(`restaurants/${restaurantId}/tables`);
-    tablesRef.once('value')
-      .then(snapshot => {
-        dispatch({ type: actionTypes.FETCH_TABLES, payload: snapshot.val() });
-      });
+    getTables(restaurantId)
+      .then(payload => {
+        dispatch(receiveEntities(payload.entities));
+        dispatch({
+          type: actionTypes.FETCH_TABLES,
+          payload: TransformToArrayOfIds(payload.result)
+        });
+        return payload;
+      })
+      .catch(err => console.error(err));
   };
 }
 
 export function removeTable(item, restaurantId){
   return function removeTableThunk(dispatch){
     var {id} = item;
-    ref.child(`restaurants/${restaurantId}/tables/${id}`)
-      .remove()
-      .then(() => dispatch({type: actionTypes.REMOVE_TABLE, payload: item}))
+    deleteTable(id, restaurantId)
+      .then(() => {
+        dispatch({type: actionTypes.REMOVE_TABLE, payload: id});
+        dispatch(removeEntity(id, 'tables'));
+      })
       .catch(error => {throw new Error(error);} );
   };
 }
@@ -26,34 +39,34 @@ export function removeTable(item, restaurantId){
 export function addOrEditTable(table, restaurantId){
   return function addOrEditTableThunk(dispatch, getState){
     const {number, id} = table;
-    const tablesRef = ref.child(`restaurants/${restaurantId}/tables`);
+    var tablesObject = getState().entities.tables;
+
+    if(checkIfTableNumberExist(number, tablesObject)){
+      dispatch({type: 'EDIT_TABLE_REJECTED', message: "The table number already exist"});
+      return;
+    }
 
     if(!id){
-      const newTableRef = tablesRef.push();
-      const tableId = newTableRef.key();
-
-      newTableRef.set({
-        number
-      }).then(() => {
-        dispatch({ type: actionTypes.ADD_TABLE, payload: {[tableId]: table} });
+      createTable(table, restaurantId)
+      .then((payload) => {
+        dispatch(receiveEntities(payload.entities));
+        dispatch({ type: actionTypes.ADD_TABLE, payload: payload.result });
         dispatch(closeTablesModal());
       })
       .catch(error => {throw new Error(error);} );
     }else{
-      var tablesObject = getState().tables.list;
-      var numbers = Object.keys(tablesObject).map(item => tablesObject[item].number);
-
-      if(numbers.indexOf(number) != -1){
-        dispatch({type: 'EDIT_TABLE_REJECTED', message: "The table number already exist"});
-        return;
-      }
-      tablesRef.child(id)
-        .update({number})
+      editTable({number})
         .then(() => dispatch(updateTable({ [id]: {number} })))
         .then(() => dispatch(closeTablesModal()))
         .catch(error => {throw new Error(error);} );
     }
   };
+}
+
+function checkIfTableNumberExist(number, tables){
+  var numbers = Object.keys(tables)
+    .map(item => tables[item].number);
+   return numbers.indexOf(number) != -1;
 }
 
 function updateTable(table){

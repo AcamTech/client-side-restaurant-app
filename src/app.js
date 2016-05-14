@@ -11,6 +11,7 @@ export default function App({store, history, checkIfAuthed}){
 }
 
 App.propTypes = {
+  checkIfAuthed: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };

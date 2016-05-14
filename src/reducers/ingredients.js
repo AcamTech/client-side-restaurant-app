@@ -1,20 +1,24 @@
-import * as actiontypes from '../constants/action-types';
+import * as actionTypes from '../constants/action-types';
 
 export default function ingredients(state={
   isFetching: false,
-  list: {}
+  lastFetched: '',
+  list: []
 }, action){
   var {type, payload} = action;
   switch(type){
-    case actiontypes.ADD_INGREDIENT:
-      return {...state, list: Object.assign({}, state.list, payload)};
-    case actiontypes.FETCH_INGREDIENTS:
-      return {...state, list: payload};
-    case actiontypes.REMOVE_INGREDIENT:
-      delete state.list[payload.id];
-      return {...state, list: {...state.list}};
-    case actiontypes.UPDATE_INGREDIENT:
-      return {...state, list: {...state.list, ...payload}};
+    case actionTypes.ADD_INGREDIENT:
+      return {...state, list: [...state.list, payload]};
+    case actionTypes.FETCH_INGREDIENTS:
+      return {...state, isFetching: true};
+    case actionTypes.FETCH_INGREDIENTS_FULFILLED:
+      return {...state, isFetching: false, lastFetched: Date.now(), list: payload};
+    case actionTypes.REMOVE_INGREDIENT:
+      var index = state.list.indexOf(payload);
+      return {...state, list: [
+        ...state.list.slice(0, index),
+        ...state.list.slice(index + 1)
+      ]};
     default:
       return state;
   }

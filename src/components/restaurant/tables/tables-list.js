@@ -27,7 +27,7 @@ export default createClass({
               </tr>
             </thead>
             <tbody>
-              {renderRows(tables, restaurantId, ['number'], removeTable, editTable)}
+              {renderRows(tables, restaurantId, ['number'], removeTable, editTable, 'id')}
             </tbody>
           </table>
           </div>

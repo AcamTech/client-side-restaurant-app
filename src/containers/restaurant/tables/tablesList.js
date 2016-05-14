@@ -6,9 +6,10 @@ import { editTable } from 'actions/tables-modal';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
+  var tables = state.tables.list.map(item => state.entities.tables[item]);
   return {
     restaurantId: props.restaurantId,
-    tables: objectToArray(state.tables.list || {})
+    tables
   };
 }
 

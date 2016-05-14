@@ -25,12 +25,16 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
-
+typings
+typings.json
+jsconfig.json
 #dist folder
 dist
 
 #Webstorm metadata
 .idea
+
+.vscode
 
 # Mac files
 .DS_Store

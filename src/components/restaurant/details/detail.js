@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function RestaurantDetailt (props) {
+export default function RestaurantDetail ({name, address, phone}) {
   return (
     <div>
       <h1>{name}</h1>
@@ -9,3 +9,9 @@ export default function RestaurantDetailt (props) {
     </div>
   );
 }
+
+RestaurantDetail.propTypes = {
+   name: PropTypes.string,
+   address: PropTypes.string,
+   phone: PropTypes.string
+};

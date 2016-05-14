@@ -2,36 +2,13 @@ import Firebase from 'firebase';
 import { push } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import {ref} from 'constants/firebase';
-
-function ArrayToObject(arr){
-  return arr.reduce(function(initial, item){
-    return Object.assign({}, initial, item);
-  }, {});
-}
-
-// gets a value promise from firebase and a path to look out and return an object with the results
-function getInnerDataFromUrl(value, path){
-  return value
-    .then(snapshot => snapshot.val())
-    .then(response => Object.keys(response || {}))
-    .then(items => {
-      return items.map(id => {
-        return ref.child(`${path}/${id}/`)
-          .once('value')
-          .then(snapshot => {
-            return {[snapshot.key()]: snapshot.val()};
-          });
-      });
-    })
-    .then(promisesArray => Promise.all(promisesArray))
-    .then(items => ArrayToObject(items));
-}
+import {getInnerDataFromUrl, ArrayToObject} from 'helpers/format-helpers';
 
 export function fetchOrders(restaurantId){
   return function fetchOrdersThunk(dispatch){
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders/`);
     const promiseValue = ordersRef.once('value');
-    getInnerDataFromUrl(promiseValue, 'restaurants_orders')
+    getInnerDataFromUrl(promiseValue, ref, 'restaurants_orders')
       .then(orders => dispatch({ type: actionTypes.FETCH_ORDERS, payload: orders }));
   };
 }
@@ -40,7 +17,7 @@ export function fetchOrdersForWaiter(waiterId, restaurantId){
   return function(dispatch){
     const promiseValue = ref.child(`restaurants_staff/${waiterId}/orders`)
       .once('value');
-    getInnerDataFromUrl(promiseValue, `restaurants/${restaurantId}/orders`)
+    getInnerDataFromUrl(promiseValue, ref, `restaurants/${restaurantId}/orders`)
       .then(orders => dispatch({ type: actionTypes.FETCH_ORDERS, payload: orders }));
   };
 }
@@ -64,7 +41,7 @@ export function stopListenningForWaiterOrders(restaurantId){
 export function saveOrder(order, restaurantId, waiterId) {
   return function saveOrderThunk(dispatch){
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
-    
+
     function makeNewOrder(order) {
       return {
         restaurant: restaurantId,
@@ -75,7 +52,7 @@ export function saveOrder(order, restaurantId, waiterId) {
         createdAt: Firebase.ServerValue.TIMESTAMP
       };
     }
-    
+
     function saveOrderItems(newOrderRef, items) {
       const ids = Object.keys(items);
 
@@ -99,9 +76,9 @@ export function saveOrder(order, restaurantId, waiterId) {
     } else {
       const newOrderRef = ordersRef.push();
       const newOrder = makeNewOrder(order);
-      
+
       newOrder.id = newOrderRef.key();
-      
+
       newOrderRef.set(newOrder)
         .then(() => {
           const promises = saveOrderItems(newOrderRef, order.items);
@@ -137,20 +114,20 @@ export function newOrder(restaurantId) {
 
 export function editOrder(id, restaurantId, waiterId) {
   return function editOrderThunk(dispatch) {
-    
+
     function checkOwnership(id) {
       const waiterOrdersRef = ref.child(`restaurants_staff/${waiterId}/orders/`);
-    
+
       return waiterOrdersRef.once('value')
         .then(snapshot => {
           const orders = snapshot.val();
           const ids = Object.keys(orders);
           const ownsOrder = ids.indexOf(id) != -1;
-          
+
           return ownsOrder;
         });
     }
-    
+
     function loadOrder(id) {
       const orderRef = ref.child(`restaurants/${restaurantId}/orders/${id}`);
 
@@ -160,7 +137,7 @@ export function editOrder(id, restaurantId, waiterId) {
           return order;
         });
     }
-    
+
     function selectOrder(order) {
       const selectOrderAction = {
         type: actionTypes.SET_SELECTED_ORDER,
@@ -169,7 +146,7 @@ export function editOrder(id, restaurantId, waiterId) {
 
       dispatch(selectOrderAction);
     }
-    
+
     function redirectToOrder() {
       const pushToOrder = push(`/restaurante/${restaurantId}/ordenes/editar-orden`);
       dispatch(pushToOrder);
@@ -185,7 +162,7 @@ export function editOrder(id, restaurantId, waiterId) {
             });
         } else {
           const pushToList = push(`/restaurante/${restaurantId}/ordenes/lista`);
-          dispatch(pushToList);  
+          dispatch(pushToList);
         }
       });
   };

@@ -14,9 +14,11 @@ import ingredientsModal from './ingredients-modal';
 import dishes from './dishes';
 import dishesModal from './dishes-modal';
 import orders from './orders';
+import entities from './entities';
 
 const rootReducer = combineReducers({
   restaurants,
+  entities,
   createRestaurantModal,
   staff,
   staffModal,

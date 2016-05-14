@@ -9,11 +9,12 @@ import { closeDishesModal, openDishesModal } from 'actions/dishes-modal';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
+  var categories = state.categories.list.map(category => state.entities.categories[category]);
   return {
     isOpen: state.dishesModal.isOpen,
     isEditting: state.dishesModal.isEditting,
     initialValues: state.dishesModal.selectedDish,
-    categories: objectToArray(state.categories.list || {}),
+    categories,
     ingredients: objectToArray(state.ingredients.list || {}),
     restaurantId: props.restaurantId
   };

@@ -6,9 +6,10 @@ import { editCategory } from 'actions/categories-modal';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
+  var categories = state.categories.list.map(category => state.entities.categories[category]);
   return {
     restaurantId: props.restaurantId,
-    categories: objectToArray(state.categories.list || {})
+    categories
   };
 }
 

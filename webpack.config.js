@@ -59,7 +59,7 @@ const getEntry = function (env) {
 };
 
 const getLoaders = function (env) {
-  const loaders = [{ test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel', 'eslint'] },
+  const loaders = [{ test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel'] },
                   { test: /\.(jpe?g|png|gif|svg)$/i, loaders: ['file']},
                   {test: /\.json$/, loaders: ['json']},
                   {test: /\.otf(\?\S*)?$/, loader: 'url-loader?limit=10000'},

@@ -1,2 +1,3 @@
-export StaffList from './staff-list';
-export StaffModal from './staff-modal';
+import StaffList from './staff-list';
+import StaffModal from './staff-modal';
+export {StaffList, StaffModal};

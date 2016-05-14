@@ -7,8 +7,9 @@ import { StaffList } from 'components/restaurant';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps(state, props){
+  var staff = state.staff.list.map(item => state.entities.staff[item])|| [];
   return {
-    staff: objectToArray(state.staff.list || {}),
+    staff,
     restaurantId: props.restaurantId
   };
 }

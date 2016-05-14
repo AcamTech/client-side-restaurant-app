@@ -16,6 +16,35 @@ let FormatHelpers = {
   }
 };
 
+export function TransformToArrayOfIds(obj){
+  return Object.keys(obj)
+    .map(item => item);
+}
+
+export function ArrayToObject(arr){
+  return arr.reduce(function(initial, item){
+    return Object.assign({}, initial, item);
+  }, {});
+}
+
+// gets a value promise from firebase and a path to look out and return an object with the results
+export function getInnerDataFromUrl(value, ref, path){
+  return value
+    .then(snapshot => snapshot.val())
+    .then(response => Object.keys(response || {}))
+    .then(items => {
+      return items.map(id => {
+        return ref.child(`${path}/${id}/`)
+          .once('value')
+          .then(snapshot => {
+            return {[snapshot.key()]: snapshot.val()};
+          });
+      });
+    })
+    .then(promisesArray => Promise.all(promisesArray))
+    .then(items => ArrayToObject(items));
+}
+
 export function formatUserInfo (isTemporaryPassword, avatar = "", uid) {
   return {
     isTemporaryPassword,

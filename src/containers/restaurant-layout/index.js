@@ -1,11 +1,11 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getRestaurant } from 'actions/restaurant';
+import { getRestaurant } from 'actions/restaurants';
 import { RestaurantLayout } from 'components/restaurant-layout';
 
 function mapStateToProps (state, props) {
   return {
-    restaurant: state.restaurants.list[props.restaurantId] || {}
+    restaurant: state.entities.restaurants[props.restaurantId] || {}
   };
 }
 

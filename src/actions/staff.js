@@ -1,47 +1,37 @@
 import { push, replace } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
 import { closeStaffModal } from './staff-modal';
-import Firebase, { ref } from 'constants/firebase';
-import { fetchStaffFromRestaurant } from 'helpers/api';
-import { auth, saveMember, getMember, createUserWithEmail, updatePassword, redirectToUserRoot } from 'helpers/auth';
-import { formatUserInfo } from 'helpers/format-helpers';
+import {receiveEntities} from './entities';
+import {
+  auth, updatePassword,
+  redirectToUserRoot, resetMemberPassword,
+  logout
+} from 'helpers/auth';
+import { formatUserInfo, TransformToArrayOfIds } from 'helpers/format-helpers';
+import {
+  fetchStaffFromRestaurant, getMember,
+  updateMember, destroyMember,
+  createAndSaveUser
+} from 'helpers/api';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
   return function addOrEditStaffMemberThunk(dispatch){
-    const {email, name, id} = staffMember;
+    const {email, name, uid} = staffMember;
     if(!email){
       throw new Error('No se encontro el email');
     }
-    if(!id){
-      createUserWithEmail(email)
-        .then(({uid}) => uid)
-        .then(uid => {
-          var object = {...staffMember, createdAt: Firebase.ServerValue.TIMESTAMP, updatedAt: Firebase.ServerValue.TIMESTAMP, restaurant: restaurantId};
-          delete object.id;
-          ref.child(`restaurants_staff/${uid}`)
-            .set(object);
-          return [object, uid];
-        })
-        .then((member) => {
-          var [object, uid] = member;
-          ref.child(`restaurants/${restaurantId}/waiters`).update({
-            [uid]: true
-          },() => {
-            dispatch({
-              type: actionTypes.ADD_STAFF_MEMBER,
-              payload: {[uid]: object}
-            });
+    if(!uid){
+       createAndSaveUser(staffMember, restaurantId)
+        .then((payload) => {
+            dispatch(receiveEntities(payload.entities));
+            dispatch({type: actionTypes.ADD_STAFF_MEMBER, payload: [payload.result]});
             dispatch(closeStaffModal());
-          });
         })
-        .then(() => {
-          return ref.resetPassword({email});
-        })
+        .then(() => dispatch(resetPassword({email})))
         .catch(error => {throw new Error(error);} );
     }else{
-      ref.child(`restaurants_staff/${id}`)
-        .update({email, name})
-        .then(() => dispatch(updateStaffMember({ [id]: {email, name, restaurant: restaurantId} })))
+      updateMember(staffMember)
+        .then(payload => dispatch(receiveEntities(payload.entities)))
         .then(() => dispatch(closeStaffModal()))
         .catch(error => {throw new Error(error);} );
     }
@@ -51,21 +41,10 @@ export function addOrEditStaffMember(staffMember, restaurantId){
 export function fetchStaff(restaurantId){
   return function fetchStaffThunk(dispatch, getState){
     fetchStaffFromRestaurant(restaurantId)
-      .then(staff => Object.keys(staff))
-      .then(arrayStaff => arrayStaff.map(member => {
-          return ref.child(`restaurants_staff/${member}`)
-            .once('value')
-            .then(snapshot => ({[snapshot.key()]: snapshot.val()}));
-        }
-      ))
-      .then(members => Promise.all(members))
-      .then(members => members.reduce( (initialVal, item) => {
-        Object.assign(initialVal, item);
-        return initialVal;
-      }, {} ))
-      .then(members => {
-        dispatch({type: actionTypes.FETCH_STAFF, payload: members});
-        return members;
+      .then(payload => {
+        dispatch(receiveEntities(payload.entities));
+        dispatch({type: actionTypes.FETCH_STAFF, payload: TransformToArrayOfIds(payload.result)});
+        return payload;
       });
   };
 }
@@ -79,18 +58,22 @@ export function updateStaffMember(member){
 
 export function removeStaffMember(member, restaurantId){
   return function removeStaffMemberThunk(dispatch){
-    const {id} = member;
-    const memberRef = ref.child(`restaurants/${restaurantId}/waiters/${id}`);
-    memberRef.remove(() => {
-      const memberRef = ref.child(`restaurants_staff/${id}`);
-      memberRef.remove(() => {
-        const blockedMemberRef = ref.child(`blocked_users`)
-          .set({
-            [id] : true
-          });
-        dispatch({type: actionTypes.REMOVE_STAFF_MEMBER, payload: id});
+    const {uid} = member;
+    return destroyMember(uid, restaurantId)
+      .then(() => {
+        dispatch({type: actionTypes.REMOVE_STAFF_MEMBER, payload: uid});
       });
-    });
+  };
+}
+
+export function getAuthedMember(uid){
+  return function(dispatch){
+    return getMember(uid)
+      .then(payload => {
+        dispatch(receiveEntities(payload.entities));
+        return payload;
+      })
+      .catch(err => console.error(err));
   };
 }
 
@@ -103,31 +86,35 @@ export function authenticateUser(user){
     dispatch(fetchingMember());
     auth(user)
       .then(({password, uid}) => {
-        var userData = formatUserInfo(password.isTemporaryPassword, password.profileImageURL, uid);
-        return saveMember({uid, userData});
+        var userData = formatUserInfo(
+          password.isTemporaryPassword,
+          password.profileImageURL,
+          uid
+        );
+        return updateMember({uid, userData});
       })
-      .then(userData => {
-        var {uid} = userData;
-        return getMember(uid);
-      })
-      .then(userData => {
-        var {uid} = userData;
-        dispatch(fetchingMemberSuccess(uid, userData));
-        return {uid, userData};
+      .then(payload => {
+        var uid = payload.result;
+        var entities = payload.entities;
+        var staff = entities.staff;
+        var member = staff[uid];
+        dispatch(receiveEntities(entities));
+        dispatch(fetchingMemberSuccess(uid));
+        return member;
       })
       .then((member) => {
         var {uid} = member;
         dispatch(authMember(uid));
         return member;
       })
-      .then(({userData}) => redirectToUserRoot(userData, redirect))
+      .then((userData) => redirectToUserRoot(userData, redirect))
       .catch(error => {throw new Error(error);});
   };
 }
 
 export function unauth(){
   return function unauthThunk(dispatch){
-    ref.unauth();
+    logout();
     dispatch({type: 'UNAUTH_MEMBER'});
     dispatch(replace('/'));
   };
@@ -136,7 +123,7 @@ export function unauth(){
 export function resetPassword(data){
   return {
     type: 'RESET_PASSWORD',
-    payload: ref.resetPassword(data)
+    payload: resetMemberPassword(data)
   };
 }
 
@@ -147,13 +134,16 @@ export function authMember(uid){
   };
 }
 
-export function fetchingMemberSuccess(uid, userData){
+export function fetchingMemberSuccess(uid){
   return {
     type: actionTypes.FETCH_MEMBER_SUCCESS,
-    payload: {
-      uid,
-      userData
-    }
+    payload: uid
+  };
+}
+
+function fetchingMember(){
+  return {
+    type: actionTypes.FETCHING_MEMBER
   };
 }
 
@@ -161,11 +151,5 @@ export function changePasswordAction(data){
   return {
     type: 'UPDATE_PASSWORD',
     payload: updatePassword(data)
-  };
-}
-
-function fetchingMember(){
-  return {
-    type: actionTypes.FETCHING_MEMBER
   };
 }

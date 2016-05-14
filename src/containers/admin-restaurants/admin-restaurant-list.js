@@ -6,8 +6,9 @@ import {openCreateRestaurantModal} from 'actions/create-restaurant-modal';
 import AdminRestaurantList from 'components/admin-restaurants/admin-restaurant-list';
 
 function mapStateToProps(state){
+  var restaurantList = state.restaurants.list;
   return {
-    restaurants: state.restaurants.list,
+    restaurants: state.entities.restaurants,
     isFetching: state.restaurants.isFetching
   };
 }

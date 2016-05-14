@@ -1,1 +1,2 @@
-export ChangePassword from './change-password';
+import ChangePassword from './change-password';
+export {ChangePassword};

@@ -9,7 +9,7 @@ const roles = {
 export default createClass({
   displayName: 'staff-list',
   propTypes: {
-    staff: PropTypes.array,
+    staff: PropTypes.array.isRequired,
     fetchStaff: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired,
     removeStaffMember: PropTypes.func.isRequired,
@@ -34,7 +34,7 @@ export default createClass({
               </tr>
             </thead>
             <tbody>
-              {renderRows(staff, restaurantId, ['name', 'email'], removeStaffMember, editStaffMember)}
+              {renderRows(staff, restaurantId, ['name', 'email'], removeStaffMember, editStaffMember, 'uid')}
             </tbody>
           </table>
           </div>

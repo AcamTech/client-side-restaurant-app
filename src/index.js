@@ -1,11 +1,12 @@
+import 'babel-polyfill';
 import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import {render} from 'react-dom';
 import { browserHistory } from 'react-router';
-import configureStore from './store/configureStore';
 import App from './app';
 import './styles/main.scss';
 import {buildCheckIfAuthed} from 'helpers/auth';
+var configureStore = require('./store/configureStore');
 
 const {store, history} = configureStore({}, browserHistory);
 

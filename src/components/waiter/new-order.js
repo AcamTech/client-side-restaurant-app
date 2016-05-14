@@ -114,7 +114,7 @@ const WaiterPage = React.createClass({
   },
   saveOrder() {
     if (!this.state.order.table) {
-      alert('Por favor, seleccione una mesa');
+      console.warn('Por favor, seleccione una mesa');
     } else {
       var itemsQuantity = Object.keys(this.state.order.items).length;
       if (itemsQuantity < 1) {

@@ -5,7 +5,7 @@ export default function ListItem ({id, restaurant}) {
   return (
     <li className="item-list__item">
       <article className="media media--small clearfix">
-        <Link to={`admin/restaurante/${id}`}>
+        <Link to={`super/restaurante/${id}`}>
           <div className="media__img">
             <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
           </div>

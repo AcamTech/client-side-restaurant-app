@@ -26,5 +26,5 @@ function mapDispatchToProps(dispatch){
 export default reduxForm({
   form: 'addStaffMemberForm',
   validate: addStaffMemberValidations,
-  fields: ['name', 'email', 'id']
+  fields: ['name', 'email', 'uid']
 }, mapStateToProps, mapDispatchToProps)(StaffModal);

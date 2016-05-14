@@ -7,9 +7,10 @@ import { editDish } from 'actions/dishes-modal';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
+  var dishes = state.dishes.list.map(dish => state.entities.dishes[dish]);
   return {
     restaurantId: props.restaurantId,
-    dishes: objectToArray(state.dishes.list || {}),
+    dishes,
     categories: objectToArray(state.categories.list || {})
   };
 }

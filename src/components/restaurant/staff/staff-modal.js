@@ -28,7 +28,7 @@ export default createClass({
   },
   render(){
     var {
-      fields: {name, email, role, id},
+      fields: {name, email, role, uid},
       invalid,
       handleSubmit,
       submitting,
@@ -51,7 +51,7 @@ export default createClass({
           className="panel--medium">
           <article id="new-restaurant" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
             <form onSubmit={handleSubmit((data) => addOrEditStaffMember(data, restaurantId))}>
-              <input type="hidden" {...id}/>
+              <input type="hidden" {...uid}/>
               <div className="panel__body">
                 <h1 className="popup__title delta">{modalTitle}</h1>
                   <div className={`form-group has-feedback has-feedback--reverse ${name.touched && name.error && 'has-error'}`}>

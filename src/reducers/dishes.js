@@ -2,19 +2,28 @@ import * as actiontypes from '../constants/action-types';
 
 export default function dishes(state={
   isFetching: false,
-  list: {}
+  lastFetched: '',
+  list: []
 }, action){
   var {type, payload} = action;
   switch(type){
     case actiontypes.ADD_DISH:
-      return {...state, list: Object.assign({}, state.list, payload)};
+      return {...state, list: [...state.list, payload]};
     case actiontypes.FETCH_DISHES:
-      return {...state, list: payload};
+      return {...state, isFetching: true};
+    case actiontypes.FETCH_DISHES_FULFILLED:
+      return {
+        ...state,
+        isFetching: false,
+        lastFetched: Date.now(),
+        list: payload
+      };
     case actiontypes.REMOVE_DISH:
-      delete state.list[payload.id];
-      return {...state, list: {...state.list}};
-    case actiontypes.UPDATE_DISH:
-      return {...state, list: {...state.list, ...payload}};
+      var index = state.list.indexOf(payload);
+      return {...state, list: [
+        ...state.list.slice(0, index),
+        ...state.list.slice(index + 1)
+      ]};
     default:
       return state;
   }

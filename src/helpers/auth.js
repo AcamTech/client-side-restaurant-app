@@ -1,12 +1,17 @@
-import {ref} from 'constants/firebase';
-import { authMember, fetchingMemberSuccess } from 'actions/staff';
+import Firebase, {ref} from 'constants/firebase';
+import { authMember, fetchingMemberSuccess, getAuthedMember } from 'actions/staff';
 import { generateRandomPassword, formatUserInfo } from 'helpers/format-helpers';
+import { getMember, updateMember }from 'helpers/api';
 
 export function createUserWithEmail(email){
   return ref.createUser({
     email,
     password: generateRandomPassword()
   });
+}
+
+export function resetMemberPassword(data){
+  return ref.resetPassword(data);
 }
 
 export function auth(user) {
@@ -17,33 +22,6 @@ export function logout () {
   ref.unauth();
 }
 
-export function saveMember({uid, userData}) {
-  return ref.child(`restaurants_staff/${uid}`)
-    .update(userData)
-    .then(() => userData);
-}
-
-export function getMember(uid) {
-  return ref.child(`restaurants_staff/${uid}`)
-    .once('value')
-    .then(snapshot => {
-      return snapshot.val();
-    });
-}
-
-export function checkAuthed (store) {
-  const authData = ref.getAuth();
-  if (authData === null) {
-    return false;
-  } else if (store.getState().staff.isAuthed === false) {
-    const { password, uid } = authData;
-    const userInfo = formatUserInfo(password.isTemporaryPassword, password.profileImageURL, uid);
-    store.dispatch(authMember(uid));
-    store.dispatch(fetchingMemberSuccess(uid, userInfo));
-  }
-  return true;
-}
-
 export function updatePassword(password){
   return ref.changePassword(password);
 }
@@ -51,7 +29,8 @@ export function updatePassword(password){
 var routesPrivileges = {
   admin: /^admin/,
   waiter: /^ordenes/,
-  kitchen: /^cocina/
+  kitchen: /^cocina/,
+  super: /^super/
 };
 
 function isValidRoute(member, path) {
@@ -66,7 +45,6 @@ function isValidRoute(member, path) {
     return false;
   }
 }
-
 
 export function redirectToUserRoot(member, replace) {
   var path = '/restaurante/'+member.restaurant;
@@ -87,13 +65,27 @@ export function redirectToUserRoot(member, replace) {
   }
 }
 
+export function checkAuthed (store) {
+  const authData = ref.getAuth();
+  if (authData === null) {
+    return false;
+  } else if (store.getState().staff.isAuthed === false) {
+    const { password, uid } = authData;
+    const userInfo = formatUserInfo(password.isTemporaryPassword, password.profileImageURL, uid);
+    store.dispatch(authMember(uid));
+    store.dispatch(fetchingMemberSuccess(uid, userInfo));
+  }
+  return true;
+}
+
 export function buildCheckIfAuthed(store){
   return function checkIfAuthed(nextState, replace, callback){
     var isAuthed = checkAuthed(store);
     var nextStatePath = nextState.location.pathname;
 
-    var staff = store.getState().staff;
-    var member = staff.list[staff.authedId];
+    var state = store.getState();
+    var staff = state.staff;
+    var member = state.entities.staff[staff.authedId];
 
     // TODO: Clean this thing
     if (nextStatePath == '/login' || nextStatePath == '/') {
@@ -102,7 +94,7 @@ export function buildCheckIfAuthed(store){
           redirectToUserRoot(member, replace);
           callback();
         } else {
-          getMember(staff.authedId)
+          store.dispatch(getAuthedMember(staff.authedId))
             .then((member) => {
               redirectToUserRoot(member, replace);
               callback();
