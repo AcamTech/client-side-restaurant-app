@@ -8,6 +8,7 @@
   @include rem;
   background-color: $brand-info;
   color: white;
+  cursor: pointer;
   padding: $half-spacing-unit;
   flex-grow: 1;
   max-width: em(170);

@@ -12,6 +12,7 @@ function mapStateToProps(state, props){
     waiterId: state.staff.authedId,
     dishes: state.dishes.list || {},
     tables: objectToArray(state.tables.list || {}),
+    selectedOrder: state.orders.selectedOrder,
     restaurantId: props.restaurantId
   };
 }

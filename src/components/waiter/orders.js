@@ -9,6 +9,7 @@ export default createClass({
   propTypes: {
     waiterId: PropTypes.string.isRequired,
     orders: PropTypes.array,
+    editOrder: PropTypes.func.isRequired,
     fetchOrders: PropTypes.func.isRequired,
     fetchOrdersForWaiter: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired,
@@ -22,10 +23,24 @@ export default createClass({
   componentWillUnmount(){
     this.props.stopListenningForWaiterOrders(this.props.restaurantId);
   },
+  editOrder(id){
+    const {waiterId, restaurantId} = this.props;
+    this.props.editOrder(id, restaurantId, waiterId);
+  },
   renderOrder(order){
-    var createdAtDateObj = new Date(order.createdAt);
-    var createdAtDate = [createdAtDateObj.getDate(), createdAtDateObj.getMonth(), createdAtDateObj.getFullYear()].join('/');
-    var createdAtTime = [createdAtDateObj.getHours(), createdAtDateObj.getMinutes(), createdAtDateObj.getSeconds()].join(':');
+    const self = this;
+
+    const createdAtDateObj = new Date(order.createdAt);
+    const createdAtDate = [createdAtDateObj.getDate(), createdAtDateObj.getMonth(), createdAtDateObj.getFullYear()].join('/');
+    const createdAtTime = [createdAtDateObj.getHours(), createdAtDateObj.getMinutes(), createdAtDateObj.getSeconds()].join(':');
+
+    function onEdit(e) {
+      e.preventDefault();
+
+      if (order.state === 'QUEUED') {
+        self.editOrder(order.id);
+      }
+    }
 
     return (
       <article className="tile" key={order.id} index={order.id}>
@@ -38,6 +53,9 @@ export default createClass({
             Hora de creación: {createdAtTime}
           </p>
           <p className="tile__text">Mesa {order.table}</p>
+          <p>
+            <a href="#" onClick={onEdit}>Editar</a>
+          </p>
         </div>
       </article>
     );

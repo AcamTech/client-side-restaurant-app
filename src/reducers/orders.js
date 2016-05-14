@@ -2,7 +2,8 @@ import * as actiontypes from '../constants/action-types';
 
 export default function orders(state={
   isFetching: false,
-  list: {}
+  list: {},
+  selectedOrder: null
 }, action){
   var {type, payload} = action;
   switch(type){
@@ -12,6 +13,8 @@ export default function orders(state={
       return {...state, list: {...state.list, ...payload}};
     case actiontypes.CREATE_ORDER:
       return {...state, list: {...state.list, ...payload}};
+    case actiontypes.SET_SELECTED_ORDER:
+      return {...state, selectedOrder: payload};
     default:
       return state;
   }

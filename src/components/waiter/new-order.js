@@ -1,13 +1,13 @@
 import React, {PropTypes} from 'react';
 import WaiterCarta from './waiter-carta';
 import WaiterOrder from './waiter-order';
-import SampleDishes from 'sample/sample-dishes.js';
 
 const WaiterPage = React.createClass({
   displayName: 'new-order-component',
   propTypes: {
     dishes: PropTypes.object,
     tables: PropTypes.array,
+    selectedOrder: PropTypes.object,
     fetchDishes: PropTypes.func.isRequired,
     fetchTables: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired,
@@ -16,16 +16,26 @@ const WaiterPage = React.createClass({
   },
   getInitialState(){
     return {
-      order: {
-        items: {},
-        total: 0,
-        table: ''
-      }
+      order: this.getInitialOrder()
     };
   },
   componentDidMount(){
     this.props.fetchDishes(this.props.restaurantId);
     this.props.fetchTables(this.props.restaurantId);
+  },
+  getInitialOrder(){
+    const selectedOrder = this.props.selectedOrder;
+    const defaultOrder = {
+      items: {},
+      total: 0,
+      table: ''
+    };
+
+    if (selectedOrder) {
+      return Object.assign({}, selectedOrder);
+    } else {
+      return defaultOrder;
+    }
   },
   getTotal(order) {
     var item, total = 0;

@@ -101,3 +101,59 @@ export function createOrder(order, restaurantId, waiterId) {
       });
   };
 }
+
+export function editOrder(id, restaurantId, waiterId) {
+  return function editOrderThunk(dispatch) {
+    
+    function checkOwnership(id) {
+      const waiterOrdersRef = ref.child(`restaurants_staff/${waiterId}/orders/`);
+    
+      return waiterOrdersRef.once('value')
+        .then(snapshot => {
+          const orders = snapshot.val();
+          const ids = Object.keys(orders);
+          const ownsOrder = ids.indexOf(id) != -1;
+          
+          return ownsOrder;
+        });
+    }
+    
+    function loadOrder(id) {
+      const orderRef = ref.child(`restaurants/${restaurantId}/orders/${id}`);
+
+      return orderRef.once('value')
+        .then(snapshot => {
+          const order = snapshot.val();
+          return order;
+        });
+    }
+    
+    function selectOrder(order) {
+      const selectOrderAction = {
+        type: actionTypes.SET_SELECTED_ORDER,
+        payload: order
+      };
+
+      dispatch(selectOrderAction);
+    }
+    
+    function redirectToOrder() {
+      const pushToOrder = push(`/restaurante/${restaurantId}/ordenes/nueva-orden`);
+      dispatch(pushToOrder);
+    }
+
+    checkOwnership(id)
+      .then(isOwner => {
+        if (isOwner) {
+          loadOrder(id)
+            .then(order => {
+              selectOrder(order);
+              redirectToOrder();
+            });
+        } else {
+          const pushToList = push(`/restaurante/${restaurantId}/ordenes/lista`);
+          dispatch(pushToList);  
+        }
+      });
+  };
+}
