@@ -1,7 +1,8 @@
 export {
     fetchStaffFromRestaurant, getMember,
     updateMember, destroyMember,
-    createAndSaveUser
+    createAndSaveUser,
+    addAdminToRestaurant
 } from './api/staff';
 
 export {

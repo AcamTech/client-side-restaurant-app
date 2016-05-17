@@ -14,12 +14,13 @@ import { TransformToArrayOfIds } from 'helpers/format-helpers';
 import {
   fetchStaffFromRestaurant, getMember,
   updateMember, destroyMember,
-  createAndSaveUser
+  createAndSaveUser, addAdminToRestaurant
 } from 'helpers/api';
 
 export function addOrEditStaffMember(staffMember, restaurantId){
   return function addOrEditStaffMemberThunk(dispatch){
-    const {email, name, uid} = staffMember;
+    const {email, uid} = staffMember;
+
     if(!email){
       throw new Error('No se encontro el email');
     }
@@ -36,6 +37,30 @@ export function addOrEditStaffMember(staffMember, restaurantId){
       updateMember(staffMember)
         .then(payload => dispatch(receiveEntities(payload.entities)))
         .then(() => dispatch(closeStaffModal()))
+        .catch(error => {throw new Error(error);} );
+    }
+  };
+}
+
+export function addOrEditAdmin(admin, restaurantId){
+  return function addOrEditAdminThunk(dispatch){
+    const {email, uid} = admin;
+
+    if(!email){
+      throw new Error('No se encontro el email');
+    }
+    if(!uid){
+       createAndSaveUser(admin, restaurantId)
+        .then((payload) => {
+            dispatch(receiveEntities(payload.entities));
+            dispatch({type: actionTypes.ADD_STAFF_MEMBER, payload: [payload.result]});
+            addAdminToRestaurant(payload.result, restaurantId);
+        })
+        .then(() => dispatch(resetPassword({email})))
+        .catch(error => {throw new Error(error);} );
+    }else{
+      updateMember(admin)
+        .then(payload => dispatch(receiveEntities(payload.entities)))
         .catch(error => {throw new Error(error);} );
     }
   };

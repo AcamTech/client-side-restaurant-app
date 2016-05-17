@@ -1,6 +1,6 @@
 import { normalize, Schema, valuesOf } from 'normalizr';
 import Firebase, { ref } from 'constants/firebase';
-import { createUserWithEmail } from 'helpers/auth';
+import { createUserWithEmail, resetMemberPassword } from 'helpers/auth';
 import {getInnerDataFromUrl, ArrayToObject} from 'helpers/format-helpers';
 
 var staffSchema = new Schema('staff', {idAttribute: 'uid'});
@@ -22,7 +22,7 @@ export function getMember(uid) {
 export function updateMember(userData) {
   var uid = userData.uid;
   return ref.child(`restaurants_staff/${uid}`)
-    .update(Object.assign({}, userData, {
+    .update(Object.assign({}, {...userData}, {
       updatedAt: Firebase.ServerValue.TIMESTAMP
     }))
     .then(() => getMember(uid));
@@ -77,6 +77,11 @@ export function createAndSaveUser(staffMember, restaurantId){
       return member;
     })
     .then((member) => getMember(member.uid));
+}
+
+export function addAdminToRestaurant(adminId, restaurantId){
+  return ref.child(`restaurants/${restaurantId}/admin`)
+    .set(adminId);
 }
 
 function saveMemberInRestaurant(uid, restaurantId) {

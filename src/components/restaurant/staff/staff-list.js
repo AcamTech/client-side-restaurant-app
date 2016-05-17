@@ -30,11 +30,12 @@ export default createClass({
               <tr>
                 <th>Nombre</th>
                 <th>Email</th>
+                <th>Rol</th>
                 <th colSpan="2"></th>
               </tr>
             </thead>
             <tbody>
-              {renderRows(staff, restaurantId, ['name', 'email'], removeStaffMember, editStaffMember, 'uid')}
+              {renderRows(staff, restaurantId, ['name', 'email', 'role'], removeStaffMember, editStaffMember, 'uid')}
             </tbody>
           </table>
           </div>

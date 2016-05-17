@@ -130,7 +130,7 @@ export function buildCheckIfAuthed(store){
             callback();
           }
         } else {
-          getMember(staff.authedId)
+          store.dispatch(getAuthedMember(staff.authedId))
             .then((payload) => {
               var {result, entities} = payload;
               var member = entities.staff[result];

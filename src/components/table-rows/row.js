@@ -10,14 +10,24 @@ export default function TableRow ({id, data, onClickRemoveHandler, onClickEditHa
   return (
     <tr>
       {renderCells(id)(data)}
-      <td>
-        <a className="no-decoration color-success" href="#" onClick={onClickEditHandler}><span className="icon-pencil"></span> Editar</a>
-      </td>
-      <td>
-        <a className="no-decoration color-danger" href="#" onClick={onClickRemoveHandler}>
-          <span className="icon-x"></span> Eliminar
-        </a>
-      </td>
+      {
+        onClickEditHandler 
+        ? (
+          <td>
+            <a className="no-decoration color-success" href="#" onClick={onClickEditHandler}><span className="icon-pencil"></span> Editar</a>
+          </td>
+          ) : null
+      }
+      {
+        onClickRemoveHandler
+        ? (
+          <td>
+            <a className="no-decoration color-danger" href="#" onClick={onClickRemoveHandler}>
+              <span className="icon-x"></span> Eliminar
+            </a>
+          </td>
+        ) : null
+      }
     </tr>
   );
 }
@@ -25,6 +35,12 @@ export default function TableRow ({id, data, onClickRemoveHandler, onClickEditHa
 TableRow.propTypes = {
   id: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
-  onClickRemoveHandler: PropTypes.func.isRequired,
-  onClickEditHandler: PropTypes.func.isRequired
+  onClickRemoveHandler: PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.object
+  ]),
+  onClickEditHandler: PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.object
+  ])
 };

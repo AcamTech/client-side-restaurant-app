@@ -19,7 +19,11 @@ export default function renderRows(objectsArray, restaurantId='', whiteListKeys=
 }
 
 function commandsFactory(fn, item, restaurantId){
-  return function commandsFactoryThunk(){
-    return fn(item, restaurantId);
-  };
+  if (fn) {
+    return function commandsFactoryThunk(){
+      return fn(item, restaurantId);
+    };
+  } else {
+    return null;
+  }
 }
