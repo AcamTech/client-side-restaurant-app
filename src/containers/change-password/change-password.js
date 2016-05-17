@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changePasswordAction } from 'actions/staff';
+import { changePasswordAction } from 'actions/auth';
 import { ChangePassword } from 'components/change-password';
 
 function mapStateToProps (state, props) {

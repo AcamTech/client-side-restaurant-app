@@ -1,5 +1,6 @@
 import Firebase, {ref} from 'constants/firebase';
-import { authMember, fetchingMemberSuccess, getAuthedMember } from 'actions/staff';
+import { fetchingMemberSuccess, getAuthedMember } from 'actions/staff';
+import {authMember} from 'actions/auth';
 import { generateRandomPassword, formatUserInfo } from 'helpers/format-helpers';
 import { getMember, updateMember }from 'helpers/api';
 
@@ -15,7 +16,14 @@ export function resetMemberPassword(data){
 }
 
 export function auth(user) {
-  return ref.authWithPassword(user);
+  return ref.authWithPassword(user).then(({password, uid}) => {
+    var userData = formatUserInfo(
+      password.isTemporaryPassword,
+      password.profileImageURL,
+      uid
+    );
+    return {uid, userData};
+  });
 }
 
 export function logout () {
@@ -29,15 +37,18 @@ export function updatePassword(password){
 var routesPrivileges = {
   admin: /^admin/,
   waiter: /^ordenes/,
-  kitchen: /^cocina/,
-  super: /^super/
+  kitchen: /^cocina/
 };
 
 function isValidRoute(member, path) {
   var matches = path.match(/\/restaurante\/([^\/]*)\/(.*)/);
 
-  var restaurantId = matches[1];
-  var shortPath = matches[2];
+  var restaurantId = matches && matches[1];
+  var shortPath = matches && matches[2];
+
+  if(member.role == 'super'){
+    return true;
+  }
 
   if (restaurantId === member.restaurant) {
     return routesPrivileges[member.role].test(shortPath);
@@ -49,7 +60,7 @@ function isValidRoute(member, path) {
 export function redirectToUserRoot(member, replace) {
   var path = '/restaurante/'+member.restaurant;
   var {role} = member;
-
+  console.warn(member);
   switch (role) {
     case 'admin':
       replace(path + '/admin');
@@ -59,6 +70,9 @@ export function redirectToUserRoot(member, replace) {
       break;
     case 'kitchen':
       replace(path + '/cocina');
+      break;
+    case 'super':
+      replace('super');
       break;
     default:
       replace('/login');
@@ -117,7 +131,9 @@ export function buildCheckIfAuthed(store){
           }
         } else {
           getMember(staff.authedId)
-            .then((member) => {
+            .then((payload) => {
+              var {result, entities} = payload;
+              var member = entities.staff[result];
               if (isValidRoute(member, nextStatePath)) {
                 callback();
               } else {

@@ -7,7 +7,10 @@ import {
   redirectToUserRoot, resetMemberPassword,
   logout
 } from 'helpers/auth';
-import { formatUserInfo, TransformToArrayOfIds } from 'helpers/format-helpers';
+import {
+  resetPassword
+} from './auth';
+import { TransformToArrayOfIds } from 'helpers/format-helpers';
 import {
   fetchStaffFromRestaurant, getMember,
   updateMember, destroyMember,
@@ -66,6 +69,13 @@ export function removeStaffMember(member, restaurantId){
   };
 }
 
+export function fetchingMemberSuccess(uid){
+  return {
+    type: actionTypes.FETCH_MEMBER_SUCCESS,
+    payload: uid
+  };
+}
+
 export function getAuthedMember(uid){
   return function(dispatch){
     return getMember(uid)
@@ -77,79 +87,8 @@ export function getAuthedMember(uid){
   };
 }
 
-export function authenticateUser(user){
-  return function authenticateUserThunk(dispatch){
-    function redirect(path) {
-      dispatch(push(path));
-    }
-
-    dispatch(fetchingMember());
-    auth(user)
-      .then(({password, uid}) => {
-        var userData = formatUserInfo(
-          password.isTemporaryPassword,
-          password.profileImageURL,
-          uid
-        );
-        return updateMember({uid, userData});
-      })
-      .then(payload => {
-        var uid = payload.result;
-        var entities = payload.entities;
-        var staff = entities.staff;
-        var member = staff[uid];
-        dispatch(receiveEntities(entities));
-        dispatch(fetchingMemberSuccess(uid));
-        return member;
-      })
-      .then((member) => {
-        var {uid} = member;
-        dispatch(authMember(uid));
-        return member;
-      })
-      .then((userData) => redirectToUserRoot(userData, redirect))
-      .catch(error => {throw new Error(error);});
-  };
-}
-
-export function unauth(){
-  return function unauthThunk(dispatch){
-    logout();
-    dispatch({type: 'UNAUTH_MEMBER'});
-    dispatch(replace('/'));
-  };
-}
-
-export function resetPassword(data){
-  return {
-    type: 'RESET_PASSWORD',
-    payload: resetMemberPassword(data)
-  };
-}
-
-export function authMember(uid){
-  return {
-    type: actionTypes.AUTH_MEMBER,
-    payload: uid
-  };
-}
-
-export function fetchingMemberSuccess(uid){
-  return {
-    type: actionTypes.FETCH_MEMBER_SUCCESS,
-    payload: uid
-  };
-}
-
 function fetchingMember(){
   return {
     type: actionTypes.FETCHING_MEMBER
-  };
-}
-
-export function changePasswordAction(data){
-  return {
-    type: 'UPDATE_PASSWORD',
-    payload: updatePassword(data)
   };
 }

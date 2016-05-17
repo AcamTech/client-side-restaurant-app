@@ -1,1 +1,2 @@
-export RestaurantLayout from './restaurant-layout';
+import RestaurantLayout from './restaurant-layout';
+export {RestaurantLayout};
