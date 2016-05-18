@@ -4,7 +4,7 @@ import { getRestaurant } from 'actions/restaurants';
 import { WaiterLayout } from 'components/waiter';
 
 function mapStateToProps (state, props) {
-  var restaurant = state.entities.restaurants[props.restaurantId] || {}
+  var restaurant = state.entities.restaurants[props.restaurantId] || {};
   return {
     restaurant
   };

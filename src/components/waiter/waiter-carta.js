@@ -6,9 +6,9 @@ const WaiterCarta = React.createClass({
     addToOrder: PropTypes.func.isRequired,
     dishes: PropTypes.array
   },
-  renderDish(key){
+  renderDish(item, index){
     return (
-      <CartaItem key={key} index={key} details={this.props.dishes[key]} addToOrder={this.props.addToOrder} />
+      <CartaItem key={item.id} index={item.id} details={item} addToOrder={this.props.addToOrder} />
     );
   },
   render(){
@@ -16,7 +16,7 @@ const WaiterCarta = React.createClass({
       <section>
         <h1 className="delta weight--light">Carta</h1>
         <ul className="carta">
-          {Object.keys(this.props.dishes).map(this.renderDish)}
+          {this.props.dishes.map(this.renderDish)}
         </ul>
       </section>
     );

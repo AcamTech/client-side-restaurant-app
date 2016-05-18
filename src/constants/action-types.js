@@ -74,3 +74,7 @@ export const FETCH_ORDERS = 'FETCH_ORDERS';
 export const UPDATE_ORDER = 'UPDATE_ORDER';
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const SET_SELECTED_ORDER = 'SET_SELECTED_ORDER';
+
+
+//LOGGER
+export const CLOSE_LOGGER = 'CLOSE_LOGGER';

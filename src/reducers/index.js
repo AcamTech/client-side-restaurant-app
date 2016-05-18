@@ -1,38 +1,40 @@
 import { combineReducers } from 'redux';
 import {routerReducer as routing} from 'react-router-redux';
 import {reducer as form} from 'redux-form';
-import restaurants from './restaurants';
+import categories from './categories';
+import categoriesModal from './categories-modal';
 import createRestaurantModal from './create-restaurant-modal';
+import dishes from './dishes';
+import dishesModal from './dishes-modal';
+import entities from './entities';
+import ingredients from './ingredients';
+import ingredientsModal from './ingredients-modal';
+import logger from './logger';
+import orders from './orders';
+import restaurants from './restaurants';
 import staff from './staff';
 import staffModal from './staff-modal';
 import tables from './tables';
 import tablesModal from './tables-modal';
-import categories from './categories';
-import categoriesModal from './categories-modal';
-import ingredients from './ingredients';
-import ingredientsModal from './ingredients-modal';
-import dishes from './dishes';
-import dishesModal from './dishes-modal';
-import orders from './orders';
-import entities from './entities';
 
 const rootReducer = combineReducers({
-  restaurants,
-  entities,
+  categories,
+  categoriesModal,
   createRestaurantModal,
+  dishes,
+  dishesModal,
+  entities,
+  form,
+  ingredients,
+  ingredientsModal,
+  logger,
+  orders,
+  restaurants,
+  routing,
   staff,
   staffModal,
   tables,
-  tablesModal,
-  categories,
-  categoriesModal,
-  form,
-  routing,
-  ingredients,
-  ingredientsModal,
-  dishes,
-  dishesModal,
-  orders
+  tablesModal
 });
 
 export default rootReducer;

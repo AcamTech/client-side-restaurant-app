@@ -1,4 +1,5 @@
 import React, {createClass, PropTypes} from 'react';
+import {Logger} from 'containers/logger';
 
 const MainLayout = createClass({
   displayName: 'Main-layout',
@@ -9,6 +10,7 @@ const MainLayout = createClass({
     return(
       <div className="main-layout full-height">
         {this.props.children}
+        <Logger />
       </div>
     );
   }

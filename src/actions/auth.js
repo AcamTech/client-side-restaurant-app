@@ -36,7 +36,9 @@ export function authenticateUser(user){
         return member;
       })
       .then((userData) => redirectToUserRoot(userData, redirect))
-      .catch(error => {throw new Error(error);});
+      .catch(error => {
+        dispatch({type: 'AUTHENTICATE_USER_REJECTED', payload: error.message});
+      });
   };
 }
 
