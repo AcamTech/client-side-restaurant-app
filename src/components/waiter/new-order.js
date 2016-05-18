@@ -5,7 +5,7 @@ import WaiterOrder from './waiter-order';
 const WaiterPage = React.createClass({
   displayName: 'new-order-component',
   propTypes: {
-    dishes: PropTypes.object,
+    dishes: PropTypes.array,
     tables: PropTypes.array,
     selectedOrder: PropTypes.object,
     fetchDishes: PropTypes.func.isRequired,
@@ -130,11 +130,20 @@ const WaiterPage = React.createClass({
       <div className="grid">
         <div className="grid__item medium--one-half">
           <div className="main-area">
-            <WaiterCarta dishes={this.props.dishes} addToOrder={this.addToOrder} />
+            <WaiterCarta
+              dishes={this.props.dishes}
+              addToOrder={this.addToOrder} />
           </div>
         </div><div className="grid__item medium--one-half">
           <div className="main-area">
-            <WaiterOrder restaurantId={this.props.restaurantId} tables={this.props.tables} order={this.state.order} removeFromOrder={this.removeFromOrder} setCommentToItem={this.setCommentToItem} setTable={this.setTable} saveOrder={this.saveOrder} />
+            <WaiterOrder
+              restaurantId={this.props.restaurantId}
+              tables={this.props.tables}
+              order={this.state.order}
+              removeFromOrder={this.removeFromOrder}
+              setCommentToItem={this.setCommentToItem}
+              setTable={this.setTable}
+              saveOrder={this.saveOrder} />
           </div>
         </div>
       </div>

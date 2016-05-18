@@ -5,7 +5,7 @@ import RestaurantDetail from 'components/admin-restaurants/restaurant-detail';
 function mapStateToProps (state, props) {
   return {
     id: props.restaurantId,
-    restaurant: state.restaurants.list[props.restaurantId] || {},
+    restaurant: state.restaurants.list[props.restaurantId] || {}
   };
 }
 

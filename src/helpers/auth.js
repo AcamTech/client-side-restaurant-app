@@ -60,7 +60,6 @@ function isValidRoute(member, path) {
 export function redirectToUserRoot(member, replace) {
   var path = '/restaurante/'+member.restaurant;
   var {role} = member;
-  console.warn(member);
   switch (role) {
     case 'admin':
       replace(path + '/admin');

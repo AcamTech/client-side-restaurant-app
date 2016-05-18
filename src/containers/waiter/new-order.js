@@ -8,10 +8,12 @@ import { WaiterNewOrder } from 'components/waiter';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps(state, props){
+  var dishes = state.dishes.list.map(dish => state.entities.dishes[dish]);
+  var tables = state.tables.list.map(table => state.entities.tables[table]);
   return {
     waiterId: state.staff.authedId,
-    dishes: state.dishes.list || {},
-    tables: objectToArray(state.tables.list || {}),
+    dishes,
+    tables,
     selectedOrder: state.orders.selectedOrder,
     restaurantId: props.restaurantId
   };
