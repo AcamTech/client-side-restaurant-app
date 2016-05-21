@@ -10,6 +10,10 @@ export default function logger(state={
     return {...state, isOpen: true, messages: payload, type: 'error'};
   }
 
+  if(type == actionTypes.SHOW_LOGGER){
+    return {...state, isOpen: true, messages: payload, type: 'success'};
+  }
+
   if(type == actionTypes.CLOSE_LOGGER){
     return {...state, isOpen: false, messages: '', type: ''};
   }

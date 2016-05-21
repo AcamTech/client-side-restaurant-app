@@ -5,7 +5,7 @@
 .float--end    { float: $end; }
 .float--none    { float:none; }
 
-.clearfix       { @include clearfix; }
+.clearfix, .cf       { @include clearfix; }
 .float--clear   { clear: both; }
 .clear-left     { clear: left; }
 

@@ -77,4 +77,5 @@ export const SET_SELECTED_ORDER = 'SET_SELECTED_ORDER';
 
 
 //LOGGER
+export const SHOW_LOGGER = 'SHOW_LOGGER';
 export const CLOSE_LOGGER = 'CLOSE_LOGGER';

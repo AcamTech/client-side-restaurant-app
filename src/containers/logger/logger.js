@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Logger } from 'components/logger';
 import { closeLogger } from 'actions/logger';
-import { Logger } from 'components/Logger';
 
 function mapStateToProps (state, props) {
   return {

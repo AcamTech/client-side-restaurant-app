@@ -1,4 +1,4 @@
-import React, {createClass, Proptypes} from 'react';
+import React, {createClass, PropTypes} from 'react';
 import renderRows from 'components/table-rows';
 
 const ADMIN_ROLE = 'admin';
@@ -6,6 +6,12 @@ const WAITER_ROLE = 'waiter';
 
 const RestaurantStaffList = createClass({
   displayName: 'admin-restaurant-staff-list',
+  propTypes: {
+    fetchStaff: PropTypes.func.isRequired,
+    restaurantId: PropTypes.string,
+    staff: PropTypes.array,
+    addOrEditAdmin: PropTypes.func.isRequired
+  },
   componentDidMount(){
     this.props.fetchStaff(this.props.restaurantId);
   },
@@ -45,7 +51,7 @@ const RestaurantStaffList = createClass({
     return(
       <div className="panel">
         <h3>Admin</h3>
-        { admin ? this.renderAdminForm(admin) : null }
+        {admin ? this.renderAdminForm(admin) : null}
         <h3>Meseros</h3>
         <div className="table-responsive">
         <table className="table table--hover text-center">

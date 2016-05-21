@@ -6,6 +6,7 @@ import {
   redirectToUserRoot, resetMemberPassword,
   logout
 } from 'helpers/auth';
+import {showLogger} from './logger';
 import {
   getMember,
   updateMember
@@ -42,6 +43,24 @@ export function authenticateUser(user){
   };
 }
 
+export function changePasswordAction(data){
+  return function changePasswordThunk(dispatch){
+    dispatch(changePassword(data)).then(() => {
+      dispatch(showLogger('Su contraseña ha sido cambiada de manera exitosa'));
+    })
+    .then(() => dispatch(push('/login')));
+  };
+}
+
+export function resetPassword(data){
+  return function resetPasswordThunk(dispatch){
+    dispatch(resetPasswordAction(data)).then(() => {
+      dispatch(showLogger('Su contraseña provisional ha sido enviada a su correo electronico'));
+    })
+    .then(() => dispatch(push('/login')));
+  };
+}
+
 export function authMember(uid){
   return {
     type: actionTypes.AUTH_MEMBER,
@@ -56,14 +75,14 @@ export function fetchingMemberSuccess(uid){
   };
 }
 
-export function changePasswordAction(data){
+export function changePassword(data){
   return {
     type: 'UPDATE_PASSWORD',
     payload: updatePassword(data)
   };
 }
 
-export function resetPassword(data){
+export function resetPasswordAction(data){
   return {
     type: 'RESET_PASSWORD',
     payload: resetMemberPassword(data)

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import LoggerComponent from './logger-component';
 
-function Logger (props) {
+export default function Logger(props) {
   return (
     props.isOpen ? <LoggerComponent {...props} /> : null
   );
@@ -10,5 +10,3 @@ function Logger (props) {
 Logger.propTypes = {
   isOpen: PropTypes.bool.isRequired
 };
-
-export default Logger;

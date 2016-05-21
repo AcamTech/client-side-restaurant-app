@@ -1,20 +1,20 @@
 import React, {createClass, PropTypes} from 'react';
 import alertify from 'alertify.js';
 
-const LoggerComponent = React.createClass({
+const LoggerComponent = createClass({
   displayName: 'logger',
-  getDefaultProps(){
-    return {
-      type: 'log',
-      delay: 10000
-    };
-  },
   propTypes: {
     isOpen: PropTypes.bool,
     type: PropTypes.string,
     messages: PropTypes.string.isRequired,
     delay: PropTypes.number,
     closeLogger: PropTypes.func.isRequired
+  },
+  getDefaultProps(){
+    return {
+      type: 'log',
+      delay: 10000
+    };
   },
   componentDidMount(){
     var {messages, type, delay} = this.props;
@@ -27,11 +27,12 @@ const LoggerComponent = React.createClass({
     this.showAlert(delay, type, nextProps.messages);
   },
   showAlert(delay, type, messages){
+    setTimeout(() => {
+      this.props.closeLogger();
+    }, 10);
     alertify
       .delay(delay)
-      .closeLogOnClick(true)[type](messages, () => {
-      this.props.closeLogger();
-    });
+      .closeLogOnClick(true)[type](messages);
   },
   render () {
     return (

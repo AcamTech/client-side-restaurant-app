@@ -1,18 +1,16 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 import { resetPassword } from 'actions/auth';
 import { ResetPassword } from 'components/reset-password';
-
-function mapStateToProps (state, props) {
-  return {
-  };
-}
+import resetPasswordValidations from './reset-password-validations';
 
 function mapDispatchToProps (dispatch, props) {
   return bindActionCreators( {resetPassword} , dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ResetPassword);
+export default reduxForm({
+  form: 'addStaffMemberForm',
+  validate: resetPasswordValidations,
+  fields: ['email']
+}, null, mapDispatchToProps)(ResetPassword);
