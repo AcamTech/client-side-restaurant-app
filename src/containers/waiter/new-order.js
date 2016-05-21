@@ -12,7 +12,7 @@ function mapStateToProps(state, props){
   var tables = state.tables.list.map(table => state.entities.tables[table]);
   return {
     waiterId: state.staff.authedId,
-    dishes,
+    dishes: state.entities.dishes,
     tables,
     selectedOrder: state.orders.selectedOrder,
     restaurantId: props.restaurantId

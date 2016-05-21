@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
 import WaiterCarta from './waiter-carta';
 import WaiterOrder from './waiter-order';
+import { objectToArray } from 'helpers/format-helpers';
 
 const WaiterPage = React.createClass({
   displayName: 'new-order-component',
   propTypes: {
-    dishes: PropTypes.array,
+    dishes: PropTypes.object,
     tables: PropTypes.array,
     selectedOrder: PropTypes.object,
     fetchDishes: PropTypes.func.isRequired,
@@ -50,7 +51,7 @@ const WaiterPage = React.createClass({
   },
   createItem(dishId) {
     var dish = this.props.dishes[dishId];
-
+    console.log(this.props);
     return {
       dishId: dishId,
       quantity: 1,
@@ -131,7 +132,7 @@ const WaiterPage = React.createClass({
         <div className="grid__item medium--one-half">
           <div className="main-area">
             <WaiterCarta
-              dishes={this.props.dishes}
+              dishes={objectToArray(this.props.dishes)}
               addToOrder={this.addToOrder} />
           </div>
         </div><div className="grid__item medium--one-half">

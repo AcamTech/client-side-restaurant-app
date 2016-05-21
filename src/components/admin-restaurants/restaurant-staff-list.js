@@ -17,9 +17,7 @@ const RestaurantStaffList = createClass({
   },
   onAdminFormSubmit(e){
     e.preventDefault();
-
     var {addOrEditAdmin, restaurantId} = this.props;
-
     var admin = {
       uid: this.refs.uid.value,
       name: this.refs.name.value,
