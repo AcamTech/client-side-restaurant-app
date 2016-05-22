@@ -1,5 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
-import {WaiterLayout} from 'containers/waiter';
+import {Layout} from 'containers/layout';
+import BodyClassName from 'react-body-classname';
 
 const WaiterLayoutPage = createClass({
   displayName: 'Waiter-layout',
@@ -9,9 +10,11 @@ const WaiterLayoutPage = createClass({
   },
   render(){
     return(
-      <WaiterLayout restaurantId={this.props.params.id}>
-        {this.props.children}
-      </WaiterLayout>
+      <BodyClassName className="complex-layout">
+        <Layout restaurantId={this.props.params.id}>
+          {this.props.children}
+        </Layout>
+      </BodyClassName>
     );
   }
 });

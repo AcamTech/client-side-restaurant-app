@@ -16,6 +16,10 @@ let FormatHelpers = {
   }
 };
 
+export function mapObjectState(item, mapings, key){
+  return Object.assign({}, item, {status: mapings[item[key]]});
+}
+
 export function TransformToArrayOfIds(obj){
   return Object.keys(obj)
     .map(item => item);

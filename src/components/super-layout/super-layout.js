@@ -15,13 +15,10 @@ export default function SuperLayout({children}){
           </div>
         </header>
         <div className="layout-wrap complex-layout__body">
-          <a href="#" className="hamburger-menu hamburger-xclose complex-layout__close js-side-menu-trigger">
-            <span className="hamburger-menu__line"></span>
-          </a>
           <div className="side-area complex-layout__side-area">
             <SideNavigation />
           </div>
-          <section className="main-area complex-layout__main-area">
+          <section className="main-area">
             {children}
           </section>
         </div>

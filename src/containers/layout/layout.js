@@ -1,11 +1,12 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getRestaurant } from 'actions/restaurants';
-import { RestaurantLayout } from 'components/restaurant-layout';
+import { Layout } from 'components/layout';
 
 function mapStateToProps (state, props) {
   return {
-    restaurant: state.entities.restaurants[props.restaurantId] || {}
+    restaurant: state.entities.restaurants[props.restaurantId] || {},
+    user: state.entities.staff[state.staff.authedId] || {}
   };
 }
 
@@ -16,4 +17,4 @@ function mapDispatchToProps (dispatch, props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantLayout);
+)(Layout);

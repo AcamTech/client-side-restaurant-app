@@ -25,6 +25,7 @@ export function createTable(table, restaurantId){
   return newRef.set({
     id: tableId,
     number,
+    status: 'free',
     createdAt: Firebase.ServerValue.TIMESTAMP,
     updatedAt: Firebase.ServerValue.TIMESTAMP
   })

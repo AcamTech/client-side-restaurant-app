@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import { TablesList } from 'components/restaurant';
 import { fetchTables, removeTable } from 'actions/tables';
 import { editTable } from 'actions/tables-modal';
-import { objectToArray } from 'helpers/format-helpers';
+import stateMapings from 'constants/states';
+import {mapObjectState} from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
-  var tables = state.tables.list.map(item => state.entities.tables[item]);
+  var tables = state.tables.list.map(key => {
+    var item = state.entities.tables[key];
+    return mapObjectState(item, stateMapings, 'status')
+  });
   return {
     restaurantId: props.restaurantId,
     tables

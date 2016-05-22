@@ -23,11 +23,12 @@ export default createClass({
             <thead>
               <tr>
                 <th>Numero</th>
+                <th>Estado</th>
                 <th colSpan="2"></th>
               </tr>
             </thead>
             <tbody>
-              {renderRows(tables, restaurantId, ['number'], removeTable, editTable, 'id')}
+              {renderRows(tables, restaurantId, ['number', 'status'], removeTable, editTable, 'id')}
             </tbody>
           </table>
           </div>

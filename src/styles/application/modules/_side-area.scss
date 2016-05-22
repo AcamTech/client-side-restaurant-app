@@ -1,8 +1,11 @@
 .side-area{
   background-color: #342A37;
   color: white;
-  width: em(90);
+  width: em(40);
   transform: translateZ(0);
+  @media #{$small} {
+    width: em(70);
+  }
   &__input{
     border-radius: 100px;
     background-color: #1F1921;
@@ -27,7 +30,11 @@
   &__item{
     text-align: center;
     font-weight: 300;
-    height: em(90);
+    height: em(40);
+    transition: all 0.15s ease-out;
+    @media #{$small} {
+      height: em(70);
+    }
     &.last-item{
       margin-top: auto;
     }
@@ -36,7 +43,11 @@
     color: inherit;
     text-decoration: none;
     display: block;
-    padding-top: em(22);
+    padding-top: em(8);
+    transition: all 0.15s ease-out;
+    @media #{$small} {
+      padding-top: em(16);
+    }
     height: 100%;
     &:hover,
     &.is-active{
@@ -48,11 +59,15 @@
     }
   }
   &__icon{
-    font-size: em(24);
-    margin-bottom: em(4, 24);
+    font-size: em(18);
+    margin-bottom: em(4, 18);
     display: block;
   }
   &__text{
-    font-size: em($font-size-smaller);
+    font-size: em(11);
+    display: none;
+    @media #{$small} {
+      display: inherit;
+    }
   }
 }

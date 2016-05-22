@@ -23,6 +23,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cart:before {
+    content: "\e915";
+}
+.icon-external:before {
+    content: "\e916";
+}
+.icon-place:before {
+    content: "\e917";
+}
+.icon-tag:before {
+    content: "\e918";
+}
 .icon-control:before {
     content: "\e912";
 }
@@ -86,4 +98,3 @@
 .icon-warning:before {
     content: "\e911";
 }
-

@@ -1,11 +1,7 @@
 import React, {createClass, PropTypes} from 'react';
 import Select from 'react-select';
 import FormatHelpers from 'helpers/format-helpers';
-
-const STATES = {
-  'QUEUED': 'En Cola',
-  'CANCELED': 'Cancelada'
-};
+import stateMappings, * as states from 'constants/states';
 
 export default createClass({
   displayName: 'orders-list',
@@ -37,7 +33,7 @@ export default createClass({
     return true;
   },
   isOrderActive(order) {
-    return order.state !== "ARCHIVED" && order.state !== "CANCELED" && order.state !== "DELIVERED";
+    return order.state !== states.ARCHIVED && order.state !== states.CANCELED && order.state !== states.DELIVERED;
   },
   stateVisibility(order) {
     var {stateFilter} = this.state;
@@ -85,7 +81,7 @@ export default createClass({
         <article className="tile" key={order.id} index={order.id}>
           <dl className="order__details push--bottom clearfix">
             <dt className="order__detail-name">Mesa #</dt><dd className="order__detail-value">{order.table}</dd>
-            <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{STATES[order.state]}</dd>
+            <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{stateMappings[order.state]}</dd>
             <dt className="order__detail-name">Total</dt><dd className="order__detail-value">{FormatHelpers.formatPrice(order.total)}</dd>
           </dl>
           {
