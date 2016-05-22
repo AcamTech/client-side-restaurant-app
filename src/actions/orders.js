@@ -7,9 +7,11 @@ import {getInnerDataFromUrl, ArrayToObject} from 'helpers/format-helpers';
 export function fetchOrders(restaurantId){
   return function fetchOrdersThunk(dispatch){
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders/`);
-    const promiseValue = ordersRef.once('value');
-    getInnerDataFromUrl(promiseValue, ref, 'restaurants_orders')
-      .then(orders => dispatch({ type: actionTypes.FETCH_ORDERS, payload: orders }));
+
+    const promiseValue = ordersRef.once('value')
+      .then(snapshot => {
+        dispatch({ type: actionTypes.FETCH_ORDERS, payload: snapshot.val()});
+      });
   };
 }
 
@@ -110,6 +112,19 @@ export function newOrder(restaurantId) {
     dispatch(unselectOrderAction);
     dispatch(pushToForm);
   };
+}
+
+export function cancelOrder(id, restaurantId, waiterId) {
+  return function cancelOrder(dispatch) {
+    const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
+    ordersRef.child(id).update({
+      state: 'CANCELED',
+      canceledAt: Firebase.ServerValue.TIMESTAMP,
+      canceledBy: waiterId
+    }).then((snapshot) => {
+      dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
+    });
+  }
 }
 
 export function editOrder(id, restaurantId, waiterId) {

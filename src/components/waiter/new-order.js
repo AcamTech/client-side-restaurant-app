@@ -49,9 +49,16 @@ const WaiterPage = React.createClass({
 
     return total;
   },
+  findDish(id) {
+    this.idsDict = this.idsDict || this.props.dishes.reduce((obj, dish) => {
+      obj[dish.id] = dish; return obj;
+    }, {});
+
+    return this.idsDict[id];
+  },
   createItem(dishId) {
-    var dish = this.props.dishes[dishId];
-    console.log(this.props);
+    var dish = this.findDish(dishId);
+
     return {
       dishId: dishId,
       quantity: 1,

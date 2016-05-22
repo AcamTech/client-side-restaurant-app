@@ -34,6 +34,7 @@
     "normalizr": "2.1.0",
     "object-assign": "4.1.0",
     "ramda": "0.21.0",
+    "rc-select": "6.3.3",
     "re-base": "1.5.1",
     "react": "15.1.0",
     "react-body-classname": "1.0.1",

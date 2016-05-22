@@ -14,6 +14,10 @@
 	@extend %grid__item;
 }
 
+.grid--narrow{
+  @extend %grid--narrow;
+}
+
 .one-sixth{
   @extend %one-sixth;
 }
