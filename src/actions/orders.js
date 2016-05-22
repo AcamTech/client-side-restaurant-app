@@ -117,12 +117,14 @@ export function newOrder(restaurantId) {
 export function cancelOrder(id, restaurantId, waiterId) {
   return function cancelOrder(dispatch) {
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
-    ordersRef.child(id).update({
+    const changes = {
       state: 'CANCELED',
       canceledAt: Firebase.ServerValue.TIMESTAMP,
       canceledBy: waiterId
-    }).then((snapshot) => {
-      dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
+    };
+
+    ordersRef.child(id).update(changes).then((snapshot) => {
+      dispatch({type: actionTypes.UPDATE_ORDER, payload: {[id]: changes} });
     });
   }
 }

@@ -88,13 +88,16 @@ export default createClass({
             <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{STATES[order.state]}</dd>
             <dt className="order__detail-name">Total</dt><dd className="order__detail-value">{FormatHelpers.formatPrice(order.total)}</dd>
           </dl>
-          <div className="grid grid--narrow">
-            <div className="grid__item medium--one-half">
-              <button onClick={onEdit} className="button button--success button--block button--small">Editar</button>
-            </div><div className="grid__item medium--one-half">
-              <button onClick={onCancel} className="button button-border button--block button--small">Cancelar</button>
-            </div>
-          </div>
+          {
+            order.state === 'CANCELED' ? '' :
+            (<div className="grid grid--narrow">
+              <div className="grid__item medium--one-half">
+                <button onClick={onEdit} className="button button--success button--block button--small">Editar</button>
+              </div><div className="grid__item medium--one-half">
+                <button onClick={onCancel} className="button button-border button--block button--small">Anular</button>
+              </div>
+            </div>)
+          }
         </article>
       );
   },
@@ -115,7 +118,7 @@ export default createClass({
       {label: 'Activas', value: 'active'},
       {label: 'Entregadas', value: 'delivered'},
       {label: 'Archivadas', value: 'archived'},
-      {label: 'Canceladas', value: 'canceled'}
+      {label: 'Anuladas', value: 'canceled'}
     ];
     var visibleOrders = this.getVisibleOrders();
 
