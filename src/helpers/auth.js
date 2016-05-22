@@ -47,6 +47,7 @@ function isValidRoute(member, path) {
 
   var restaurantId = matches && matches[1];
   var shortPath = matches && matches[2];
+
   if(member.role == 'super' && isSuperPath){
     return true;
   }
@@ -72,7 +73,6 @@ export function redirectToUserRoot(member, replace) {
       replace(path + '/cocina');
       break;
     case 'super':
-      console.warn(role);
       replace('/super');
       break;
     default:
