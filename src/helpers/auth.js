@@ -37,16 +37,17 @@ export function updatePassword(password){
 var routesPrivileges = {
   admin: /^admin/,
   waiter: /^ordenes/,
-  kitchen: /^cocina/
+  kitchen: /^cocina/,
+  super: /^super/
 };
 
 function isValidRoute(member, path) {
   var matches = path.match(/\/restaurante\/([^\/]*)\/(.*)/);
+  var isSuperPath = path.indexOf('/super') > -1;
 
   var restaurantId = matches && matches[1];
   var shortPath = matches && matches[2];
-
-  if(member.role == 'super'){
+  if(member.role == 'super' && isSuperPath){
     return true;
   }
 
@@ -71,7 +72,8 @@ export function redirectToUserRoot(member, replace) {
       replace(path + '/cocina');
       break;
     case 'super':
-      replace('super');
+      console.warn(role);
+      replace('/super');
       break;
     default:
       replace('/login');

@@ -1,5 +1,34 @@
 import React, { createClass, PropTypes } from 'react';
-import MainMenu from './main-menu';
+import {SideNavigation} from 'components/side-navigation';
+
+var navigation = [
+  {
+    pathname: 'admin/personal',
+    text: 'Personal',
+    icon: 'icon-users'
+  },
+  {
+    pathname: 'admin/mesas',
+    text: 'Mesas',
+    icon: 'icon-checkmark'
+  },
+  {
+    pathname: 'admin/menu',
+    text: 'Menu',
+    icon: 'icon-control'
+  },
+  {
+    pathname: 'admin/reportes',
+    text: 'Reportes',
+    icon: 'icon-note'
+  }
+];
+
+function buildNavigation(navigation, restaurantId){
+  return navigation.map(item => {
+    return Object.assign({}, item, {pathname: `/restaurante/${restaurantId}/${item.pathname}`});
+  });
+}
 
 const RestaurantLayout = createClass({
   displayName: 'restaurant-layout',
@@ -20,14 +49,11 @@ const RestaurantLayout = createClass({
       <div className="page-wrap complex-layout">
         <header className="main-header complex-layout__header">
           <div className="grid grid--narrow grid--middle">
-            <div className="grid__item one-quarter small--two-thirds large--one-half">
+            <div className="grid__item">
               <div className="logo-area">
                 <h1 className="logo--medium flush">Toque</h1>{" "}
                 <p className="logo-area__text"> | {name}</p>
               </div>
-            </div>
-            <div className="grid__item three-quarters small--one-third large--one-half">
-              <MainMenu restaurantId={restaurantId} />
             </div>
           </div>
         </header>
@@ -36,6 +62,7 @@ const RestaurantLayout = createClass({
             <span className="hamburger-menu__line"></span>
           </a>
           <div className="side-area complex-layout__side-area">
+            <SideNavigation items={buildNavigation(navigation, restaurantId)} />
           </div>
           <section className="main-area complex-layout__main-area">
             {children}
