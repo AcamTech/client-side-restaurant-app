@@ -41,16 +41,16 @@ export function fetchOrdersForWaiter(waiterId, restaurantId){
   };
 }
 
-export function listenForWaiterOrders(restaurantId){
+export function listenOrders(restaurantId){
   return function(dispatch){
     ref.child(`restaurants/${restaurantId}/orders`)
-      .on('child_changed', function waiterOrderChangedThunk(snapshot){
+      .on('child_changed', function orderChangedThunk(snapshot){
       dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
     });
   };
 }
 
-export function stopListenningForWaiterOrders(restaurantId){
+export function stopListenningOrders(restaurantId){
   return function(dispatch){
     ref.child(`restaurants/${restaurantId}/orders`)
       .off('child_changed');

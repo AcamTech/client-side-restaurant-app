@@ -11,13 +11,21 @@ export default createClass({
     newOrder: PropTypes.func.isRequired,
     editOrder: PropTypes.func.isRequired,
     fetchOrders: PropTypes.func.isRequired,
+    listenOrders: PropTypes.func.isRequired,
+    stopListenningOrders: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired
   },
   getInitialState(){
     return { ownerFilter: 'mine', stateFilter: 'active' };
   },
   componentDidMount(){
-    this.props.fetchOrders(this.props.restaurantId);
+    const {fetchOrders, restaurantId, listenOrders} = this.props;
+
+    fetchOrders(restaurantId);
+    listenOrders(restaurantId);
+  },
+  componentWillUnmount(){
+    stopListenningOrders(this.props.restaurantId);
   },
   ownerVisibility(order){
     var {ownerFilter} = this.state;
