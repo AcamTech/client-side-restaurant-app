@@ -4,6 +4,23 @@ import * as actionTypes from 'constants/action-types';
 import {ref} from 'constants/firebase';
 import {getInnerDataFromUrl, ArrayToObject} from 'helpers/format-helpers';
 
+var transitions = {
+  QUEUED: {
+    cancel: {
+      oldState: 'QUEUED',
+      newState: 'CANCELED',
+      actor: 'waiter',
+      action: 'cancel'
+    }
+  }
+};
+
+function getTransition(oldState, action) {
+  var transition = transitions[oldState][action];
+  transition.at = Firebase.ServerValue.TIMESTAMP;
+  return transition;
+}
+
 export function fetchOrders(restaurantId){
   return function fetchOrdersThunk(dispatch){
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders/`);
@@ -43,15 +60,13 @@ export function stopListenningForWaiterOrders(restaurantId){
 export function saveOrder(order, restaurantId, waiterId) {
   return function saveOrderThunk(dispatch){
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
-
     function makeNewOrder(order) {
       return {
         restaurant: restaurantId,
         state: 'QUEUED',
         waiter: waiterId,
         total: order.total,
-        table: order.table,
-        createdAt: Firebase.ServerValue.TIMESTAMP
+        table: order.table
       };
     }
 
@@ -82,6 +97,16 @@ export function saveOrder(order, restaurantId, waiterId) {
       newOrder.id = newOrderRef.key();
 
       newOrderRef.set(newOrder)
+        .then(() => {
+          var historyRef = newOrderRef.child('history')
+            .push().set({
+              oldState: '',
+              newState: 'QUEUED',
+              action: 'create',
+              actor: 'waiter',
+              at: Firebase.ServerValue.TIMESTAMP
+            });
+        })
         .then(() => {
           const promises = saveOrderItems(newOrderRef, order.items);
 
@@ -114,20 +139,30 @@ export function newOrder(restaurantId) {
   };
 }
 
-export function cancelOrder(id, restaurantId, waiterId) {
-  return function cancelOrder(dispatch) {
-    const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
-    const changes = {
-      state: 'CANCELED',
-      canceledAt: Firebase.ServerValue.TIMESTAMP,
-      canceledBy: waiterId
-    };
+export function updateOrderState(order, action) {
+  return function updateOrderState(dispatch) {
+    const {id, restaurant, state} = order;
+    const ordersRef = ref.child(`restaurants/${restaurant}/orders`);
+    const transition = getTransition(state, action);
+    const changes = {state: transition.newState};
 
-    ordersRef.child(id).update(changes).then((snapshot) => {
-      dispatch({type: actionTypes.UPDATE_ORDER, payload: {[id]: changes} });
-    });
+    var orderRef = ordersRef.child(id);
+
+    orderRef
+      .update(changes)
+      .then(() => {
+        return orderRef.child('history')
+          .push()
+          .set(transition);
+      })
+      .then(() => {
+        return orderRef.once('value').then((snapshot) => {
+          dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
+        });
+      });
   }
 }
+
 
 export function editOrder(id, restaurantId, waiterId) {
   return function editOrderThunk(dispatch) {

@@ -55,9 +55,8 @@ export default createClass({
     const {waiterId, restaurantId} = this.props;
     this.props.editOrder(id, restaurantId, waiterId);
   },
-  cancelOrder(id){
-    const {waiterId, restaurantId} = this.props;
-    this.props.cancelOrder(id, restaurantId, waiterId);
+  cancelOrder(order){
+    this.props.updateOrderState(order, 'cancel');
   },
   getVisibleOrders() {
     return this.props.orders.filter(this.isOrderVisible);
@@ -74,7 +73,7 @@ export default createClass({
     function onCancel(e) {
       e.preventDefault();
 
-      self.cancelOrder(order.id);
+      self.cancelOrder(order);
     }
 
     return (
