@@ -25,7 +25,7 @@ export default createClass({
     listenOrders(restaurantId);
   },
   componentWillUnmount(){
-    stopListenningOrders(this.props.restaurantId);
+    this.props.stopListenningOrders(this.props.restaurantId);
   },
   ownerVisibility(order){
     var {ownerFilter} = this.state;
