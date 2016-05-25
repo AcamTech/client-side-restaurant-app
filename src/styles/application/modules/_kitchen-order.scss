@@ -21,20 +21,22 @@
 }
 
 .kitchen-order__item-title {
-  color: $brand-primary;
+  color: $gray-light;
   font-size: .75em;
   margin-bottom: 0;
   width: 100%;
 }
 
 .kitchen-order__item-quantity {
-  background: $gray-lighter;
-  color: $brand-danger;
+  background: #EFEFEF;
+  color: $gray-light;
   display: inline-block;
-  font-size: .75em;
+  font-size: .8em;
   text-align: center;
   vertical-align: middle;
-  width: 25px;
+  width: 40px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, .1);
+  border-radius: 0 2px 2px 0;
   height: 25px;
   line-height: 25px;
   margin: 0 10px 0 -15px;
@@ -44,7 +46,7 @@
 .kitchen-order__item-comment {
   font-size: .6em;
   margin: 10px 0 0 0;
-  color: #666;
+  color: $gray-light;
   width: 100%;
 }
 

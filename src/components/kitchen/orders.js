@@ -55,9 +55,9 @@ export default createClass({
           <div className="kitchen-order__buttons">
             <div className="grid">
               <div className="grid__item one-half">
-                <button className="button button--success button--block button--small">Aceptar</button>
+                <button className="button button-border button-border--success button--block button--small">Aceptar</button>
               </div><div className="grid__item one-half">
-                <button className="button button--danger button--block button--small">Rechazar</button>
+                <button className="button button-border button-border--danger button--block button--small">Rechazar</button>
               </div>
             </div>
           </div>
