@@ -21,7 +21,7 @@ export default createClass({
     listenOrders(restaurantId);
   },
   componentWillUnmount(){
-    stopListenningOrders(this.props.restaurantId);
+    this.props.stopListenningOrders(this.props.restaurantId);
   },
   isOrderVisible(order) {
     return order.state === 'QUEUED';
@@ -29,12 +29,39 @@ export default createClass({
   getVisibleOrders() {
     return this.props.orders.filter(this.isOrderVisible);
   },
+  renderItem(item){
+    return (
+      <div className="kitchen-order__item">
+        <p className="kitchen-order__item-title">
+          <span className="kitchen-order__item-quantity">{item.quantity}</span>
+          <span className="kitchen-order__item-name">{item.name}</span>
+        </p>
+        {item.comment ?
+          (<p className="kitchen-order__item-comment">{item.comment}</p>)
+        : ''}
+      </div>
+    );
+  },
   renderOrder(order){
     const self = this;
+    const {items, id} = order;
 
     return (
-      <article className="kitchen-order" key={order.id} index={order.id}>
-        Orden: {order.id}
+      <article className="grid__item medium--one-third" key={id} index={id}>
+        <div className="kitchen-order">
+          <div className="kitchen-order__items">
+            { Object.keys(items).map((itemId) => (this.renderItem(items[itemId]))) }
+          </div>
+          <div className="kitchen-order__buttons">
+            <div className="grid">
+              <div className="grid__item one-half">
+                <button className="button button--success button--block button--small">Aceptar</button>
+              </div><div className="grid__item one-half">
+                <button className="button button--danger button--block button--small">Rechazar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </article>
     );
   },
@@ -42,7 +69,7 @@ export default createClass({
     var visibleOrders = this.getVisibleOrders();
 
     return (
-      <div className="kitchen-layout__body kitchen-order__container">
+      <div className="full-height grid kitchen-order__container">
         {visibleOrders.length ? visibleOrders.map(this.renderOrder) : <div className="grid-tiles__empty-state">No hay órdenes para mostrar</div>}
       </div>
     );

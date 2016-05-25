@@ -1,12 +1,57 @@
-.kitchen-order{
-  &__container{
+.kitchen-order__container {
+  background: $gray-lighter;
+  padding: 15px;
+}
 
-  }
+.kitchen-order{
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, .2);
   font-size: 2vw;
-  display: flex;
-  min-width: 33.333%;
-  flex: 1 1 auto;
-  padding: $half-spacing-unit / 2;
-  border-style: solid;
-  border-width: 0 1px 1px 0;
+  margin-bottom: 20px;
+}
+
+.kitchen-order__items {
+  margin-bottom: 15px;
+}
+
+.kitchen-order__item {
+  border-bottom: 1px dashed rgba(0, 0, 0, .1);
+  padding: 15px;
+}
+
+.kitchen-order__item-title {
+  color: $brand-primary;
+  font-size: .75em;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.kitchen-order__item-quantity {
+  background: $gray-lighter;
+  color: $brand-danger;
+  display: inline-block;
+  font-size: .75em;
+  text-align: center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  margin: 0 10px 0 -15px;
+
+}
+
+.kitchen-order__item-comment {
+  font-size: .6em;
+  margin: 10px 0 0 0;
+  color: #666;
+  width: 100%;
+}
+
+.kitchen-order__item-name {
+  vertical-align: middle;
+}
+
+.kitchen-order__buttons {
+  padding: 0 15px 15px;
 }
