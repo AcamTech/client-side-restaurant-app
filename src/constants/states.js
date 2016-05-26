@@ -8,6 +8,9 @@ export const FREE = 'FREE';
 export default {
   'QUEUED': 'En Cola',
   'CANCELED': 'Cancelada',
+  'IN_PROCESS': 'En Proceso',
+  'REJECTED': 'Rechazada',
+  'READY': 'Lista',
   'BUSY': 'Ocupada',
   'FREE': 'Libre'
 };

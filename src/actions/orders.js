@@ -11,6 +11,46 @@ var transitions = {
       newState: 'CANCELED',
       actor: 'waiter',
       action: 'cancel'
+    },
+    accept: {
+      oldState: 'QUEUED',
+      newState: 'IN_PROCESS',
+      actor: 'kitchen',
+      action: 'accept'
+    },
+    reject: {
+      oldState: 'QUEUED',
+      newState: 'REJECTED',
+      actor: 'kitchen',
+      action: 'reject'
+    }
+  },
+  IN_PROCESS: {
+    finish: {
+      oldState: 'IN_PROCESS',
+      newState: 'READY',
+      actor: 'kitchen',
+      action: 'finish'
+    },
+    cancel: {
+      oldState: 'IN_PROCESS',
+      newState: 'CANCELED',
+      actor: 'waiter',
+      action: 'cancel'
+    }
+  },
+  REJECTED: {
+    cancel: {
+      oldState: 'REJECTED',
+      newState: 'CANCELED',
+      actor: 'waiter',
+      action: 'cancel'
+    },
+    restart: {
+      oldState: 'REJECTED',
+      newState: 'QUEUED',
+      actor: 'waiter',
+      action: 'restart'
     }
   }
 };
