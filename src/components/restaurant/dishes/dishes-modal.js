@@ -74,9 +74,8 @@ export default createClass({
         {'Crear Plato'}
       </button>
         <Modal
-          open={isOpen}
-          onClose={this.clearFormAndCloseModal}
-          className="panel--medium">
+          isOpen={isOpen}
+          onCloseHandler={this.clearFormAndCloseModal}>
           <article id="new-table" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
             <form onSubmit={handleSubmit((data) => addOrEditDish(data, restaurantId))}>
               <input type="hidden" {...id}/>

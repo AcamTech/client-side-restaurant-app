@@ -46,9 +46,8 @@ export default createClass({
         {'Crear Empleado'}
       </button>
         <Modal
-          open={isOpen}
-          onClose={this.clearFormAndCloseModal}
-          className="panel--medium">
+          isOpen={isOpen}
+          onCloseHandler={this.clearFormAndCloseModal}>
           <article id="new-restaurant" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
             <form onSubmit={handleSubmit((data) => addOrEditStaffMember(data, restaurantId))}>
               <input type="hidden" {...uid}/>

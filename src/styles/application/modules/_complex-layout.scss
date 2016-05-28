@@ -1,5 +1,5 @@
 .complex-layout{
-  padding-top: 62px;
+  padding-top: 61px;
   padding-left: em(40);
   transition: all 0.15s ease-out;
   @media #{$small} {
@@ -21,7 +21,7 @@
     top: 0;
   }
   &__side-area{
-    top: 62px;
+    top: 61px;
     bottom: 0;
     margin-left: em(-40);
     overflow-y: auto;

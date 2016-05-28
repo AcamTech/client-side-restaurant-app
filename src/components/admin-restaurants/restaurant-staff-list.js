@@ -7,13 +7,14 @@ const WAITER_ROLE = 'waiter';
 const RestaurantStaffList = createClass({
   displayName: 'admin-restaurant-staff-list',
   propTypes: {
-    fetchStaff: PropTypes.func.isRequired,
     restaurantId: PropTypes.string,
     staff: PropTypes.array,
     addOrEditAdmin: PropTypes.func.isRequired
   },
-  componentDidMount(){
-    this.props.fetchStaff(this.props.restaurantId);
+  getDefaultProps(){
+    return {
+      waiters: []
+    };
   },
   onAdminFormSubmit(e){
     e.preventDefault();
@@ -29,42 +30,54 @@ const RestaurantStaffList = createClass({
   },
   renderAdminForm(admin){
     return (
-      <form onSubmit={this.onAdminFormSubmit}>
-        <input type="hidden" ref="uid" defaultValue={admin.uid} />
-        <input type="text" placeholder="Nombre" ref="name" defaultValue={admin.name} />
-        <input type="email" placeholder="Email" ref="email" defaultValue={admin.email} />
-        <input type="submit" value="Guardar" />
-      </form>
+      <div className="panel">
+        <div className="panel__head">
+          <h3 className="panel__title">Admin</h3>
+        </div>
+        <form onSubmit={this.onAdminFormSubmit}>
+          <div className="panel__body">
+            <input type="hidden" ref="uid" defaultValue={admin.uid} />
+            <div className="form-group">
+              <label htmlFor="admin-name">Nombre del administrador</label>
+              <input className="form-control" id="admin-name" type="text" placeholder="Nombre" ref="name" defaultValue={admin.name} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="admin-email">Correo del administrador</label>
+              <input className="form-control" id="admin-email" type="email" placeholder="Email" ref="email" disabled={admin.email != undefined} defaultValue={admin.email} />
+            </div>
+          </div>
+          <div className="panel__footer">
+            <input className="button button--success button--block" type="submit" value="Guardar" />
+          </div>
+        </form>
+      </div>
     );
   },
   render(){
-    var staff = this.props.staff;
-
-    var waiters = staff
-      .filter((member) => (member.role === WAITER_ROLE));
-
-    var admin = staff
-      .find((member) => (member.role === ADMIN_ROLE));
-
+    var waiters = this.props.waiters;
+    var admin = this.props.admin;
     return(
-      <div className="panel">
-        <h3>Admin</h3>
-        {admin ? this.renderAdminForm(admin) : null}
-        <h3>Meseros</h3>
-        <div className="table-responsive">
-        <table className="table table--hover text-center">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {renderRows(waiters, this.props.restaurantId, ['name', 'email'], null, null, 'uid')}
-          </tbody>
-        </table>
+      <section>
+        {this.renderAdminForm(admin)}
+        <div className="panel">
+          <div className="panel__head">
+            <h3 className="panel__title">Meseros</h3>
+          </div>
+          <div className="table-responsive">
+          <table className="table table--hover text-center">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {renderRows(waiters, this.props.restaurantId, ['name', 'email'], null, null, 'uid')}
+            </tbody>
+          </table>
+          </div>
         </div>
-      </div>
+      </section>
     );
   }
 });

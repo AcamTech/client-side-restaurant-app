@@ -12,6 +12,7 @@ import ingredientsModal from './ingredients-modal';
 import logger from './logger';
 import orders from './orders';
 import restaurants from './restaurants';
+import restaurantShow from './restaurant-show';
 import staff from './staff';
 import staffModal from './staff-modal';
 import tables from './tables';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   logger,
   orders,
   restaurants,
+  restaurantShow,
   routing,
   staff,
   staffModal,

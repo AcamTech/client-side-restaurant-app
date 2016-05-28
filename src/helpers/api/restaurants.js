@@ -42,3 +42,10 @@ export function createRestaurant(restaurant){
     promise
   };
 }
+
+export function updateRestaurant(restaurantId, data){
+  return restaurantRef
+    .child(`${restaurantId}`)
+    .update(data)
+    .then(() => fetchRestaurant(restaurantId));
+}
