@@ -1,7 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
-import RestaurantStaffList from 'containers/admin-restaurants/admin-restaurant-staff-list';
-import RestaurantDetail from 'containers/admin-restaurants/restaurant-detail';
+import RestaurantShow from 'containers/admin-restaurants/restaurant-show';
 
 const AdminRestaurantShow = createClass({
   displayName: 'Admin-restaurant-show',
@@ -10,23 +9,7 @@ const AdminRestaurantShow = createClass({
   },
   render(){
     return(
-      <div>
-        <h1 className="delta weight--light">Restaurante Las Comidas</h1>
-        <Tabs>
-          <TabList>
-            <Tab>General</Tab>
-            <Tab>Staff</Tab>
-          </TabList>
-          <TabPanel title="General">
-            <h1>General</h1>
-            <RestaurantDetail restaurantId={this.props.params.id} />
-          </TabPanel>
-          <TabPanel title="staff">
-            <h1>Staff</h1>
-            <RestaurantStaffList restaurantId={this.props.params.id} />
-          </TabPanel>
-        </Tabs>
-      </div>
+      <RestaurantShow restaurantId={this.props.params.id} />
     );
   }
 });

@@ -54,7 +54,7 @@ $panel-background-color-default:         #fff !default;
 
 .panel__head,
 .panel__footer{
-  padding: $padding-xl-vertical $padding-xl-horizontal;
+  padding: $padding-base-vertical $padding-base-horizontal;
 }
 
 .panel__head--small,
@@ -64,8 +64,8 @@ $panel-background-color-default:         #fff !default;
 
 .panel__head--large,
 .panel__footer--large{
-  padding-top: $padding-xl-horizontal;
-  padding-bottom: $padding-xl-horizontal;
+  padding-top: $padding-large-horizontal;
+  padding-bottom: $padding-large-horizontal;
 }
 
 .panel__footer{
@@ -122,7 +122,7 @@ $panel-background-color-default:         #fff !default;
 
 .panel--large{
   @extend .panel--center;
-  max-width: 900px;
+  max-width: 700px;
 }
 
 .panel--default{

@@ -6,12 +6,14 @@ export default function restaurants(state={
 }, action){
   var {type, payload} = action;
   switch(type){
-    case actiontypes.FETCH_RESTAURANTS:
-      return {...state, isFetching:false, list: payload};
+    case actiontypes.FETCH_RESTAURANTS_PENDING:
+      return {...state, isFetching: true};
+    case actiontypes.FETCH_RESTAURANTS_FULFILLED:
+      return {...state, isFetching: false, list: payload};
+    case actiontypes.FETCH_RESTAURANTS_REJECTED:
+      return {...state, isFetching:false, errors: payload};
     case actiontypes.ADD_RESTAURANT:
       return {...state, list: [...state.list, payload]};
-    case actiontypes.FETCH_RESTAURANT:
-      return {...state, isFetching: false, list: {...payload}};
     default:
       return state;
   }

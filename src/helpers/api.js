@@ -1,13 +1,12 @@
 export {
     fetchStaffFromRestaurant, getMember,
     updateMember, destroyMember,
-    createAndSaveUser,
-    addAdminToRestaurant
+    createAndSaveWaiter, createAndSaveAdmin
 } from './api/staff';
 
 export {
     fetchRestaurant, fetchRestaurants,
-    createRestaurant
+    createRestaurant, updateRestaurant
 } from './api/restaurants';
 
 export {

@@ -23,8 +23,8 @@ export default createClass({
   componentWillUnmount(){
     this.props.stopListenningOrders(this.props.restaurantId);
   },
-  isOrderVisible(order) {
-    return order.state === 'QUEUED' || order.state === 'IN_PROCESS';
+  isOrderVisible(order){
+    return order.state==='QUEUED'||order.state==='IN_PROCESS';
   },
   getVisibleOrders() {
     return this.props.orders.filter(this.isOrderVisible);
@@ -77,7 +77,7 @@ export default createClass({
               <button onClick={onClickReject} className="button button-border button-border--danger button--block button--small">Rechazar</button>
             </div>
           </div>
-        );  
+        );
       }
       if (order.state === 'IN_PROCESS') {
         return (
@@ -95,10 +95,10 @@ export default createClass({
       <article className="grid__item medium--one-third" key={id} index={id}>
         <div className="kitchen-order">
           <div className="kitchen-order__items">
-            { Object.keys(items).map((itemId) => (this.renderItem(items[itemId]))) }
+            {Object.keys(items).map((itemId) => (this.renderItem(items[itemId])))}
           </div>
           <div className="kitchen-order__buttons">
-            { getButtons() }
+            {getButtons()}
           </div>
         </div>
       </article>

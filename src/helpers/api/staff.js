@@ -6,7 +6,7 @@ import {getInnerDataFromUrl, ArrayToObject} from 'helpers/format-helpers';
 var staffSchema = new Schema('staff', {idAttribute: 'uid'});
 
 export function fetchStaffFromRestaurant(restaurantId){
-  var promise = ref.child(`restaurants/${restaurantId}/waiters`)
+  var promise = ref.child(`restaurants/${restaurantId}/staff`)
     .once('value');
   return getInnerDataFromUrl(promise, ref, `restaurants_staff/`)
     .then(response => normalize(response, valuesOf(staffSchema)));
@@ -51,11 +51,34 @@ function removeMember(uid){
 }
 
 function removeMemberFromRestaurant(uid, restaurantId){
-  return ref.child(`restaurants/${restaurantId}/waiters/${uid}`)
+  var promise1 = ref.child(`restaurants/${restaurantId}/staff/${uid}`)
     .remove();
+  var promise2 = ref.child(`restaurants/${restaurantId}/waiters/${uid}`)
+    .remove();
+  return Promise.all([promise1, promise2]);
 }
 
-export function createAndSaveUser(staffMember, restaurantId){
+export function createAndSaveWaiter(member, restaurantId){
+  return createAndSaveMember(member, restaurantId)
+    .then(member => {
+      var uid = member.uid;
+      saveAsRestaurantWaiter(uid, restaurantId);
+      return member;
+    })
+    .then((member) => getMember(member.uid));
+}
+
+export function createAndSaveAdmin(member, restaurantId){
+  return createAndSaveMember(member, restaurantId)
+    .then(member => {
+      var uid = member.uid;
+      saveAsRestaurantAdmin(uid, restaurantId);
+      return member;
+    })
+    .then((member) => getMember(member.uid));
+}
+
+function createAndSaveMember(staffMember, restaurantId){
   var email = staffMember.email;
   return createUserWithEmail(email)
     .then(({uid}) => uid)
@@ -73,18 +96,22 @@ export function createAndSaveUser(staffMember, restaurantId){
     })
     .then(member => {
       var uid = member.uid;
-      saveMemberInRestaurant(uid, restaurantId);
+      saveToRestaurantStaff(uid, restaurantId);
       return member;
-    })
-    .then((member) => getMember(member.uid));
+    });
 }
 
-export function addAdminToRestaurant(adminId, restaurantId){
+function saveToRestaurantStaff(uid, restaurantId){
+  return ref.child(`restaurants/${restaurantId}/staff/${uid}`)
+    .set(true);
+}
+
+function saveAsRestaurantAdmin(adminId, restaurantId){
   return ref.child(`restaurants/${restaurantId}/admin`)
     .set(adminId);
 }
 
-function saveMemberInRestaurant(uid, restaurantId) {
+function saveAsRestaurantWaiter(uid, restaurantId) {
   return ref.child(`restaurants/${restaurantId}/waiters/${uid}`)
     .set(true);
 }

@@ -1,44 +1,59 @@
-import React, {createClass, PropTypes} from 'react';
-import ReactDOM, {render, findDOMNode} from 'react-dom';
-import 'magnific-popup';
-import '../../../node_modules/magnific-popup/src/css/main.scss';
+import React, {PropTypes, createClass} from 'react';
+import ReactModal from 'react-modal';
 
-var Modal = createClass({
+var modalStyle = {
+  overlay : {
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    right: '0px',
+    bottom: '0px',
+    backgroundColor: 'rgba(48, 50, 52, 0.5)',
+    zIndex: '9999'
+  },
+  content : {
+    position : 'absolute',
+    top: '0px',
+    left: '0px',
+    right: '0px',
+    bottom: '0px',
+    background: 'transparent',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    outline: 'none',
+    padding: '0px'
+  }
+};
+
+const Modal = createClass({
+  displayName: 'modal',
   propTypes: {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    onCloseHandler: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string
   },
-  componentDidMount: function(){
-    this.node = findDOMNode(this);
-    this.renderDialogContent();
+  getDefaultProps(){
+    return {
+      className: ''
+    };
   },
-  componentWillReceiveProps: function(newProps) {
-    this.renderDialogContent(newProps);
+  closeModal() {
+    this.props.onCloseHandler();
   },
-  renderDialogContent: function(props) {
-    props = props || this.props;
-    var open = props.open;
-    render(<span>{open ? props.children : null}</span>, this.node);
-
-    if (props.open) {
-      $.magnificPopup.open({
-        items: {
-          src: $(this.node),
-          type: 'inline'
-        },
-        callbacks: {
-          close: function(){
-            this.props.onClose();
-          }.bind(this)
-        }
-      });
-    } else {
-      $.magnificPopup.close();
-    }
-  },
-  render: function() {
-    return <div className={`mfp-hide ${this.props.className || ''}`} style={{position: 'relative'}} />;
+  render() {
+    return (
+      <ReactModal
+        isOpen={this.props.isOpen}
+        style={modalStyle}>
+        <div className={`modal-container ${this.props.className}`} onClick={this.closeModal}>
+          <div onClick={(e) => e.stopPropagation()} className="modal-window">
+            <span onClick={this.closeModal} className="modal-window__close-btn">&times;</span>
+            {this.props.children}
+          </div>
+        </div>
+      </ReactModal>
+    );
   }
 });
 

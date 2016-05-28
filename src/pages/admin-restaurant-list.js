@@ -7,8 +7,14 @@ const AdminListResturants = createClass({
   render(){
     return(
       <div>
-        <h1 className="delta flush weight--light">Restaurantes</h1>
-        <RegisterRestaurantModal />
+        <div className="grid">
+          <div className="grid__item medium--one-half">
+            <h1 className="delta flush weight--light">Restaurantes</h1>
+          </div>
+          <div className="grid__item medium--one-half text-center medium--text-end">
+            <RegisterRestaurantModal />
+          </div>
+        </div>
         <AdminRestaurantListContainer />
       </div>
     );
