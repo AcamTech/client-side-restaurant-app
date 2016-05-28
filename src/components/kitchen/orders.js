@@ -24,7 +24,7 @@ export default createClass({
     this.props.stopListenningOrders(this.props.restaurantId);
   },
   isOrderVisible(order) {
-    return order.state === 'QUEUED' || order.state === 'IN_PROCESS';
+    return order.state === 'QUEUED' || order.state === 'IN_PROCESS' || order.state === 'CHANGE_REQ';
   },
   getVisibleOrders() {
     return this.props.orders.filter(this.isOrderVisible);
@@ -68,7 +68,7 @@ export default createClass({
     }
 
     function getButtons() {
-      if (order.state === 'QUEUED') {
+      if (order.state === 'QUEUED' || order.state === 'CHANGE_REQ') {
         return (
           <div className="grid">
             <div className="grid__item one-half">

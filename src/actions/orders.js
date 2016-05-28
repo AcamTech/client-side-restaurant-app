@@ -37,6 +37,12 @@ var transitions = {
       newState: 'CANCELED',
       actor: 'waiter',
       action: 'cancel'
+    },
+    request: {
+      oldState: 'IN_PROCESS',
+      newState: 'CHANGE_REQ',
+      actor: 'waiter',
+      action: 'request_changes'
     }
   },
   REJECTED: {
@@ -46,11 +52,53 @@ var transitions = {
       actor: 'waiter',
       action: 'cancel'
     },
-    restart: {
+    request: {
       oldState: 'REJECTED',
+      newState: 'CHANGE_REQ',
+      actor: 'waiter',
+      action: 'request_changes'
+    }
+  },
+  CHANGE_REQ: {
+    accept: {
+      oldState: 'CHANGE_REQ',
+      newState: 'IN_PROCESS',
+      actor: 'kitchen',
+      action: 'accept_changes'
+    },
+    reject: {
+      oldState: 'CHANGE_REQ',
+      newState: 'REJECTED',
+      actor: 'kitchen',
+      action: 'reject_changes'
+    }
+  },
+  READY: {
+    deliver: {
+      oldState: 'READY',
+      newState: 'DELIVERED',
+      actor: 'waiter',
+      action: 'deliver'
+    },
+    client_reject: {
+      oldState: 'READY',
+      newState: 'CLIENT_REJECTED',
+      actor: 'waiter',
+      action: 'client_reject'
+    }
+  },
+  CLIENT_REJECTED: {
+    restart: {
+      oldState: 'CLIENT_REJECTED',
       newState: 'QUEUED',
       actor: 'waiter',
       action: 'restart'
+    },
+    cancel: {
+      oldState: 'CLIENT_REJECTED',
+      newState: 'CANCELED',
+      actor: 'waiter',
+      action: 'cancel'
     }
   }
 };
@@ -124,11 +172,16 @@ export function saveOrder(order, restaurantId, waiterId) {
       });
     }
 
-    if (order.id) {
-      ordersRef.child(order.id)
+    var {state, id} = order;
+
+    if (id) {
+      ordersRef.child(id)
         .set(order)
         .then(() => {
           dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
+          if (state && state !== 'QUEUED') {
+            updateOrderState(order, 'request')(dispatch);
+          }
         });
     } else {
       const newOrderRef = ordersRef.push();
@@ -200,7 +253,7 @@ export function updateOrderState(order, action) {
           dispatch({type: actionTypes.UPDATE_ORDER, payload: {[snapshot.key()]: snapshot.val()} });
         });
       });
-  }
+  };
 }
 
 

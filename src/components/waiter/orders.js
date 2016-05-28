@@ -12,6 +12,7 @@ export default createClass({
     editOrder: PropTypes.func.isRequired,
     fetchOrders: PropTypes.func.isRequired,
     listenOrders: PropTypes.func.isRequired,
+    updateOrderState: PropTypes.func.isRequired,
     stopListenningOrders: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired
   },
@@ -41,7 +42,7 @@ export default createClass({
     return true;
   },
   isOrderActive(order) {
-    return order.state !== states.ARCHIVED && order.state !== states.CANCELED && order.state !== states.DELIVERED;
+    return order.state !== states.CANCELED && order.state !== states.DELIVERED;
   },
   stateVisibility(order) {
     var {stateFilter} = this.state;
@@ -66,41 +67,97 @@ export default createClass({
   cancelOrder(order){
     this.props.updateOrderState(order, 'cancel');
   },
+  deliverOrder(order){
+    this.props.updateOrderState(order, 'deliver');
+  },
+  rejectOrder(order){
+    this.props.updateOrderState(order, 'client_reject');
+  },
+  restartOrder(order){
+    this.props.updateOrderState(order, 'restart');
+  },
   getVisibleOrders() {
     return this.props.orders.filter(this.isOrderVisible);
   },
   renderOrder(order){
     const self = this;
 
-    function onEdit(e) {
-      e.preventDefault();
-
+    function onEdit() {
       self.editOrder(order.id);
     }
 
-    function onCancel(e) {
-      e.preventDefault();
-
+    function onCancel() {
       self.cancelOrder(order);
+    }
+
+    function onDeliver() {
+      self.deliverOrder(order);
+    }
+
+    function onRejected() {
+      self.rejectOrder(order);
+    }
+
+    function onRestart() {
+      self.restartOrder(order);
+    }
+
+    function getButtons() {
+      if (order.state === 'QUEUED' || order.state === 'IN_PROCESS' || order.state === 'REJECTED') {
+        return (
+          <div className="grid grid--narrow">
+            <div className="grid__item medium--one-half">
+              <button onClick={onEdit} className="button button-border button--block button--small">Editar</button>
+            </div><div className="grid__item medium--one-half">
+              <button onClick={onCancel} className="button button-border button--block button--small">Anular</button>
+            </div>
+          </div>
+        );
+      }
+
+      if (order.state === 'READY') {
+        return (
+          <div className="grid grid--narrow">
+            <div className="grid__item medium--one-half">
+              <button onClick={onDeliver} className="button button-border button--block button--small">Entregada</button>
+            </div><div className="grid__item medium--one-half">
+              <button onClick={onRejected} className="button button-border button--block button--small">Rechazada</button>
+            </div>
+          </div>
+        );
+      }
+
+      if (order.state === 'CLIENT_REJECTED') {
+        return (
+          <div className="grid grid--narrow">
+            <div className="grid__item medium--one-half">
+              <button onClick={onRestart} className="button button-border button--block button--small">Reiniciar</button>
+            </div><div className="grid__item medium--one-half">
+              <button onClick={onCancel} className="button button-border button--block button--small">Anular</button>
+            </div>
+          </div>
+        );
+      }
+
+      return ('');
+    }
+
+    function getDishes() {
+      return Object.keys(order.items).map(id => {
+        return (
+          <div key={id} index={id}>{order.items[id].name}</div>
+        );
+      });
     }
 
     return (
         <article className="tile" key={order.id} index={order.id}>
+          <h1 className="order__title">{getDishes()}</h1>
           <dl className="order__details push--bottom clearfix">
             <dt className="order__detail-name">Mesa #</dt><dd className="order__detail-value">{order.table}</dd>
             <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{stateMappings[order.state]}</dd>
-            <dt className="order__detail-name">Total</dt><dd className="order__detail-value">{FormatHelpers.formatPrice(order.total)}</dd>
           </dl>
-          {
-            order.state === 'CANCELED' ? '' :
-            (<div className="grid grid--narrow">
-              <div className="grid__item medium--one-half">
-                <button onClick={onEdit} className="button button--success button--block button--small">Editar</button>
-              </div><div className="grid__item medium--one-half">
-                <button onClick={onCancel} className="button button-border button--block button--small">Anular</button>
-              </div>
-            </div>)
-          }
+          {getButtons()}
         </article>
       );
   },
@@ -120,7 +177,6 @@ export default createClass({
     var stateFilterOptions = [
       {label: 'Activas', value: 'active'},
       {label: 'Entregadas', value: 'delivered'},
-      {label: 'Archivadas', value: 'archived'},
       {label: 'Anuladas', value: 'canceled'}
     ];
     var visibleOrders = this.getVisibleOrders();
