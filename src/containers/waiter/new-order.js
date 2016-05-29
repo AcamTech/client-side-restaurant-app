@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchDishes } from 'actions/dishes';
 import { fetchTables } from 'actions/tables';
 import { saveOrder } from 'actions/orders';
+import { showLogger } from 'actions/logger';
 import { WaiterNewOrder } from 'components/waiter';
 import { objectToArray } from 'helpers/format-helpers';
 
@@ -20,7 +21,7 @@ function mapStateToProps(state, props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchDishes, fetchTables, saveOrder}, dispatch);
+  return bindActionCreators({fetchDishes, fetchTables, saveOrder, showLogger}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaiterNewOrder);

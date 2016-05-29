@@ -9,7 +9,7 @@ import {mapObjectState} from 'helpers/format-helpers';
 function mapStateToProps (state, props) {
   var tables = state.tables.list.map(key => {
     var item = state.entities.tables[key];
-    return mapObjectState(item, stateMapings, 'status')
+    return mapObjectState(item, stateMapings, 'status');
   });
   return {
     restaurantId: props.restaurantId,

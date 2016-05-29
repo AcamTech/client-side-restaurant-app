@@ -7,8 +7,11 @@ const AdminRestaurantShow = createClass({
   displayName: 'Admin-restaurant-show',
   propTypes: {
     restaurantId: PropTypes.string.isRequired,
+    getRestaurant: PropTypes.func.isRequired,
+    fetchStaff: PropTypes.func.isRequired,
     addOrEditAdmin: PropTypes.func.isRequired,
     staff: PropTypes.object,
+    restaurant: PropTypes.object,
     deselectRestaurant: PropTypes.func.isRequired
   },
   componentDidMount(){

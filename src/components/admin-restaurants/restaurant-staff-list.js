@@ -9,6 +9,8 @@ const RestaurantStaffList = createClass({
   propTypes: {
     restaurantId: PropTypes.string,
     staff: PropTypes.array,
+    waiters: PropTypes.array,
+    admin: PropTypes.object,
     addOrEditAdmin: PropTypes.func.isRequired
   },
   getDefaultProps(){

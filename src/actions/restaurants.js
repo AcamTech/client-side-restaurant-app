@@ -43,7 +43,7 @@ export function updateRestaurantAction(id, data){
         });
       })
       .catch(error => dispatch({type: actionTypes.UPDATE_RESTAURANT_REJECTED, payload: error.message}));
-  }
+  };
 }
 
 export function getRestaurant(restaurantId){

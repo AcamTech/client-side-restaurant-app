@@ -8,6 +8,7 @@ export default createClass({
     onAfterSubmitHandler: PropTypes.func,
     resetForm: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    onCancelClick: PropTypes.func,
     fields: PropTypes.shape({
       name: PropTypes.object,
       address: PropTypes.object,

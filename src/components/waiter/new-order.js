@@ -6,6 +6,7 @@ import { objectToArray } from 'helpers/format-helpers';
 const WaiterPage = React.createClass({
   displayName: 'new-order-component',
   propTypes: {
+    showLogger: PropTypes.func,
     dishes: PropTypes.object,
     tables: PropTypes.array,
     selectedOrder: PropTypes.object,
@@ -115,11 +116,11 @@ const WaiterPage = React.createClass({
   },
   saveOrder() {
     if (!this.state.order.table) {
-      console.warn('Por favor, seleccione una mesa');
+      this.props.showLogger('Por favor, seleccione una mesa');
     } else {
       var itemsQuantity = Object.keys(this.state.order.items).length;
       if (itemsQuantity < 1) {
-        alert('Por favor, agregue al menos un plato');
+        this.props.showLogger('Por favor, agregue al menos un plato');
       } else {
         this.props.saveOrder(this.state.order, this.props.restaurantId, this.props.waiterId);
         this.setState(this.getInitialState());

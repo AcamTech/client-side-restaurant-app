@@ -68,7 +68,7 @@ export default createClass({
     }
 
     function getButtons() {
-      if (order.state === 'QUEUED' || order.state === 'CHANGE_REQ') {
+      if (order.state === 'QUEUED'||order.state === 'CHANGE_REQ') {
         return (
           <div className="grid">
             <div className="grid__item one-half">
