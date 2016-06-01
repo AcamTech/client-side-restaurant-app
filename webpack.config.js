@@ -46,7 +46,7 @@ const getPlugins = function (env) {
 };
 
 const getEntry = function (env) {
-  const entries = {bundle: [], vendors: ['react', 'jquery']};
+  const entries = {bundle: [], vendors: ['react', 'react-dom']};
 
   if (env === developmentEnvironment ) { // only want hot reloading when in dev.
     entries.bundle.push('webpack-hot-middleware/client?reload=true');
@@ -92,21 +92,21 @@ function getConfig(env) {
       filename: '[name].js'
     },
     resolve: {
-      root: path.resolve('./src'),
-      alias: {
-        jquery: "jquery/src/jquery"
-      }
+      root: path.resolve('./src')
+      // alias: {
+      //   jquery: "jquery/src/jquery"
+      // }
     },
     plugins: getPlugins(env),
     module: {
-      preLoaders: [{
-          test: /jquery[\\\/]src[\\\/]selector-sizzle\.js$/,
-          loader: 'string-replace',
-          query: {
-              search: '../external/sizzle/dist/sizzle',
-              replace: 'sizzle'
-          }
-      }],
+      // preLoaders: [{
+      //     test: /jquery[\\\/]src[\\\/]selector-sizzle\.js$/,
+      //     loader: 'string-replace',
+      //     query: {
+      //         search: '../external/sizzle/dist/sizzle',
+      //         replace: 'sizzle'
+      //     }
+      // }],
       loaders: getLoaders(env)
     },
     postcss: [autoprefixer({ browsers: ['last 2 versions'] })]
