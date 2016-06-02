@@ -76,7 +76,7 @@ export default createClass({
         <Modal
           isOpen={isOpen}
           onCloseHandler={this.clearFormAndCloseModal}>
-          <article id="new-table" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
+          <article id="new-table" className="panel panel--full-space panel--medium" style={{clear: 'both'}}>
             <form onSubmit={handleSubmit((data) => addOrEditDish(data, restaurantId))}>
               <input type="hidden" {...id}/>
               <div className="panel__body">

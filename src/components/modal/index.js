@@ -3,25 +3,25 @@ import ReactModal from 'react-modal';
 
 var modalStyle = {
   overlay : {
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: '1042',
+    overflow: 'hidden',
     position: 'fixed',
-    top: '0px',
-    left: '0px',
-    right: '0px',
-    bottom: '0px',
-    backgroundColor: 'rgba(48, 50, 52, 0.5)',
-    zIndex: '9999'
+    background: 'rgba(48, 50, 52, 0.5)'
   },
   content : {
-    position : 'absolute',
-    top: '0px',
-    left: '0px',
-    right: '0px',
-    bottom: '0px',
-    background: 'transparent',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    outline: 'none',
-    padding: '0px'
+    background: 'none',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 1043,
+    position: 'fixed',
+    outline: 0,
+    'WebkitBackfaceVisibility': 'hidden'
   }
 };
 
@@ -42,14 +42,17 @@ const Modal = createClass({
     this.props.onCloseHandler();
   },
   render() {
+    var close = <span key="modal-close" onClick={this.closeModal} className="modal-window__close-btn">&times;</span>;
+    var child = React.Children.only(this.props.children);
+    var childrenOfChild = React.Children.toArray(child);
+    var childrenWithClose = childrenOfChild.concat([close]);
     return (
       <ReactModal
         isOpen={this.props.isOpen}
         style={modalStyle}>
         <div className={`modal-container ${this.props.className}`} onClick={this.closeModal}>
-          <div onClick={(e) => e.stopPropagation()} className="modal-window">
-            <span onClick={this.closeModal} className="modal-window__close-btn">&times;</span>
-            {this.props.children}
+          <div onClick={(e) => {e.stopPropagation(); this.closeModal()}} className="modal-window">
+            {React.cloneElement(child, {onClick(e){e.stopPropagation();}}, childrenWithClose)}
           </div>
         </div>
       </ReactModal>
