@@ -1,12 +1,14 @@
 import React, {createClass, PropTypes} from 'react';
+import RestaurantShow from 'containers/admin-restaurants/restaurant-show';
 
 const Restaurant = createClass({
-  displayName: 'Restaurant',
+  displayName: 'restaurant-show',
+  propTypes: {
+    params: PropTypes.object.isRequired
+  },
   render(){
     return(
-      <div>
-        <h1>The Restaurant</h1>
-      </div>
+      <RestaurantShow restaurantId={this.props.params.id} />
     );
   }
 });

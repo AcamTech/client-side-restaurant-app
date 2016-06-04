@@ -1,5 +1,4 @@
 import React, {createClass, PropTypes} from 'react';
-import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import RestaurantShow from 'containers/admin-restaurants/restaurant-show';
 
 const AdminRestaurantShow = createClass({
