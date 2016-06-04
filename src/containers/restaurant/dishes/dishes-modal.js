@@ -6,16 +6,17 @@ import { fetchCategories } from 'actions/categories';
 import { fetchIngredients } from 'actions/ingredients';
 import { addOrEditDish } from 'actions/dishes';
 import { closeDishesModal, openDishesModal } from 'actions/dishes-modal';
-import { objectToArray } from 'helpers/format-helpers';
+import addDishesValidations from './add-dishes-validations';
 
 function mapStateToProps (state, props) {
-  var categories = state.categories.list.map(category => state.entities.categories[category]);
+  var categories = state.categories.list.map(category => state.entities.categories[category]) || [];
+  var ingredients = state.ingredients.list.map(ingredient => state.entities.ingredients[ingredient]) || [];
   return {
     isOpen: state.dishesModal.isOpen,
     isEditting: state.dishesModal.isEditting,
     initialValues: state.dishesModal.selectedDish,
     categories,
-    ingredients: objectToArray(state.ingredients.list || {}),
+    ingredients,
     restaurantId: props.restaurantId
   };
 }
@@ -26,5 +27,6 @@ function mapDispatchToProps (dispatch, props) {
 
 export default reduxForm({
   form: 'addDishForm',
+  validate: addDishesValidations,
   fields: ['name', 'id', 'description', 'price', 'category', 'ingredients']
 }, mapStateToProps, mapDispatchToProps)(DishesModal);

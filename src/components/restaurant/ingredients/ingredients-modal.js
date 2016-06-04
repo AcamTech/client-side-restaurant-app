@@ -44,8 +44,7 @@ export default createClass({
           {'Crear Ingrediente'}
           <Modal
             isOpen={isOpen}
-            onCloseHandler={this.clearFormAndCloseModal}
-            className="panel--medium">
+            onCloseHandler={this.clearFormAndCloseModal}>
             <article id="new-table" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
               <form onSubmit={handleSubmit((data) => addOrEditIngredient(data, restaurantId))}>
                 <input type="hidden" {...id}/>
