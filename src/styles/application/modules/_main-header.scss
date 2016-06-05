@@ -2,5 +2,8 @@
 	background: $brand-background;
   color: white;
 	width: 100%;
-	padding: $half-spacing-unit $base-spacing-unit;
+  padding: 7px $half-spacing-unit;
+  @media #{$medium} {
+    padding: 7px $base-spacing-unit;
+  }
 }

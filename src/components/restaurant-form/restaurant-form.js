@@ -15,6 +15,7 @@ export default createClass({
       phone: PropTypes.object
     }).isRequired,
     invalid: PropTypes.bool,
+    showLogger: PropTypes.func.isRequired,
     submitting: PropTypes.bool
   },
   getDefaultProps(){
@@ -40,7 +41,8 @@ export default createClass({
     return(
       <form onSubmit={handleSubmit((data) => {
         this.onSubmitHandler(data)
-          .then(() => this.props.onAfterSubmitHandler());
+          .then(() => this.props.onAfterSubmitHandler())
+          .then(() => this.props.showLogger('Se actualizo correctamente el restaurante'));
       })}>
         <div className="panel__body">
           <div className="grid">

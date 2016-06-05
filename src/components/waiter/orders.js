@@ -182,7 +182,7 @@ export default createClass({
     var visibleOrders = this.getVisibleOrders();
 
     return (
-      <div>
+      <div className="main-area">
         <div className="grid push--bottom">
           <div className="grid__item medium--one-eighth">
             <button onClick={this.newOrder} className="button button--success button--block pull-right">Crear Orden</button>

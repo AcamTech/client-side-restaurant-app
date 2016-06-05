@@ -30,6 +30,10 @@
 	@extend %one-half;
 }
 
+.small--one-half{
+  @extend %small--one-half;
+}
+
 .medium--one-half{
   @extend %medium--one-half;
 }

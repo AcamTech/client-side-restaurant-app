@@ -51,7 +51,7 @@ const Modal = createClass({
         isOpen={this.props.isOpen}
         style={modalStyle}>
         <div className={`modal-container ${this.props.className}`} onClick={this.closeModal}>
-          <div onClick={(e) => {e.stopPropagation(); this.closeModal()}} className="modal-window">
+          <div onClick={(e) => {e.stopPropagation(); this.closeModal();}} className="modal-window">
             {React.cloneElement(child, {onClick(e){e.stopPropagation();}}, childrenWithClose)}
           </div>
         </div>

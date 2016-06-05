@@ -16,6 +16,7 @@
 @import "application/core/functions";
 
 //mixins
+@import "application/mixins/arrow";
 @import "application/mixins/buttons";
 @import "application/mixins/user-select";
 @import "application/mixins/box-sizing";
@@ -37,6 +38,7 @@
 //use placeholders for extends only, always be care with placeholders -> http://csswizardry.com/2014/11/when-to-use-extend-when-to-use-a-mixin/
 @import "application/core/normalize";
 @import "application/core/placeholders";
+@import "application/modules/arrow";
 @import "application/core/core";
 @import "application/core/fonts";
 @import "application/core/font-icons";
@@ -79,8 +81,11 @@
 @import "application/modules/simpletabs";
 @import "application/modules/react-select";
 @import "application/modules/rc-select";
+@import "application/modules/new-order";
 @import "application/modules/carta";
 @import "application/modules/cards";
+@import "application/modules/popover";
+@import "application/modules/user-display";
 
 // Helpers
 @import "application/helpers/helpers";

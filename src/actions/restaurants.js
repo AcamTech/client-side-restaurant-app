@@ -35,12 +35,13 @@ export function registerRestaurant(restaurant){
 export function updateRestaurantAction(id, data){
   return function(dispatch){
     dispatch({type: actionTypes.UPDATE_RESTAURANT_PENDING});
-    updateRestaurant(id, data)
+    return updateRestaurant(id, data)
       .then(payload => {
         dispatch({
           type: actionTypes.RECEIVE_ENTITIES,
           payload: payload.entities
         });
+        dispatch({payload: payload.result, type: actionTypes.UPDATE_RESTAURANT_FULFILLED});
       })
       .catch(error => dispatch({type: actionTypes.UPDATE_RESTAURANT_REJECTED, payload: error.message}));
   };
@@ -59,7 +60,7 @@ export function getRestaurant(restaurantId){
 function getRestaurantAction(id){
   return function getRestaurantThunk(dispatch){
     dispatch({type: actionTypes.FETCH_RESTAURANT_PENDING});
-    fetchRestaurant(id)
+    return fetchRestaurant(id)
       .then(payload => {
         dispatch({type: actionTypes.RECEIVE_ENTITIES, payload: payload.entities});
         dispatch(fetchRestaurantFulfilled(TransformToArrayOfIds(payload.result)));

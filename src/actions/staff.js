@@ -20,7 +20,7 @@ import {
 
 export function addOrEditStaffMember(staffMember, restaurantId){
   return function addOrEditStaffMemberThunk(dispatch){
-    addOrEditMember(staffMember,restaurantId, createAndSaveWaiter, dispatch)
+    return addOrEditMember(staffMember,restaurantId, createAndSaveWaiter, dispatch)
       .then(payload => {
         dispatch(closeStaffModal());
       });
@@ -29,7 +29,7 @@ export function addOrEditStaffMember(staffMember, restaurantId){
 
 export function addOrEditAdmin(admin, restaurantId){
   return function addOrEditAdminThunk(dispatch){
-    addOrEditMember(admin, restaurantId, createAndSaveAdmin, dispatch);
+    return addOrEditMember(admin, restaurantId, createAndSaveAdmin, dispatch);
   };
 }
 

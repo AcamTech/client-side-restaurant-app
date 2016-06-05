@@ -59,7 +59,7 @@ function removeMemberFromRestaurant(uid, restaurantId){
 }
 
 export function createAndSaveWaiter(member, restaurantId){
-  return createAndSaveMember(member, restaurantId)
+  return createAndSaveMember(Object.assign({}, member, {role: 'waiter'}), restaurantId)
     .then(member => {
       var uid = member.uid;
       saveAsRestaurantWaiter(uid, restaurantId);
@@ -69,7 +69,7 @@ export function createAndSaveWaiter(member, restaurantId){
 }
 
 export function createAndSaveAdmin(member, restaurantId){
-  return createAndSaveMember(member, restaurantId)
+  return createAndSaveMember(Object.assign({}, member, {role: 'admin'}), restaurantId)
     .then(member => {
       var uid = member.uid;
       saveAsRestaurantAdmin(uid, restaurantId);

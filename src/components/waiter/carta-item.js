@@ -15,12 +15,12 @@ const CartaItem = React.createClass({
     return (
       <li className="carta-item">
         <article className="clearfix">
-          <div className="media clearfix push-half--bottom">
+          <div className="media media--small clearfix push-half--bottom">
             <div className="media__img">
-              <img src="http://dummyimage.com/180x4:3/F5F5F5/000000.gif&text=No+Disponible" alt=""/>
+              <img src="http://dummyimage.com/140x4:3/F5F5F5/000000.gif&text=No+Disponible" alt=""/>
             </div>
             <div className="media__body">
-              <h1 className="carta-item__name flush--bottom">{details.name}</h1>
+              <h1 className="carta-item__name delta flush--bottom">{details.name}</h1>
               <p className="flush--bottom text--small">{FormatHelpers.formatPrice(details.price)}</p>
               <p>{details.description}</p>
             </div>

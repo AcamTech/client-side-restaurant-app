@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getRestaurant } from 'actions/restaurants';
-import { Layout } from 'components/layout';
+import { SideLayout } from 'components/side-layout';
 
 function mapStateToProps (state, props) {
   return {
@@ -17,4 +17,4 @@ function mapDispatchToProps (dispatch, props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Layout);
+)(SideLayout);

@@ -1,0 +1,11 @@
+@media #{$small} {
+  .new-order{
+    display: flex;
+    height: 100%;
+    &__item{
+      overflow-y: scroll;
+      flex: 1 1 0;
+      padding: $half-spacing-unit;
+    }
+  }
+}

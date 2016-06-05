@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import BodyClassName from 'react-body-classname';
+import {Logger} from 'containers/logger';
 
 export default function AuthLayout ({children}) {
   return (
@@ -9,6 +10,7 @@ export default function AuthLayout ({children}) {
         <div className="inner-container">
           {children}
         </div>
+        <Logger />
       </div>
     </BodyClassName>
   );

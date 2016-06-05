@@ -2,6 +2,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import {registerRestaurant, updateRestaurantAction} from 'actions/restaurants';
+import { showLogger } from 'actions/logger';
 import {RestaurantForm} from 'components/restaurant-form';
 import restaurantFormValidations from './restaurant-form-validations';
 
@@ -14,7 +15,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     registerRestaurant,
-    updateRestaurantAction
+    updateRestaurantAction,
+    showLogger
   }, dispatch);
 }
 

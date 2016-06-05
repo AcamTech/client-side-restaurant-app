@@ -18,7 +18,17 @@
   padding-left: $half-spacing-unit;
   padding-right: $half-spacing-unit;
 }
-.main-area{overflow: hidden;}
+
+.layout{
+  padding-top: 102px;
+  @media #{$small} {
+    padding-top: 62px;
+  }
+  &__header{
+    position: absolute;
+    top: 0;
+  }
+}
 
 // .kitchen-layout{
 //   display: flex;

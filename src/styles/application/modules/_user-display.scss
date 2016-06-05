@@ -1,0 +1,46 @@
+.user-display {
+  @include rem;
+  background-color: white;
+  color: $gray-dark;
+  min-width: 200px;
+  padding: em(6) em(8);
+  white-space: nowrap;
+  text-align: $start;
+  border-radius: 2px;
+  @media #{$small} {
+    display: inline-block;
+  }
+
+  &__avatar {
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: em(1);
+    height: em(32);
+    width: em(32);
+  }
+
+  &__text{
+    line-height: 1.2;
+    font-size: em($font-size-small);
+  }
+
+  &__icon{
+    color: $brand-primary;
+    font-size: em(11);
+  }
+  &-popover{
+    > .popover__content{
+      right: 0;
+    }
+  }
+}
+
+.user-display-menu{
+  @include arrow(top, right, white, $brand-ui);
+}
+
+.user-display-popover{
+  text-align: $end;
+}

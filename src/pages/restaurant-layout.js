@@ -1,6 +1,6 @@
 import React, {createClass, PropTypes} from 'react';
-import {Layout} from 'containers/layout';
-import BodyClassName from 'react-body-classname';
+import {SideLayout} from 'components/side-layout';
+import {Logger} from 'containers/logger';
 
 var navigation = [
   {
@@ -39,11 +39,10 @@ const RestaurantLayoutPage = createClass({
   },
   render(){
     return(
-      <BodyClassName className="complex-layout">
-        <Layout sidebarItems={buildNavigation(navigation, this.props.params.id)} restaurantId={this.props.params.id}>
-          {this.props.children}
-        </Layout>
-      </BodyClassName>
+      <SideLayout sidebarItems={buildNavigation(navigation, this.props.params.id)} restaurantId={this.props.params.id}>
+        {this.props.children}
+        <Logger />
+      </SideLayout>
     );
   }
 });
