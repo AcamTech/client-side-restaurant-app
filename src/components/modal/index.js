@@ -20,6 +20,7 @@ var modalStyle = {
     height: '100%',
     zIndex: 1043,
     position: 'fixed',
+    padding: 0,
     outline: 0,
     'WebkitBackfaceVisibility': 'hidden'
   }
@@ -46,13 +47,14 @@ const Modal = createClass({
     var child = React.Children.only(this.props.children);
     var childrenOfChild = React.Children.toArray(child);
     var childrenWithClose = childrenOfChild.concat([close]);
+    var clonedElement = React.cloneElement(child, {onClick(e){e.stopPropagation();}}, childrenWithClose);
     return (
       <ReactModal
         isOpen={this.props.isOpen}
         style={modalStyle}>
-        <div className={`modal-container ${this.props.className}`} onClick={this.closeModal}>
-          <div onClick={(e) => {e.stopPropagation(); this.closeModal();}} className="modal-window">
-            {React.cloneElement(child, {onClick(e){e.stopPropagation();}}, childrenWithClose)}
+        <div className={`modal-container ${this.props.className}`} onClick={(e) => {e.stopPropagation(); this.closeModal();}}>
+          <div onClick={(e) => {e.stopPropagation();}} className="modal-window">
+            {clonedElement}
           </div>
         </div>
       </ReactModal>

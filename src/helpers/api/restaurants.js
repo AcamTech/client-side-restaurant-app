@@ -21,7 +21,8 @@ restaurantSchema.define({
 
 
 export function fetchRestaurant(restaurantId){
-  return restaurantRef.child(`${restaurantId}`)
+  return restaurantRef
+    .child(`${restaurantId}`)
     .once('value')
     .then(snapshot => ({[snapshot.key()]: snapshot.val()}))
     .then(response => normalize(response, valuesOf(restaurantSchema)));
@@ -36,7 +37,15 @@ export function fetchRestaurants(){
 export function createRestaurant(restaurant){
   var id = restaurantRef.push().key();
   var timeStamp = Firebase.ServerValue.TIMESTAMP;
-  var promise = restaurantRef.child(id).set({...restaurant, createdAt: timeStamp, udatedAt: timeStamp, id});
+  var promise = restaurantRef
+    .child(id)
+    .set({
+      ...restaurant,
+      id,
+      totalOrders: 0,
+      createdAt: timeStamp,
+      udatedAt: timeStamp
+    });
   return {
     id,
     promise
@@ -48,4 +57,12 @@ export function updateRestaurant(restaurantId, data){
     .child(`${restaurantId}`)
     .update(data)
     .then(() => fetchRestaurant(restaurantId));
+}
+
+export function updateTotalOrders(restaurantId){
+  return restaurantRef
+    .child(`${restaurantId}`)
+    .transaction((currentValue = 0) => {
+      return currentValue + 1;
+    });
 }

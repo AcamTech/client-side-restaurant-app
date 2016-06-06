@@ -1,5 +1,8 @@
 import React, {createClass, PropTypes} from 'react';
 import Select from 'react-select';
+import OrderButtons from './order-buttons';
+import Modal from 'components/modal';
+import OrderDetail from './order-detail';
 import FormatHelpers from 'helpers/format-helpers';
 import stateMappings, * as states from 'constants/states';
 
@@ -17,7 +20,12 @@ export default createClass({
     restaurantId: PropTypes.string.isRequired
   },
   getInitialState(){
-    return { ownerFilter: 'mine', stateFilter: 'active' };
+    return {
+      selectedOrder: {},
+      isModalOpen: false,
+      ownerFilter: 'mine',
+      stateFilter: 'active'
+    };
   },
   componentDidMount(){
     const {fetchOrders, restaurantId, listenOrders} = this.props;
@@ -82,84 +90,42 @@ export default createClass({
   renderOrder(order){
     const self = this;
 
-    function onEdit() {
-      self.editOrder(order.id);
-    }
-
-    function onCancel() {
-      self.cancelOrder(order);
-    }
-
-    function onDeliver() {
-      self.deliverOrder(order);
-    }
-
-    function onRejected() {
-      self.rejectOrder(order);
-    }
-
-    function onRestart() {
-      self.restartOrder(order);
-    }
-
-    function getButtons() {
-      if (order.state === 'QUEUED' || order.state === 'IN_PROCESS' || order.state === 'REJECTED') {
-        return (
-          <div className="grid grid--narrow">
-            <div className="grid__item medium--one-half">
-              <button onClick={onEdit} className="button button-border button--block button--small">Editar</button>
-            </div><div className="grid__item medium--one-half">
-              <button onClick={onCancel} className="button button-border button--block button--small">Anular</button>
-            </div>
-          </div>
-        );
-      }
-
-      if (order.state === 'READY') {
-        return (
-          <div className="grid grid--narrow">
-            <div className="grid__item medium--one-half">
-              <button onClick={onDeliver} className="button button-border button--block button--small">Entregada</button>
-            </div><div className="grid__item medium--one-half">
-              <button onClick={onRejected} className="button button-border button--block button--small">Rechazada</button>
-            </div>
-          </div>
-        );
-      }
-
-      if (order.state === 'CLIENT_REJECTED') {
-        return (
-          <div className="grid grid--narrow">
-            <div className="grid__item medium--one-half">
-              <button onClick={onRestart} className="button button-border button--block button--small">Reiniciar</button>
-            </div><div className="grid__item medium--one-half">
-              <button onClick={onCancel} className="button button-border button--block button--small">Anular</button>
-            </div>
-          </div>
-        );
-      }
-
-      return ('');
-    }
-
-    function getDishes() {
+    function getDishes(order) {
       return Object.keys(order.items).map(id => {
         return (
           <div key={id} index={id}>{order.items[id].name}</div>
         );
       });
     }
-
+    var orderButtonsProps = {
+      onEdit: this.editOrder,
+      onCancel: this.cancelOrder,
+      onDeliver: this.deliverOrder,
+      onRejected: this.rejectOrder,
+      onRestart: this.restartOrder
+    };
     return (
-        <article className="tile" key={order.id} index={order.id}>
-          <h1 className="order__title">{getDishes()}</h1>
-          <dl className="order__details push--bottom clearfix">
-            <dt className="order__detail-name">Mesa #</dt><dd className="order__detail-value">{order.table}</dd>
-            <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{stateMappings[order.state]}</dd>
-          </dl>
-          {getButtons()}
-        </article>
-      );
+      <article className="tile" key={order.id} index={order.id} onClick={() => this.onOrderClickHandler(order)}>
+        <h1 className="order__title">Orden Mesa {order.table}</h1>
+        <dl className="order__details push--bottom clearfix">
+          <dt className="order__detail-name">Mesa #</dt><dd className="order__detail-value">{order.table}</dd>
+          <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{stateMappings[order.state]}</dd>
+        </dl>
+        <OrderButtons order={order} {...orderButtonsProps} />
+      </article>
+    );
+  },
+  onOrderClickHandler(order){
+    this.setState({
+      selectedOrder: order,
+      isModalOpen: true
+    });
+  },
+  closeModal(){
+    this.setState({
+      selectedOrder: {},
+      isModalOpen: false
+    });
   },
   onOwnerFilterChange(filter){
     this.setState({ownerFilter: filter.value});
@@ -180,22 +146,52 @@ export default createClass({
       {label: 'Anuladas', value: 'canceled'}
     ];
     var visibleOrders = this.getVisibleOrders();
-
+    var orderButtonsProps = {
+      onEdit: this.editOrder,
+      onCancel: this.cancelOrder,
+      onDeliver: this.deliverOrder,
+      onRejected: this.rejectOrder,
+      onRestart: this.restartOrder
+    };
     return (
       <div className="main-area">
         <div className="grid push--bottom">
           <div className="grid__item medium--one-eighth">
             <button onClick={this.newOrder} className="button button--success button--block pull-right">Crear Orden</button>
           </div><div className="grid__item medium--one-eighth">
-            <Select onChange={this.onOwnerFilterChange} clearable={false} searchable={false} name="ownerFilter" value={this.state.ownerFilter} options={ownerFilterOptions} />
+            <Select
+              onChange={this.onOwnerFilterChange}
+              clearable={false}
+              searchable={false}
+              name="ownerFilter"
+              value={this.state.ownerFilter}
+              options={ownerFilterOptions}
+            />
           </div>
           <div className="grid__item medium--one-eighth">
-            <Select onChange={this.onStateFilterChange} clearable={false} searchable={false} name="stateFilter" value={this.state.stateFilter} options={stateFilterOptions} />
+            <Select
+              onChange={this.onStateFilterChange}
+              clearable={false}
+              searchable={false}
+              name="stateFilter"
+              value={this.state.stateFilter}
+              options={stateFilterOptions}
+            />
           </div>
         </div>
         <div className="grid-tiles">
-          {visibleOrders.length ? visibleOrders.map(this.renderOrder) : <div className="grid-tiles__empty-state">No hay órdenes para mostrar</div>}
+          {
+            visibleOrders.length ?
+            visibleOrders.map(this.renderOrder) :
+            <div className="grid-tiles__empty-state">No hay órdenes para mostrar</div>
+          }
         </div>
+        <Modal
+          isOpen={this.state.isModalOpen}
+          onCloseHandler={this.closeModal}
+          >
+          <OrderDetail order={this.state.selectedOrder} buttons={ <OrderButtons order={this.state.selectedOrder} {...orderButtonsProps} /> } />
+        </Modal>
       </div>
     );
   }

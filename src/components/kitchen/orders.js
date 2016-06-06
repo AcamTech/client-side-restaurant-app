@@ -1,6 +1,7 @@
 import React, {createClass, PropTypes} from 'react';
 import Select from 'react-select';
-import FormatHelpers from 'helpers/format-helpers';
+import { OrderItems } from 'components/order-items';
+import FormatHelpers, {objectToArray} from 'helpers/format-helpers';
 import stateMappings, * as states from 'constants/states';
 
 export default createClass({
@@ -40,20 +41,20 @@ export default createClass({
   },
   renderItem(item){
     return (
-      <div key={item.name} index={item.name} className="kitchen-order__item">
-        <p className="kitchen-order__item-title">
-          <span className="kitchen-order__item-quantity">{item.quantity}</span>
-          <span className="kitchen-order__item-name">{item.name}</span>
+      <div key={item.name} index={item.name} className="order-items__item">
+        <p className="order-items__item-title">
+          <span className="order-items__item-quantity">{item.quantity}</span>
+          <span className="order-items__item-name">{item.name}</span>
         </p>
         {item.comment ?
-          (<p className="kitchen-order__item-comment">{item.comment}</p>)
+          (<p className="order-items__item-comment">{item.comment}</p>)
         : ''}
       </div>
     );
   },
   renderOrder(order){
     const self = this;
-    const {items, id} = order;
+    var {items, id} = order;
 
     function onClickAccept() {
       self.acceptOrder(order);
@@ -90,25 +91,24 @@ export default createClass({
       }
       return '';
     }
-
+    items = objectToArray(items || {});
     return (
-      <article className="grid__item medium--one-third" key={id} index={id}>
-        <div className="kitchen-order">
-          <div className="kitchen-order__items">
-            {Object.keys(items).map((itemId) => (this.renderItem(items[itemId])))}
+        <article className="kitchen-order" key={id} index={id}>
+          <div className="kitchen-order__head">
+            <h1 className="delta kitchen-order__title">Orden #</h1>
           </div>
+          <OrderItems items={items} />
           <div className="kitchen-order__buttons">
             {getButtons()}
           </div>
-        </div>
-      </article>
+        </article>
     );
   },
   render(){
     var visibleOrders = this.getVisibleOrders();
 
     return (
-      <div className="full-height grid kitchen-order__container">
+      <div className="kitchen-orders full-height">
         {visibleOrders.length ? visibleOrders.map(this.renderOrder) : <div className="grid-tiles__empty-state">No hay órdenes para mostrar</div>}
       </div>
     );

@@ -1,59 +1,27 @@
-.kitchen-order__container {
+.kitchen-orders {
   background: $gray-lighter;
   padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
 }
 
 .kitchen-order{
+  @include rem;
   background: white;
   border-radius: 5px;
   box-shadow: 0 0 7px rgba(0, 0, 0, .2);
-  font-size: 2vw;
-  margin-bottom: 20px;
-}
-
-.kitchen-order__items {
-  margin-bottom: 15px;
-}
-
-.kitchen-order__item {
-  border-bottom: 1px dashed rgba(0, 0, 0, .1);
-  padding: 15px;
-}
-
-.kitchen-order__item-title {
-  color: $gray-light;
-  font-size: .75em;
-  margin-bottom: 0;
-  width: 100%;
-}
-
-.kitchen-order__item-quantity {
-  background: #EFEFEF;
-  color: $gray-light;
-  display: inline-block;
-  font-size: .8em;
-  text-align: center;
-  vertical-align: middle;
-  width: 40px;
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, .1);
-  border-radius: 0 2px 2px 0;
-  height: 25px;
-  line-height: 25px;
-  margin: 0 10px 0 -15px;
-
-}
-
-.kitchen-order__item-comment {
-  font-size: .6em;
-  margin: 10px 0 0 0;
-  color: $gray-light;
-  width: 100%;
-}
-
-.kitchen-order__item-name {
-  vertical-align: middle;
+  margin: 0.5%;
+  min-width: 350px;
+  &__head{
+    padding: $half-spacing-unit / 2 $half-spacing-unit;
+  }
+  &__title{
+    font-size: $font-size-h4;
+    margin: 0;
+  }
 }
 
 .kitchen-order__buttons {
-  padding: 0 15px 15px;
+  padding: 15px;
 }

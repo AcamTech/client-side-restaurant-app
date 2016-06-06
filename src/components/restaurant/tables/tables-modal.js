@@ -40,10 +40,8 @@ export default createClass({
     } = this.props;
     var modalTitle = isEditting ? 'Editar Mesa' : 'Nueva Mesa';
     return(
-      <span>
       <button onClick={openTablesModal} className="button button--secondary button--small">
         {'Crear Mesa'}
-      </button>
         <Modal
           isOpen={isOpen}
           onCloseHandler={this.clearFormAndCloseModal}>
@@ -68,7 +66,7 @@ export default createClass({
             </form>
           </article>
         </Modal>
-        </span>
+      </button>
     );
   }
 });

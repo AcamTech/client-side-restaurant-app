@@ -150,6 +150,7 @@ export function saveOrder(order, restaurantId, waiterId) {
     const ordersRef = ref.child(`restaurants/${restaurantId}/orders`);
     function makeNewOrder(order) {
       return {
+        orderNumber: '',
         restaurant: restaurantId,
         state: 'QUEUED',
         waiter: waiterId,
@@ -175,7 +176,7 @@ export function saveOrder(order, restaurantId, waiterId) {
     var {state, id} = order;
 
     if (id) {
-      ordersRef.child(id)
+      return ordersRef.child(id)
         .set(order)
         .then(() => {
           dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
@@ -189,7 +190,7 @@ export function saveOrder(order, restaurantId, waiterId) {
 
       newOrder.id = newOrderRef.key();
 
-      newOrderRef.set(newOrder)
+      return newOrderRef.set(newOrder)
         .then(() => {
           var historyRef = newOrderRef.child('history')
             .push().set({
@@ -203,7 +204,7 @@ export function saveOrder(order, restaurantId, waiterId) {
         .then(() => {
           const promises = saveOrderItems(newOrderRef, order.items);
 
-          Promise.all(promises)
+          return Promise.all(promises)
             .then(array => ArrayToObject(array))
             .then(items => newOrder.items = items)
             .then(() => {

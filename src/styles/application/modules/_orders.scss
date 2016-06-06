@@ -1,0 +1,46 @@
+.order-items {
+  margin-bottom: 15px;
+  list-style-type: none;
+  margin: 0;
+}
+
+.order-items__item {
+  @include rem;
+  border-bottom: 1px dashed rgba(0, 0, 0, .1);
+  padding: 15px;
+  line-height: 1;
+}
+
+.order-items__item-title {
+  color: $gray-light;
+  font-size: em($font-size-large);
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.order-items__item-quantity {
+  background: #EFEFEF;
+  color: $gray-light;
+  display: inline-block;
+  font-size: em($font-size-large);
+  text-align: center;
+  vertical-align: middle;
+  width: 40px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, .1);
+  border-radius: 0 2px 2px 0;
+  height: 25px;
+  line-height: 25px;
+  margin: 0 10px 0 -15px;
+
+}
+
+.order-items__item-comment {
+  font-size: em($font-size-larger);
+  margin: 10px 0 0 0;
+  color: $gray-light;
+  width: 100%;
+}
+
+.order-items__item-name {
+  vertical-align: middle;
+}
