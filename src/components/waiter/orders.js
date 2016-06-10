@@ -106,7 +106,7 @@ export default createClass({
     };
     return (
       <article className="tile" key={order.id} index={order.id} onClick={() => this.onOrderClickHandler(order)}>
-        <h1 className="order__title">Orden Mesa {order.table}</h1>
+        <h1 className="order__title">Orden # {order.orderNumber}</h1>
         <dl className="order__details push--bottom clearfix">
           <dt className="order__detail-name">Mesa #</dt><dd className="order__detail-value">{order.table}</dd>
           <dt className="order__detail-name">Estado</dt><dd className="order__detail-value">{stateMappings[order.state]}</dd>
@@ -188,9 +188,8 @@ export default createClass({
         </div>
         <Modal
           isOpen={this.state.isModalOpen}
-          onCloseHandler={this.closeModal}
-          >
-          <OrderDetail order={this.state.selectedOrder} buttons={ <OrderButtons order={this.state.selectedOrder} {...orderButtonsProps} /> } />
+          onCloseHandler={this.closeModal}>
+          <OrderDetail order={this.state.selectedOrder} buttons={<OrderButtons order={this.state.selectedOrder} {...orderButtonsProps} />} />
         </Modal>
       </div>
     );

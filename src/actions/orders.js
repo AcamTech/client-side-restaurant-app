@@ -1,6 +1,10 @@
 import Firebase from 'firebase';
 import { push } from 'react-router-redux';
 import * as actionTypes from 'constants/action-types';
+import {
+    getTotalOrders, incrementTotalOrders,
+    decrementTotalOrders
+} from 'helpers/api';
 import {ref} from 'constants/firebase';
 import {getInnerDataFromUrl, ArrayToObject} from 'helpers/format-helpers';
 
@@ -176,7 +180,8 @@ export function saveOrder(order, restaurantId, waiterId) {
     var {state, id} = order;
 
     if (id) {
-      return ordersRef.child(id)
+      return ordersRef
+        .child(id)
         .set(order)
         .then(() => {
           dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
@@ -190,15 +195,23 @@ export function saveOrder(order, restaurantId, waiterId) {
 
       newOrder.id = newOrderRef.key();
 
-      return newOrderRef.set(newOrder)
-        .then(() => {
-          var historyRef = newOrderRef.child('history')
-            .push().set({
-              oldState: '',
-              newState: 'QUEUED',
-              action: 'create',
-              actor: 'waiter',
-              at: Firebase.ServerValue.TIMESTAMP
+      return incrementTotalOrders(restaurantId)
+        .then(() => getTotalOrders(restaurantId))
+        .then(orders => {
+          return Object.assign({}, newOrder, {orderNumber: orders});
+        })
+        .then(newOrder => {
+          return newOrderRef
+            .set(newOrder)
+            .then(() => {
+              return newOrderRef.child('history')
+                .push().set({
+                  oldState: '',
+                  newState: 'QUEUED',
+                  action: 'create',
+                  actor: 'waiter',
+                  at: Firebase.ServerValue.TIMESTAMP
+                });
             });
         })
         .then(() => {
@@ -215,6 +228,9 @@ export function saveOrder(order, restaurantId, waiterId) {
                   dispatch(push(`/restaurante/${restaurantId}/ordenes/lista`));
                 });
             });
+        })
+        .catch(err => {
+          return decrementTotalOrders(restaurantId);
         });
     }
   };

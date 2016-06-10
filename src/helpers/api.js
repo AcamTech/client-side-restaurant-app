@@ -6,7 +6,9 @@ export {
 
 export {
     fetchRestaurant, fetchRestaurants,
-    createRestaurant, updateRestaurant
+    createRestaurant, updateRestaurant,
+    getTotalOrders, incrementTotalOrders,
+    decrementTotalOrders
 } from './api/restaurants';
 
 export {

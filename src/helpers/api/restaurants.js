@@ -59,10 +59,24 @@ export function updateRestaurant(restaurantId, data){
     .then(() => fetchRestaurant(restaurantId));
 }
 
-export function updateTotalOrders(restaurantId){
+export function getTotalOrders(restaurantId){
+  return ref.child(`restaurants/${restaurantId}/totalOrders`)
+    .once('value')
+    .then(snapshot => snapshot.val());
+}
+
+export function incrementTotalOrders(restaurantId){
   return restaurantRef
-    .child(`${restaurantId}`)
+    .child(`${restaurantId}/totalOrders`)
     .transaction((currentValue = 0) => {
       return currentValue + 1;
+    });
+}
+
+export function decrementTotalOrders(restaurantId){
+  return restaurantRef
+    .child(`${restaurantId}/totalOrders`)
+    .transaction((currentValue = 0) => {
+      return currentValue - 1;
     });
 }
