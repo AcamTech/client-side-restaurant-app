@@ -94,7 +94,7 @@ function getConfig(env) {
     target: env === testEnvironment ? 'node' : 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
     output: {
       path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
-      publicPath: env === productionEnvironment ? '/' : 'http://localhost:3001/',
+      publicPath: env === productionEnvironment ? '/' : 'http://localhost:3000/',
       filename: '[name].js'
     },
     resolve: {

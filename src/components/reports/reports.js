@@ -3,7 +3,6 @@ import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import Orders from './orders';
 
 export default function Reports({orders}){
-  console.warn(orders);
   return (
     <Tabs>
       <TabList>

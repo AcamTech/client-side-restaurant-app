@@ -1,4 +1,4 @@
-import React, {createClass} from 'react';
+import React, {createClass, PropTypes} from 'react';
 import {values, map, prop, sortBy, reduce} from 'ramda';
 import {VictoryPie} from 'victory';
 import states from 'constants/states';
@@ -45,15 +45,23 @@ function getOrderHistory(order){
 function renderOrderGraph(order){
   var itemsWithDuration = setDuration(sortByAt(getOrderHistory(order)));
   var newItems = itemsWithDuration.slice(0, itemsWithDuration.length - 1);
-  return <VictoryPie innerRadius={110} key={order.id} data={newItems} x={'label'} y={'duration'} />;
+  return (
+    <div className="grid__item one-half text-center" key={order.id}>
+      <b>Orden:</b> #{order.orderNumber}
+      <VictoryPie data={newItems} x={'label'} y={'duration'} />
+    </div>
+  );
 }
 
 
 export default createClass({
   displayName: 'Orders-reports',
+  propTypes: {
+    orders: PropTypes.object.isRequired
+  },
   render(){
     return (
-      <div>
+      <div className="grid">
         {map(renderOrderGraph, values(this.props.orders))}
       </div>
     );
