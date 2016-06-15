@@ -6,6 +6,7 @@ import Restaurant from 'pages/restaurant';
 import Menu from 'pages/menu';
 import Tables from 'pages/tables';
 import Staff from 'pages/staff';
+import Reports from 'pages/reports';
 
 import SuperLayout from 'pages/super-layout';
 import RegisterPage from 'pages/register';
@@ -42,6 +43,7 @@ export default function getRoutes(history, checkIfAuthed){
         <Route path="menu" component={Menu} />
         <Route path="mesas" component={Tables} />
         <Route path="personal" component={Staff} />
+        <Route path="reportes" component={Reports}></Route>
       </Route>
       <Route path="restaurante/:id/cocina" component={KitchenLayout} onEnter={checkIfAuthed}>
         <IndexRoute component={KitchenPage} />

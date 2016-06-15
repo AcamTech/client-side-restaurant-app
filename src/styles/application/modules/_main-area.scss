@@ -1,6 +1,3 @@
 .main-area{
   padding: $half-spacing-unit;
-  @media #{$small} {
-    padding: $base-spacing-unit;
-  }
 }
