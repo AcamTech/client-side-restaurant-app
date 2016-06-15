@@ -58,7 +58,6 @@ export function saveOrder(order, restaurantId, waiterId) {
       return {
         orderNumber: '',
         createdAt: Firebase.ServerValue.TIMESTAMP,
-        lastUpdatedAt: Firebase.ServerValue.TIMESTAMP,
         restaurant: restaurantId,
         state: 'QUEUED',
         waiter: waiterId,
@@ -108,8 +107,10 @@ export function saveOrder(order, restaurantId, waiterId) {
           return newOrderRef
             .set(newOrder)
             .then(() => {
-              return newOrderRef.child('history')
-                .push().set({
+              return newOrderRef
+                .child('history')
+                .push()
+                .set({
                   oldState: '',
                   newState: 'QUEUED',
                   action: 'create',
@@ -184,7 +185,8 @@ export function editOrder(id, restaurantId, waiterId) {
     function checkOwnership(id) {
       const waiterOrdersRef = ref.child(`restaurants_staff/${waiterId}/orders/`);
 
-      return waiterOrdersRef.once('value')
+      return waiterOrdersRef
+        .once('value')
         .then(snapshot => {
           const orders = snapshot.val();
           const ids = Object.keys(orders);
