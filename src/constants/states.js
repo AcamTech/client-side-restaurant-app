@@ -12,7 +12,7 @@ export default {
   'REJECTED': 'Rechazada',
   'CHANGE_REQ': 'Cambio solicitado',
   'CHANGE_REJECTED': 'Cambio rechazado',
-  'READY': 'Lista',
+  'READY': 'Para entregar',
   'DELIVERED': 'Entregada',
   'CLIENT_REJECTED': 'Rechazada por el cliente',
   'BUSY': 'Ocupada',

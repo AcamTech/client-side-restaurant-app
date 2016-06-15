@@ -71,7 +71,13 @@ const getLoaders = function (env) {
 
   if (env === productionEnvironment ) {
     // generate separate physical stylesheet for production build using ExtractTextPlugin. This provides separate caching and avoids a flash of unstyled content on load.
-    loaders.push({test: /(\.css|\.scss)$/, loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap", { publicPath: './'})});
+    loaders.push({
+        test: /(\.css|\.scss)$/,
+        loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap",
+          {
+            publicPath: './'
+          })
+      });
   } else {
     loaders.push({test: /(\.css|\.scss)$/, loaders: ['style', 'css?sourceMap', 'postcss', 'sass?sourceMap']});
   }
@@ -88,7 +94,7 @@ function getConfig(env) {
     target: env === testEnvironment ? 'node' : 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
     output: {
       path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
-      publicPath: env === productionEnvironment ? '/' : 'http://localhost:3000/',
+      publicPath: env === productionEnvironment ? '/' : 'http://localhost:3001/',
       filename: '[name].js'
     },
     resolve: {

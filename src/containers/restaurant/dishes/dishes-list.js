@@ -7,16 +7,21 @@ import { editDish } from 'actions/dishes-modal';
 import { objectToArray } from 'helpers/format-helpers';
 
 function mapStateToProps (state, props) {
-  var dishes = state.dishes.list.map(dish => state.entities.dishes[dish]);
+  var dishes = state.dishes.list.map(id => state.entities.dishes[id]);
   return {
     restaurantId: props.restaurantId,
     dishes,
-    categories: objectToArray(state.categories.list || {})
+    categories: objectToArray(state.entities.categories || {})
   };
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators( {fetchDishes, fetchCategories, removeDish, editDish}, dispatch);
+  return bindActionCreators({
+    fetchDishes,
+    fetchCategories,
+    removeDish,
+    editDish
+  }, dispatch);
 }
 
 export default connect(

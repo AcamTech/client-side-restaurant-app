@@ -11,8 +11,8 @@ function UserDisplay ({avatar, name, role}) {
         </div>
         <div className="media__body">
           <p className="user-display__text">
-            {`${name}`} <br/>
-            {`${role}`}
+            <b>{`${name}`}</b> <br/>
+            <small>{`${role}`}</small>
           </p>
         </div>
       </div>
