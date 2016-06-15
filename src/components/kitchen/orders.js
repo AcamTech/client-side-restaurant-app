@@ -95,7 +95,7 @@ export default createClass({
     return (
         <article className="kitchen-order" key={id} index={id}>
           <div className="kitchen-order__head">
-            <h1 className="delta kitchen-order__title">Orden #</h1>
+            <h1 className="delta kitchen-order__title">Orden #{order.orderNumber}</h1>
           </div>
           <OrderItems items={items} />
           <div className="kitchen-order__buttons">

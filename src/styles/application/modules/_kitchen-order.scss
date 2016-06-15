@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .kitchen-order{
@@ -13,6 +14,8 @@
   box-shadow: 0 0 7px rgba(0, 0, 0, .2);
   margin: 0.5%;
   min-width: 350px;
+  overflow-y: auto;
+  height: 100%;
   &__head{
     padding: $half-spacing-unit / 2 $half-spacing-unit;
   }
