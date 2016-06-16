@@ -45,6 +45,7 @@ function getOrderHistory(order){
 function renderOrderGraph(order){
   var itemsWithDuration = setDuration(sortByAt(getOrderHistory(order)));
   var newItems = itemsWithDuration.slice(0, itemsWithDuration.length - 1);
+  console.warn(newItems);
   return (
     <div className="grid__item one-half text-center" key={order.id}>
       <b>Orden:</b> #{order.orderNumber}
