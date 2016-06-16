@@ -3,6 +3,7 @@ import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import Orders from './orders';
 import Sells from './sells';
 import Dishes from './dishes';
+import Waiters from './waiters';
 
 export default function Reports({orders}){
   return (
@@ -27,6 +28,7 @@ export default function Reports({orders}){
       </TabPanel>
       <TabPanel>
         <h1>Meseros</h1>
+        <Waiters orders={orders} />
       </TabPanel>
     </Tabs>
   );
