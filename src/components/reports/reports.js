@@ -6,7 +6,7 @@ import Dishes from './dishes';
 import TotalDishes from './total-dishes';
 import Waiters from './waiters';
 
-export default function Reports({orders}){
+export default function Reports({orders, staff, restaurantId, fetchStaff}){
   return (
     <Tabs>
       <TabList>
@@ -34,7 +34,7 @@ export default function Reports({orders}){
       </TabPanel>
       <TabPanel>
         <h1>Meseros</h1>
-        <Waiters orders={orders} />
+        <Waiters restaurantId={restaurantId} orders={orders} staff={staff} fetchStaff={fetchStaff} />
       </TabPanel>
     </Tabs>
   );

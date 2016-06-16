@@ -4,8 +4,17 @@ import {format} from 'date-fns';
 import {VictoryLine, VictoryGroup, VictoryStack, VictoryScatter, VictoryBar, VictoryChart} from 'victory';
 
 const Waiters = createClass({
+  componentDidMount(){
+    this.props.fetchStaff(this.props.restaurantId);
+  },
   render () {
-    var {orders} = this.props;
+    var {orders, staff, fecthStaff} = this.props;
+
+    var _staff = reduce((acc, member) => {
+      acc[member.uid] = member.name
+      return acc;
+    }, {}, values(staff));
+
     var groupByWaiter = groupBy(function(item){return item.waiter});
     var getDelivered = filter((item) => item.state == 'DELIVERED');
 
@@ -56,7 +65,7 @@ const Waiters = createClass({
                 textAnchor: "end",
                 verticalAnchor: "end"
               }
-            }} label={waiter.waiterId} />
+            }} label={_staff[waiter.waiterId]} />
             <VictoryScatter data={waiter.data}
               style={{
                 data: {

@@ -4,7 +4,7 @@ import {Reports} from 'containers/reports';
 const ReportsPage = createClass({
   render () {
     return (
-      <Reports />
+      <Reports restaurantId={this.props.params.id} />
     )
   }
 });
