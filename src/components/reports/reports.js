@@ -2,6 +2,7 @@ import React from 'react';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 import Orders from './orders';
 import Sells from './sells';
+import Dishes from './dishes';
 
 export default function Reports({orders}){
   return (
@@ -22,6 +23,7 @@ export default function Reports({orders}){
       </TabPanel>
       <TabPanel>
         <h1>Platos</h1>
+        <Dishes orders={orders} />
       </TabPanel>
       <TabPanel>
         <h1>Meseros</h1>
