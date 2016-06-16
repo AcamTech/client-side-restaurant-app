@@ -40,7 +40,6 @@ const Sells = createClass({
       minDate,
       Date.now()
     );
-    console.warn(minDate);
     return (
       <VictoryChart
         height={250}>
