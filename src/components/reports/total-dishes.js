@@ -8,7 +8,7 @@ var processItems = compose(
   map(reduce((acc, entry) => {
     var quantity = (acc.quantity || 0) + entry.quantity;
     return {
-      name: entry.name + ' ' + quantity,
+      name: entry.name,
       quantity: quantity
     }
   }, {})),
@@ -27,7 +27,35 @@ export default createClass({
   render(){
     var items = processItems(this.props.orders);
     return (
-      <VictoryPie height={300} data={items} x={'name'} y={'name'} />
+      <div>
+        <div style={{maxWidth: '400px'}}>
+          <VictoryPie
+            style={{
+              labels: {
+                fontSize: 10,
+                padding: 10
+              }
+            }} data={items} x={'name'} y={'name'} />
+        </div>
+        <table className="table table--hover table--condensed text-center">
+          <thead>
+            <tr>
+              <th>Nombre Plato</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+              {
+                map(item => (
+                  <tr>
+                    <td>{item.name}</td>
+                    <td>{item.quantity}</td>
+                  </tr>
+                ), items)
+              }
+          </tbody>
+        </table>
+      </div>
     );
   }
 });
