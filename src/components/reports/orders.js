@@ -1,9 +1,11 @@
 import React, {createClass, PropTypes} from 'react';
-import {values, map, prop, sortBy, reduce} from 'ramda';
+import {values, map, prop, sortBy, reduce, filter} from 'ramda';
+import {format} from 'date-fns';
 import {VictoryPie} from 'victory';
 import states from 'constants/states';
 
 var sortByAt = sortBy(prop('at'));
+var getDelivered = filter((item) => item.state == 'DELIVERED');
 
 function duration(duration) {
   var hours = 0;
@@ -32,8 +34,10 @@ function setDuration(items){
   for(var i = 0; i < items.length; i++){
     var item = items[i];
     var nextItem = items[i + 1];
+    var newItem = {};
     item.duration = (nextItem && nextItem.at - item.at) || 0;
-    item.label = states[item.newState] + '\n durante ' + duration(item.duration);
+    item.duracion = duration(item.duration);
+    item.estado = states[item.newState];
   }
   return items;
 }
@@ -45,15 +49,26 @@ function getOrderHistory(order){
 function renderOrderGraph(order){
   var itemsWithDuration = setDuration(sortByAt(getOrderHistory(order)));
   var newItems = itemsWithDuration.slice(0, itemsWithDuration.length - 1);
-  console.warn(newItems);
   return (
-    <div className="grid__item one-half text-center" key={order.id}>
-      <b>Orden:</b> #{order.orderNumber}
-      <VictoryPie data={newItems} x={'label'} y={'duration'} />
-    </div>
+    <tr key={order.id}>
+      <td>{order.orderNumber}</td>
+      <td>{order.table}</td>
+      <td>{format(order.createdAt, 'DD/MM/YYYY')}</td>
+      <td>{values(order.items).length}</td>
+      <td>
+        <ul className="list-unstyled text--start flush">
+        {
+          map(item => {
+            return (
+              <li style={{marginBottom: 0}}><b>{item.estado}</b>: {item.duracion}</li>
+            );
+          }, newItems)
+        }
+        </ul>
+      </td>
+    </tr>
   );
 }
-
 
 export default createClass({
   displayName: 'Orders-reports',
@@ -62,9 +77,20 @@ export default createClass({
   },
   render(){
     return (
-      <div className="grid">
-        {map(renderOrderGraph, values(this.props.orders))}
-      </div>
+      <table className="table table--hover table--condensed text-center">
+        <thead>
+          <tr>
+            <th>Orden #</th>
+            <th>Mesa</th>
+            <th>Fecha Creacion</th>
+            <th>Items</th>
+            <th>Estados</th>
+          </tr>
+        </thead>
+        <tbody>
+          {map(renderOrderGraph, getDelivered(values(this.props.orders)))}
+        </tbody>
+      </table>
     );
   }
 });

@@ -11,8 +11,8 @@ export default function Reports({orders, staff, restaurantId, fetchStaff}){
     <Tabs>
       <TabList>
         <Tab>Ordenes</Tab>
-        <Tab>Ventas por dia</Tab>
-        <Tab>Platos</Tab>
+        <Tab>Total ordenes por día</Tab>
+        <Tab>Platos por día</Tab>
         <Tab>Total Platos</Tab>
         <Tab>Meseros</Tab>
       </TabList>
@@ -21,11 +21,11 @@ export default function Reports({orders, staff, restaurantId, fetchStaff}){
         <Orders orders={orders} />
       </TabPanel>
       <TabPanel>
-        <h1>Ventas por dia</h1>
+        <h1>Total ordenes por día</h1>
         <Sells orders={orders} />
       </TabPanel>
       <TabPanel>
-        <h1>Platos</h1>
+        <h1>Platos por día</h1>
         <Dishes orders={orders} />
       </TabPanel>
       <TabPanel>
