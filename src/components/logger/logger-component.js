@@ -1,5 +1,7 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import alertify from 'alertify.js';
+import createClass from 'create-react-class';
 
 const LoggerComponent = createClass({
   displayName: 'logger',

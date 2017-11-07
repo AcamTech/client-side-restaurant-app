@@ -1,17 +1,20 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-export default function RestaurantDetail ({name, address, phone}) {
+export default function RestaurantDetail({ name, address, phone }) {
   return (
     <div>
       <h1>{name}</h1>
-      <hr/>
-      <p>{address} - {phone}</p>
+      <hr />
+      <p>
+        {address} - {phone}
+      </p>
     </div>
   );
 }
 
 RestaurantDetail.propTypes = {
-   name: PropTypes.string,
-   address: PropTypes.string,
-   phone: PropTypes.string
+  name: PropTypes.string,
+  address: PropTypes.string,
+  phone: PropTypes.string
 };

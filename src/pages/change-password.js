@@ -1,15 +1,13 @@
-import React, {createClass} from 'react';
-import {ChangePassword} from 'containers/change-password';
+import React from 'react';
+import { ChangePassword } from 'containers/change-password';
 
-const ChangePasswordPage = createClass({
-  render(){
-    return(
-      <div className="panel panel--medium panel--full-space">
-        <ChangePassword />
-      </div>
-    );
-  }
-});
+function ChangePasswordPage() {
+  return (
+    <div className="panel panel--medium panel--full-space">
+      <ChangePassword />
+    </div>
+  );
+}
 
 ChangePasswordPage.displayName = 'Change-password-page';
 

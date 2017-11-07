@@ -1,16 +1,19 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import FormatHelpers from 'helpers/format-helpers';
 
-const CartaItem = React.createClass({
-  propTypes: {
+class CartaItem extends React.Component {
+  static propTypes = {
     addToOrder: PropTypes.func.isRequired,
     index: PropTypes.string,
     details: PropTypes.object
-  },
-  onButtonClick(){
+  };
+
+  onButtonClick = () => {
     this.props.addToOrder(this.props.index);
-  },
-  render(){
+  };
+
+  render() {
     var details = this.props.details;
     return (
       <li className="carta-item">
@@ -32,6 +35,6 @@ const CartaItem = React.createClass({
       </li>
     );
   }
-});
+}
 
 export default CartaItem;

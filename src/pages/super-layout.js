@@ -1,27 +1,31 @@
-import React, {createClass, PropTypes} from 'react';
-import {SideLayout} from 'components/side-layout';
-import {Logger} from 'containers/logger';
+import PropTypes from 'prop-types';
+import React, { createClass } from 'react';
+import { SideLayout } from 'components/side-layout';
+import { Logger } from 'containers/logger';
 
-const AdminLayout = createClass({
-  displayName: 'Super-layout',
-  propTypes: {
-    children: PropTypes.node.isRequired,
-    params: PropTypes.object.isRequired
-  },
-  render(){
-    return(
-      <SideLayout
-        restaurantId={this.props.params.restaurantId}
-        sidebarItems={[  {
+function AdminLayout({ params, children }) {
+  return (
+    <SideLayout
+      restaurantId={params.restaurantId}
+      sidebarItems={[
+        {
           pathname: '/super',
           text: 'Restaurantes',
           icon: 'icon-users'
-        }]}>
-        {this.props.children}
-        <Logger />
-      </SideLayout>
-    );
-  }
-});
+        }
+      ]}
+    >
+      {children}
+      <Logger />
+    </SideLayout>
+  );
+}
+
+AdminLayout.displayName = 'Super-layout';
+
+AdminLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+  params: PropTypes.object.isRequired
+};
 
 export default AdminLayout;

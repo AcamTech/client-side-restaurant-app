@@ -1,11 +1,12 @@
-import React, {createClass, PropTypes} from 'react';
-import {values, map, prop, sortBy, reduce, filter} from 'ramda';
-import {format} from 'date-fns';
-import {VictoryPie} from 'victory';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { values, map, prop, sortBy, reduce, filter } from 'ramda';
+import { format } from 'date-fns';
+import { VictoryPie } from 'victory';
 import states from 'constants/states';
 
 var sortByAt = sortBy(prop('at'));
-var getDelivered = filter((item) => item.state == 'DELIVERED');
+var getDelivered = filter(item => item.state == 'DELIVERED');
 
 function duration(duration) {
   var hours = 0;
@@ -14,24 +15,24 @@ function duration(duration) {
   var result = '';
 
   if (seconds > 59) {
-   minutes = Math.round(seconds / 60);
-   seconds = Math.round(seconds % 60);
+    minutes = Math.round(seconds / 60);
+    seconds = Math.round(seconds % 60);
   }
 
   if (minutes > 59) {
-   hours = Math.round(hours / 60);
-   minutes = Math.round(minutes % 60);
+    hours = Math.round(hours / 60);
+    minutes = Math.round(minutes % 60);
   }
 
   result += seconds + ' seg.';
-  result = (minutes) ? minutes + ' min. ' : result;
-  result = (hours) ? hours + ' hr. ' : result;
+  result = minutes ? minutes + ' min. ' : result;
+  result = hours ? hours + ' hr. ' : result;
 
   return result;
 }
 
-function setDuration(items){
-  for(var i = 0; i < items.length; i++){
+function setDuration(items) {
+  for (var i = 0; i < items.length; i++) {
     var item = items[i];
     var nextItem = items[i + 1];
     var newItem = {};
@@ -42,11 +43,11 @@ function setDuration(items){
   return items;
 }
 
-function getOrderHistory(order){
+function getOrderHistory(order) {
   return values(prop('history', order));
 }
 
-function renderOrderGraph(order){
+function renderOrderGraph(order) {
   var itemsWithDuration = setDuration(sortByAt(getOrderHistory(order)));
   var newItems = itemsWithDuration.slice(0, itemsWithDuration.length - 1);
   return (
@@ -57,25 +58,25 @@ function renderOrderGraph(order){
       <td>{values(order.items).length}</td>
       <td>
         <ul className="list-unstyled text--start flush">
-        {
-          map(item => {
+          {map(item => {
             return (
-              <li style={{marginBottom: 0}}><b>{item.estado}</b>: {item.duracion}</li>
+              <li style={{ marginBottom: 0 }}>
+                <b>{item.estado}</b>: {item.duracion}
+              </li>
             );
-          }, newItems)
-        }
+          }, newItems)}
         </ul>
       </td>
     </tr>
   );
 }
 
-export default createClass({
-  displayName: 'Orders-reports',
-  propTypes: {
+export default class Orders extends Component {
+  static displayName = 'Orders-reports';
+  static propTypes = {
     orders: PropTypes.object.isRequired
-  },
-  render(){
+  };
+  render() {
     return (
       <table className="table table--hover table--condensed text-center">
         <thead>
@@ -93,4 +94,4 @@ export default createClass({
       </table>
     );
   }
-});
+}

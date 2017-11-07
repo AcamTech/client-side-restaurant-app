@@ -1,6 +1,7 @@
-import React, {createClass, PropTypes} from 'react';
-import {SideLayout} from 'components/side-layout';
-import {Logger} from 'containers/logger';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { SideLayout } from 'components/side-layout';
+import { Logger } from 'containers/logger';
 
 var navigation = [
   {
@@ -25,26 +26,30 @@ var navigation = [
   }
 ];
 
-function buildNavigation(navigation, restaurantId){
+function buildNavigation(navigation, restaurantId) {
   return navigation.map(item => {
-    return Object.assign({}, item, {pathname: `/restaurante/${restaurantId}/${item.pathname}`});
+    return Object.assign({}, item, {
+      pathname: `/restaurante/${restaurantId}/${item.pathname}`
+    });
   });
 }
 
-const RestaurantLayoutPage = createClass({
-  displayName: 'Restuarant-layout',
-  propTypes: {
-    children: PropTypes.node.isRequired,
-    params: PropTypes.object.isRequired
-  },
-  render(){
-    return(
-      <SideLayout sidebarItems={buildNavigation(navigation, this.props.params.id)} restaurantId={this.props.params.id}>
-        {this.props.children}
-        <Logger />
-      </SideLayout>
-    );
-  }
-});
+function RestaurantLayoutPage({ params, children }) {
+  return (
+    <SideLayout
+      sidebarItems={buildNavigation(navigation, params.id)}
+      restaurantId={params.id}
+    >
+      {children}
+      <Logger />
+    </SideLayout>
+  );
+}
+
+RestaurantLayoutPage.displayName = 'Restuarant-layout';
+RestaurantLayoutPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  params: PropTypes.object.isRequired
+};
 
 export default RestaurantLayoutPage;

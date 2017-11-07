@@ -1,17 +1,20 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import CartaItem  from './carta-item';
 
-const WaiterCarta = React.createClass({
-  propTypes: {
+class WaiterCarta extends React.Component {
+  static propTypes = {
     addToOrder: PropTypes.func.isRequired,
     dishes: PropTypes.array
-  },
-  renderDish(item, index){
+  };
+
+  renderDish = (item, index) => {
     return (
       <CartaItem key={item.id} index={item.id} details={item} addToOrder={this.props.addToOrder} />
     );
-  },
-  render(){
+  };
+
+  render() {
     return (
       <section>
         <h1 className="delta weight--light">Carta</h1>
@@ -21,6 +24,6 @@ const WaiterCarta = React.createClass({
       </section>
     );
   }
-});
+}
 
 export default WaiterCarta;

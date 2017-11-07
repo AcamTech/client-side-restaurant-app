@@ -1,20 +1,24 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import FormatHelpers from 'helpers/format-helpers';
 
-const OrderItem = React.createClass({
-  propTypes: {
+class OrderItem extends React.Component {
+  static propTypes = {
     removeFromOrder: PropTypes.func.isRequired,
     setCommentToItem: PropTypes.func.isRequired,
     index: PropTypes.string,
     item: PropTypes.object
-  },
-  onButtonClick(){
+  };
+
+  onButtonClick = () => {
     this.props.removeFromOrder(this.props.index);
-  },
-  onCommentChange(e){
+  };
+
+  onCommentChange = (e) => {
     this.props.setCommentToItem(this.props.index, e.target.value);
-  },
-  render(){
+  };
+
+  render() {
     var item = this.props.item;
     return (
       <li>
@@ -31,6 +35,6 @@ const OrderItem = React.createClass({
       </li>
     );
   }
-});
+}
 
 export default OrderItem;

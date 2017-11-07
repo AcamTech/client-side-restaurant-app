@@ -1,4 +1,5 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import renderRows from 'components/table-rows';
 
 const roles = {
@@ -6,41 +7,55 @@ const roles = {
   admin: 'Administrador'
 };
 
-export default createClass({
-  displayName: 'staff-list',
-  propTypes: {
+export default class StaffList extends Component {
+  static displayName = 'staff-list';
+
+  static propTypes = {
     staff: PropTypes.array.isRequired,
     fetchStaff: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired,
     removeStaffMember: PropTypes.func.isRequired,
     editStaffMember: PropTypes.func.isRequired
-  },
-  componentDidMount(){
-    this.props.fetchStaff(this.props.restaurantId);
-  },
+  };
 
-  render(){
-    var {staff, restaurantId, removeStaffMember, editStaffMember} = this.props;
+  componentDidMount() {
+    this.props.fetchStaff(this.props.restaurantId);
+  }
+
+  render() {
+    var {
+      staff,
+      restaurantId,
+      removeStaffMember,
+      editStaffMember
+    } = this.props;
     return (
       <div>
         <div className="panel">
           <div className="table-responsive">
-          <table className="table table--hover text-center">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th colSpan="2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {renderRows(staff, restaurantId, ['name', 'email', 'role'], removeStaffMember, editStaffMember, 'uid')}
-            </tbody>
-          </table>
+            <table className="table table--hover text-center">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th colSpan="2" />
+                </tr>
+              </thead>
+              <tbody>
+                {renderRows(
+                  staff,
+                  restaurantId,
+                  ['name', 'email', 'role'],
+                  removeStaffMember,
+                  editStaffMember,
+                  'uid'
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     );
   }
-});
+}

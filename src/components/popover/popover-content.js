@@ -1,18 +1,15 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-const PopoverContent = createClass({
-  displayName: 'popover-content',
-  propTypes: {
+class PopoverContent extends Component {
+  displayName = 'popover-content';
+  propTypes = {
     children: PropTypes.node.isRequired
-  },
-  render () {
-    var {children} = this.props;
-    return (
-      <div className="popover__content">
-        {children}
-      </div>
-    );
+  };
+  render() {
+    var { children } = this.props;
+    return <div className="popover__content">{children}</div>;
   }
-});
+}
 
 export default PopoverContent;

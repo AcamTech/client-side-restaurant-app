@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { LogoArea } from 'components/logo-area';
 import { Popover } from 'components/popover';
 import { UserDisplay } from 'components/user-display';

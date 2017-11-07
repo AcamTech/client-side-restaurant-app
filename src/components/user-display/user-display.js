@@ -1,4 +1,5 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { createClass } from 'react';
 
 function UserDisplay ({avatar, name, role}) {
   return (

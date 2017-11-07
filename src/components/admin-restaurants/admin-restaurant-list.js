@@ -1,23 +1,22 @@
-import React, {createClass, PropTypes} from 'react';
-import {keys, map, compose} from 'ramda';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { keys, map, compose } from 'ramda';
 import ListItem from './list-item';
 
-export default createClass({
-  displayName: 'admin-restaurant-list',
-  propTypes: {
+export default class AdminRestaurantList extends Component {
+  static displayName = 'admin-restaurant-list';
+  static propTypes = {
     isFetching: PropTypes.bool,
     restaurants: PropTypes.object,
     getRestaurants: PropTypes.func.isRequired
-  },
-  componentDidMount(){
+  };
+  componentDidMount() {
     this.props.getRestaurants();
-  },
-  render(){
-    var {restaurants, isFetching} = this.props;
-    if(isFetching){
-      return (
-        <h1>Cargando Restaurantes</h1>
-      );
+  }
+  render() {
+    var { restaurants, isFetching } = this.props;
+    if (isFetching) {
+      return <h1>Cargando Restaurantes</h1>;
     }
     return (
       <div className="panel">
@@ -27,12 +26,14 @@ export default createClass({
       </div>
     );
   }
-});
+}
 
-function mapRestaurantsFromObj(restaurants){
-  return map(
-    restaurant => (
-      <ListItem key={restaurant} id={restaurant} restaurant={restaurants[restaurant]} />
-    )
-  );
+function mapRestaurantsFromObj(restaurants) {
+  return map(restaurant => (
+    <ListItem
+      key={restaurant}
+      id={restaurant}
+      restaurant={restaurants[restaurant]}
+    />
+  ));
 }

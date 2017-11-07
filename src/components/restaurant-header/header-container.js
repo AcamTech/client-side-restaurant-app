@@ -1,20 +1,19 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Header from './header';
 
-const HeaderContainer = createClass({
-  displayName: 'Header-Container',
-  propTypes: {
+class HeaderContainer extends Component {
+  static displayName = 'Header-Container';
+  static propTypes = {
     restaurantId: PropTypes.string.isRequired,
     getRestaurant: PropTypes.func.isRequired
-  },
-  componentDidMount(){
+  };
+  componentDidMount() {
     this.props.getRestaurant(this.props.restaurantId);
-  },
-  render () {
-    return (
-      <Header {...this.props} />
-    );
   }
-});
+  render() {
+    return <Header {...this.props} />;
+  }
+}
 
 export default HeaderContainer;

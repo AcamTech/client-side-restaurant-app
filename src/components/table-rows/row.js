@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {keys, map, compose, addIndex} from 'ramda';
 
 const indexedMap = addIndex(map);
@@ -36,11 +37,11 @@ TableRow.propTypes = {
   id: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   onClickRemoveHandler: PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.object
+    PropTypes.func,
+    PropTypes.object
   ]),
   onClickEditHandler: PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.object
+    PropTypes.func,
+    PropTypes.object
   ])
 };

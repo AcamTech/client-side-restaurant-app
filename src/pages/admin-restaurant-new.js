@@ -1,17 +1,17 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-const AdminRestaurantNew = createClass({
-  displayName: 'Admin-restaurant-new',
-  propTypes: {
-    children: PropTypes.node.isRequired
-  },
-  render(){
-    return(
-      <div>
-        <h1>New Restaurant</h1>
-      </div>
-    );
-  }
-});
+function AdminRestaurantNew() {
+  return (
+    <div>
+      <h1>New Restaurant</h1>
+    </div>
+  );
+}
+
+AdminRestaurantNew.displayName = 'Admin-restaurant-new';
+AdminRestaurantNew.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 export default AdminRestaurantNew;

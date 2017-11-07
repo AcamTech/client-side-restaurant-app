@@ -1,20 +1,31 @@
-import React, { PropTypes } from 'react';
-import {Link} from 'react-router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router';
 
-export default function ListItem ({id, restaurant}) {
+export default function ListItem({ id, restaurant }) {
   return (
     <li className="item-list__item">
       <article className="media media--small clearfix">
         <Link to={`super/restaurante/${id}`}>
           <div className="media__img">
-            <img className="item-list__img" src="images/camera-dummy.jpg" alt="Espacio Kids" height="78" width="110" />
+            <img
+              className="item-list__img"
+              src="images/camera-dummy.jpg"
+              alt="Espacio Kids"
+              height="78"
+              width="110"
+            />
           </div>
           <div className="media__body">
             <h1 className="item-list__title">{restaurant.name}</h1>
             <p className="item-list__text">
-              {restaurant.address}<br />
-              {restaurant.phone}<br />
-              <span className="text--smaller color-success"><span className="icon-bullet"></span> Activo</span>
+              {restaurant.address}
+              <br />
+              {restaurant.phone}
+              <br />
+              <span className="text--smaller color-success">
+                <span className="icon-bullet" /> Activo
+              </span>
             </p>
           </div>
         </Link>

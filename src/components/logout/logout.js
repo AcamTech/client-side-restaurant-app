@@ -1,20 +1,24 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { createClass } from 'react';
 
-const Logout = React.createClass({
-  displayName: 'Logout',
-  propTypes: {
+class Logout extends React.Component {
+  static displayName = 'Logout';
+
+  static propTypes = {
     unauth: PropTypes.func.isRequired
-  },
-  componentDidMount(){
+  };
+
+  componentDidMount() {
     this.props.unauth();
-  },
-  render () {
+  }
+
+  render() {
     return (
       <div>
         <h1 className="text-center">Saliendo...</h1>
       </div>
     );
   }
-});
+}
 
 export default Logout;

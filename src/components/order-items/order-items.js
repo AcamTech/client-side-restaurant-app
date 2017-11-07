@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import OrderItem from './order-item';
 
 export default function OrderItems ({items}) {

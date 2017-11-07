@@ -1,10 +1,11 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Modal from 'components/modal/';
-const {func, shape, object, bool, string, number} = PropTypes;
+const { func, shape, object, bool, string, number } = PropTypes;
 
-export default createClass({
-  displayName: 'tables-modal',
-  propTypes: {
+export default class TablesModal extends Component {
+  static displayName = 'tables-modal';
+  static propTypes = {
     openTablesModal: func.isRequired,
     closeTablesModal: func.isRequired,
     addOrEditTable: func.isRequired,
@@ -19,15 +20,15 @@ export default createClass({
     isOpen: bool,
     isEditting: bool,
     submitting: bool
-  },
-  clearFormAndCloseModal(){
-    var {closeTablesModal, resetForm} = this.props;
+  };
+  clearFormAndCloseModal = () => {
+    var { closeTablesModal, resetForm } = this.props;
     closeTablesModal();
     this.props.destroyForm();
-  },
-  render(){
+  };
+  render() {
     var {
-      fields: {number, id},
+      fields: { number, id },
       invalid,
       handleSubmit,
       submitting,
@@ -39,28 +40,60 @@ export default createClass({
       addOrEditTable
     } = this.props;
     var modalTitle = isEditting ? 'Editar Mesa' : 'Nueva Mesa';
-    return(
-      <button onClick={openTablesModal} className="button button--secondary button--small">
+    return (
+      <button
+        onClick={openTablesModal}
+        className="button button--secondary button--small"
+      >
         {'Crear Mesa'}
-        <Modal
-          isOpen={isOpen}
-          onCloseHandler={this.clearFormAndCloseModal}>
-          <article id="new-table" className="panel panel--full-space panel--medium mfp-with-anim" style={{clear: 'both'}}>
-            <form onSubmit={handleSubmit((data) => addOrEditTable(data, restaurantId))}>
-              <input type="hidden" {...id}/>
+        <Modal isOpen={isOpen} onCloseHandler={this.clearFormAndCloseModal}>
+          <article
+            id="new-table"
+            className="panel panel--full-space panel--medium mfp-with-anim"
+            style={{ clear: 'both' }}
+          >
+            <form
+              onSubmit={handleSubmit(data =>
+                addOrEditTable(data, restaurantId)
+              )}
+            >
+              <input type="hidden" {...id} />
               <div className="panel__body">
                 <h1 className="popup__title delta">{modalTitle}</h1>
-                  <div className={`form-group has-feedback has-feedback--reverse ${number.touched && number.error && 'has-error'}`}>
-                    <input name="number" className="form-control form-control-material" placeholder="Número de la mesa" type="text" {...number} />
-                    <span className="form-control-feedback icon-user"></span>
-                  </div>
+                <div
+                  className={`form-group has-feedback has-feedback--reverse ${number.touched &&
+                    number.error &&
+                    'has-error'}`}
+                >
+                  <input
+                    name="number"
+                    className="form-control form-control-material"
+                    placeholder="Número de la mesa"
+                    type="text"
+                    {...number}
+                  />
+                  <span className="form-control-feedback icon-user" />
+                </div>
               </div>
               <div className="grid grid--full">
                 <div className="grid__item one-half">
-                  <button className="button button--block button--secondary" disabled={submitting || invalid} type="submit">Guardar</button>
+                  <button
+                    className="button button--block button--secondary"
+                    disabled={submitting || invalid}
+                    type="submit"
+                  >
+                    Guardar
+                  </button>
                 </div>
                 <div className="grid__item one-half">
-                  <button className="button button--block button--danger" disabled={submitting} onClick={this.clearFormAndCloseModal} type="button">Cancelar</button>
+                  <button
+                    className="button button--block button--danger"
+                    disabled={submitting}
+                    onClick={this.clearFormAndCloseModal}
+                    type="button"
+                  >
+                    Cancelar
+                  </button>
                 </div>
               </div>
             </form>
@@ -69,4 +102,4 @@ export default createClass({
       </button>
     );
   }
-});
+}

@@ -1,9 +1,11 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import createReactClass from 'create-react-class';
 import WaiterCarta from './waiter-carta';
 import WaiterOrder from './waiter-order';
 import { objectToArray } from 'helpers/format-helpers';
 
-const WaiterPage = React.createClass({
+const WaiterPage = createReactClass({
   displayName: 'new-order-component',
   propTypes: {
     showLogger: PropTypes.func,

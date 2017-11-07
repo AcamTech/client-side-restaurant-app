@@ -1,10 +1,11 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import FormatHelpers from 'helpers/format-helpers';
 import OrderItem from './order-item';
 import {Link} from 'react-router';
 
-const WaiterOrder = React.createClass({
-  propTypes: {
+class WaiterOrder extends React.Component {
+  static propTypes = {
     removeFromOrder: PropTypes.func.isRequired,
     setCommentToItem: PropTypes.func.isRequired,
     saveOrder: PropTypes.func.isRequired,
@@ -12,25 +13,30 @@ const WaiterOrder = React.createClass({
     order: PropTypes.object,
     tables: PropTypes.array,
     restaurantId: PropTypes.string
-  },
-  onSaveClick() {
+  };
+
+  onSaveClick = () => {
     this.props.saveOrder();
-  },
-  onTableSelected(e) {
+  };
+
+  onTableSelected = (e) => {
     this.props.setTable(e.target.value);
-  },
-  renderOrder(itemKey){
+  };
+
+  renderOrder = (itemKey) => {
     var item = this.props.order.items[itemKey];
     return (
       <OrderItem key={itemKey} index={itemKey} item={item} removeFromOrder={this.props.removeFromOrder} setCommentToItem={this.props.setCommentToItem} />
     );
-  },
-  renderTableOption(table) {
+  };
+
+  renderTableOption = (table) => {
     return (
       <option key={table.number} value={table.number}>Mesa {table.number}</option>
     );
-  },
-  render(){
+  };
+
+  render() {
     var {order, tables} = this.props;
     var saveText = (order.id) ? 'Actualizar' : 'Crear';
 
@@ -65,6 +71,6 @@ const WaiterOrder = React.createClass({
       </article>
     );
   }
-});
+}
 
 export default WaiterOrder;

@@ -1,14 +1,26 @@
-import React, {createClass, PropTypes} from 'react';
-import {filter, map, merge, values, reduce, compose, groupBy, prop} from 'ramda';
-import {format, min, eachDay} from 'date-fns';
-import {VictoryBar, VictoryChart, VictoryAxis} from 'victory';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {
+  filter,
+  map,
+  merge,
+  values,
+  reduce,
+  compose,
+  groupBy,
+  prop
+} from 'ramda';
+import { format, min, eachDay } from 'date-fns';
+import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
 import FormatHelpers from 'helpers/format-helpers';
 
-var getDelivered = filter((item) => item.state == 'DELIVERED');
+var getDelivered = filter(item => item.state == 'DELIVERED');
 var formatDates = map(formatDate);
-var groupByDate = groupBy(function(item){return item.date});
+var groupByDate = groupBy(function(item) {
+  return item.date;
+});
 var getFormatedItems = compose(
-  map(item => merge(item, {label: FormatHelpers.formatPrice(item.total)})),
+  map(item => merge(item, { label: FormatHelpers.formatPrice(item.total) })),
   map(reduce(combineItems, {})),
   values,
   groupByDate,
@@ -17,7 +29,7 @@ var getFormatedItems = compose(
   values
 );
 
-function combineItems(acc, entry){
+function combineItems(acc, entry) {
   return {
     createdAt: entry.createdAt,
     label: (acc.total || 0) + entry.total,
@@ -25,46 +37,42 @@ function combineItems(acc, entry){
     total: (acc.total || 0) + entry.total
   };
 }
-function formatDate(item){
+function formatDate(item) {
   var createdAt = item.createdAt;
   return merge(item, {
-    date: format(createdAt, "DD/MM/YYYY")
+    date: format(createdAt, 'DD/MM/YYYY')
   });
 }
 
-const Sells = createClass({
-  render () {
-    var {orders} = this.props;
+class Sells extends Component {
+  render() {
+    var { orders } = this.props;
     var formatedItems = getFormatedItems(orders);
-    var dates = map((item) => item.createdAt, formatedItems);
+    var dates = map(item => item.createdAt, formatedItems);
     var minDate = min(...dates);
-    var ticks = eachDay(
-      minDate,
-      Date.now()
-    );
+    var ticks = eachDay(minDate, Date.now());
     return (
       <div>
-        <div style={{maxWidth: '450px'}}>
-          <VictoryChart
-            height={300}
-            domainPadding={{x: 10}}
-            >
+        <div style={{ maxWidth: '450px' }}>
+          <VictoryChart height={300} domainPadding={{ x: 10 }}>
             <VictoryAxis
               label="Precio Total"
               style={{
                 grid: {
-                  stroke: "grey",
+                  stroke: 'grey',
                   strokeWidth: 1
                 },
-                axis: {stroke: "grey"},
-                ticks: {stroke: "transparent"}
+                axis: { stroke: 'grey' },
+                ticks: { stroke: 'transparent' }
               }}
               dependentAxis
-             />
-            <VictoryAxis
-              label="Fecha"
-              />
-            <VictoryBar data={formatedItems} style={{data: {fill: "gold"}}} y={'total'} />
+            />
+            <VictoryAxis label="Fecha" />
+            <VictoryBar
+              data={formatedItems}
+              style={{ data: { fill: 'gold' } }}
+              y={'total'}
+            />
           </VictoryChart>
         </div>
         <table className="table table--hover table--condensed text-center">
@@ -88,6 +96,6 @@ const Sells = createClass({
       </div>
     );
   }
-});
+}
 
-export default Sells
+export default Sells;

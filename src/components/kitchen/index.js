@@ -1,3 +1,3 @@
 import KitchenOrders from './orders';
 
-export {KitchenOrders};
+export { KitchenOrders };

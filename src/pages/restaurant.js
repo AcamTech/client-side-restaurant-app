@@ -1,16 +1,14 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { createClass } from 'react';
 import RestaurantShow from 'containers/admin-restaurants/restaurant-show';
 
-const Restaurant = createClass({
-  displayName: 'restaurant-show',
-  propTypes: {
-    params: PropTypes.object.isRequired
-  },
-  render(){
-    return(
-      <RestaurantShow restaurantId={this.props.params.id} />
-    );
-  }
-});
+function Restaurant({ params }) {
+  return <RestaurantShow restaurantId={params.id} />;
+}
+
+Restaurant.displayName = 'restaurant-show';
+Restaurant.propTypes = {
+  params: PropTypes.object.isRequired
+};
 
 export default Restaurant;

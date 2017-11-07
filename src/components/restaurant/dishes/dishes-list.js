@@ -1,9 +1,10 @@
-import React, {createClass, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import renderRows from 'components/table-rows';
 
-export default createClass({
-  displayName: 'dishes-list',
-  propTypes: {
+export default class DishesList extends Component {
+  static displayName = 'dishes-list'
+  static propTypes = {
     removeDish: PropTypes.func.isRequired,
     editDish: PropTypes.func.isRequired,
     dishes: PropTypes.array,
@@ -11,12 +12,14 @@ export default createClass({
     fetchCategories: PropTypes.func.isRequired,
     restaurantId: PropTypes.string.isRequired,
     categories: PropTypes.array
-  },
+  }
+
   componentDidMount(){
     this.props.fetchCategories(this.props.restaurantId);
     this.props.fetchDishes(this.props.restaurantId);
-  },
-  parseDishes(dishes){
+  }
+
+  parseDishes = (dishes) => {
     return dishes.map((dish) => {
       var category = this.props.categories.find((category) => {
         return category.id === dish.category;
@@ -24,7 +27,8 @@ export default createClass({
       dish.categoryName = (category && category.name) || '';
       return dish;
     });
-  },
+  }
+
   render(){
     var {dishes, restaurantId, removeDish, editDish} = this.props;
     return (
@@ -50,4 +54,4 @@ export default createClass({
       </div>
     );
   }
-});
+}

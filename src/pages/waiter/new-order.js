@@ -1,16 +1,14 @@
-import React, {createClass, PropTypes} from 'react';
-import {WaiterNewOrder} from 'containers/waiter';
+import PropTypes from 'prop-types';
+import React, { createClass } from 'react';
+import { WaiterNewOrder } from 'containers/waiter';
 
-const WaiterNewOrderPage = createClass({
-  displayName: 'new-order-page',
-  propTypes: {
-    params: PropTypes.object.isRequired
-  },
-  render(){
-    return(
-      <WaiterNewOrder restaurantId={this.props.params.id} />      
-    );
-  }
-});
+function WaiterNewOrderPage({ params }) {
+  return <WaiterNewOrder restaurantId={this.props.params.id} />;
+}
+
+WaiterNewOrderPage.displayName = 'new-order-page';
+WaiterNewOrderPage.propTypes = {
+  params: PropTypes.object.isRequired
+};
 
 export default WaiterNewOrderPage;
